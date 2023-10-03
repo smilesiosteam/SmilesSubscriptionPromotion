@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="CircularXXTT-Book.ttf">
+            <string>CircularXXTT-Book</string>
+        </array>
+        <array key="CircularXXTT-Medium.ttf">
+            <string>CircularXXTT-Medium</string>
+        </array>
+        <array key="CircularXXTT-Regular.ttf">
+            <string>CircularXXTT-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SmilesSubscriptionPromotionCell" rowHeight="324" id="KGk-i7-Jjw" customClass="SmilesSubscriptionPromotionCell" customModule="Smiles" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="324"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="324"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bh-dq-Ite" userLabel="MainRoundedView" customClass="UICustomView" customModule="SmilesUtilities">
+                        <rect key="frame" x="16" y="16" width="343" height="308"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mIJ-gZ-foI">
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="eQF-6B-EFj"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4X2-9C-xtt" customClass="UICustomButton" customModule="SmilesUtilities">
+                                <rect key="frame" x="16" y="244" width="311" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="bhw-aJ-rkx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="CircularXXTT-Medium" family="CircularXX TT" pointSize="16"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Subscribe now">
+                                    <color key="titleColor" red="0.47450980390000003" green="0.25882352939999997" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Subscribe now"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.45882352941176469" green="0.25882352941176467" blue="0.55686274509803924" alpha="0.25208673469387755" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="subscribeBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="axo-wS-Rm9"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free Delivery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSK-wP-RzI">
+                                <rect key="frame" x="16" y="120" width="311" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="Kr8-Ee-Db1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="CircularXXTT-Medium" family="CircularXX TT" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No delivery fees on all food orders AED 30 and above placed on Smiles." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDd-ZG-2oR">
+                                <rect key="frame" x="16" y="156" width="311" height="40"/>
+                                <fontDescription key="fontDescription" name="CircularXXTT-Regular" family="CircularXX TT" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aN7-za-LRB">
+                                <rect key="frame" x="16" y="212" width="311" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="dTe-kc-Waa"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="AED 30 20/month">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDd-ZG-2oR" firstAttribute="leading" secondItem="6bh-dq-Ite" secondAttribute="leading" constant="16" id="4W4-sR-9xi"/>
+                            <constraint firstAttribute="width" constant="343" id="5zr-Iy-hj2"/>
+                            <constraint firstAttribute="trailing" secondItem="FSK-wP-RzI" secondAttribute="trailing" constant="16" id="An8-PN-UST"/>
+                            <constraint firstAttribute="trailing" secondItem="mIJ-gZ-foI" secondAttribute="trailing" id="GCH-yS-exB"/>
+                            <constraint firstItem="mIJ-gZ-foI" firstAttribute="leading" secondItem="6bh-dq-Ite" secondAttribute="leading" id="Gzl-fS-Zcm"/>
+                            <constraint firstItem="4X2-9C-xtt" firstAttribute="leading" secondItem="6bh-dq-Ite" secondAttribute="leading" constant="16" id="HK5-fk-2Lb"/>
+                            <constraint firstAttribute="trailing" secondItem="vDd-ZG-2oR" secondAttribute="trailing" constant="16" id="HNe-tn-Vws"/>
+                            <constraint firstAttribute="bottom" secondItem="4X2-9C-xtt" secondAttribute="bottom" constant="16" id="Vht-9x-e9I"/>
+                            <constraint firstItem="mIJ-gZ-foI" firstAttribute="top" secondItem="6bh-dq-Ite" secondAttribute="top" id="WcJ-Gz-HNo"/>
+                            <constraint firstItem="FSK-wP-RzI" firstAttribute="leading" secondItem="6bh-dq-Ite" secondAttribute="leading" constant="16" id="aGm-oQ-yro"/>
+                            <constraint firstItem="aN7-za-LRB" firstAttribute="leading" secondItem="6bh-dq-Ite" secondAttribute="leading" constant="16" id="ab0-31-WGe"/>
+                            <constraint firstItem="aN7-za-LRB" firstAttribute="top" secondItem="vDd-ZG-2oR" secondAttribute="bottom" constant="16" id="fop-Jm-JF3"/>
+                            <constraint firstItem="FSK-wP-RzI" firstAttribute="top" secondItem="mIJ-gZ-foI" secondAttribute="bottom" constant="20" id="gan-cK-fui"/>
+                            <constraint firstAttribute="trailing" secondItem="4X2-9C-xtt" secondAttribute="trailing" constant="16" id="hTz-yO-CLl"/>
+                            <constraint firstItem="4X2-9C-xtt" firstAttribute="top" secondItem="aN7-za-LRB" secondAttribute="bottom" constant="16" id="koO-4c-czn"/>
+                            <constraint firstAttribute="height" constant="308" id="sbc-5r-Dr2"/>
+                            <constraint firstItem="vDd-ZG-2oR" firstAttribute="top" secondItem="FSK-wP-RzI" secondAttribute="bottom" constant="12" id="wuh-Ab-qQQ"/>
+                            <constraint firstAttribute="trailing" secondItem="aN7-za-LRB" secondAttribute="trailing" constant="16" id="zVO-ir-hQS"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQU-kF-HXY" customClass="UICustomButton" customModule="SmilesUtilities">
+                        <rect key="frame" x="32" y="4" width="122" height="24"/>
+                        <color key="backgroundColor" red="0.8392156959" green="0.7019608021" blue="0.31372550129999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="122" id="KsB-oi-F9Y"/>
+                            <constraint firstAttribute="height" constant="24" id="qM1-sQ-E8X"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="CircularXXTT-Book" family="CircularXX TT" pointSize="14"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="14 days free trial">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="14 days free trial"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.8392156959" green="0.7019608021" blue="0.31372550129999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="6bh-dq-Ite" secondAttribute="bottom" constant="16" id="9O4-PY-jIv"/>
+                    <constraint firstItem="6bh-dq-Ite" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="TGy-zf-rOo"/>
+                    <constraint firstItem="6bh-dq-Ite" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="bix-uU-WOz"/>
+                    <constraint firstAttribute="trailing" secondItem="6bh-dq-Ite" secondAttribute="trailing" constant="16" id="cSP-lx-fcU"/>
+                    <constraint firstItem="CQU-kF-HXY" firstAttribute="leading" secondItem="FSK-wP-RzI" secondAttribute="leading" id="mmY-wV-cV8"/>
+                    <constraint firstItem="CQU-kF-HXY" firstAttribute="top" secondItem="6bh-dq-Ite" secondAttribute="top" constant="-12" id="nxW-G2-7NX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="amountLabel" destination="aN7-za-LRB" id="9xa-Hq-bWz"/>
+                <outlet property="detailLabel" destination="vDd-ZG-2oR" id="x70-OQ-PTI"/>
+                <outlet property="offerImageView" destination="mIJ-gZ-foI" id="yYh-o5-sqK"/>
+                <outlet property="subscribeButton" destination="4X2-9C-xtt" id="PWO-b3-mEX"/>
+                <outlet property="titleLabel" destination="FSK-wP-RzI" id="fPU-mq-fZC"/>
+                <outlet property="trialPeriodButton" destination="CQU-kF-HXY" id="GR8-nf-Qm6"/>
+            </connections>
+            <point key="canvasLocation" x="119.84732824427481" y="107.74647887323944"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="4X2-9C-xtt">
+            <size key="intrinsicContentSize" width="107" height="31"/>
+        </designable>
+        <designable name="CQU-kF-HXY">
+            <size key="intrinsicContentSize" width="104" height="29"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
