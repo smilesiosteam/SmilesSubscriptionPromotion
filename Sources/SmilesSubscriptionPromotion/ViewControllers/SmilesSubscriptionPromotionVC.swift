@@ -12,8 +12,9 @@ import LottieAnimationManager
 import SmilesUtilities
 import SmilesSharedServices
 import NetworkingLayer
+import Combine
 
-class SmilesSubscriptionPromotionVC: UIViewController {
+public class SmilesSubscriptionPromotionVC: UIViewController {
     @IBOutlet weak var headerViewBottom: UIView! {
         didSet {
             headerViewBottom.layer.cornerRadius = 12
@@ -53,9 +54,7 @@ class SmilesSubscriptionPromotionVC: UIViewController {
     
     @IBOutlet weak var emptyContainerTopConstraint: NSLayoutConstraint!
     
-    // MARK: Properties
-    
-    
+   
     //MARK: - Youtube Popup vars
    // @IBOutlet var ytPopUpView: YoutubePopUpView!
     @IBOutlet weak var constraint_videoPlayerWidth: NSLayoutConstraint!
@@ -64,12 +63,28 @@ class SmilesSubscriptionPromotionVC: UIViewController {
     @IBOutlet weak var tableViewBottomToEnterGiftView: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomToSuperView: NSLayoutConstraint!
     
+    // MARK: - PROPERTIES -
+    private var input: PassthroughSubject<SmilesSubscriptionPromotionViewModel.Input, Never> = .init()
+    private var cancellables = Set<AnyCancellable>()
+    private lazy var viewModel: SmilesSubscriptionPromotionViewModel = {
+        return SmilesSubscriptionPromotionViewModel()
+    }()
+     var response:SmilesSubscriptionBOGODetailsResponse?
+    
     // MARK: Lifecycle
-
-    override func viewDidLoad() {
+    public  init() {
+        super.init(nibName: "SmilesSubscriptionPromotionVC", bundle: .module)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    public override func viewDidLoad() {
+        self.setupTableViewCells()
         subscriptionSubTitleLbl.fontTextStyle = .smilesBody3
         subscriptionTitleLbl.fontTextStyle = .smilesHeadline1
         subscriptionDescLbl.fontTextStyle = .smilesHeadline4
+        self.bind(to: viewModel)
 //        setupNavigationBar(withTitle: "", backButtonImg: "", clearHeader: true, rightSideButtons: [])
 //        if !self.shouldShowLeftButtons {
 //            leftSideButtons = nil
@@ -93,19 +108,35 @@ class SmilesSubscriptionPromotionVC: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
         setupUI()
+        self.input.send(.getSubscriptionPromotions)
        // presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
-    
+    func bind(to viewModel: SmilesSubscriptionPromotionViewModel) {
+        input = PassthroughSubject<SmilesSubscriptionPromotionViewModel.Input, Never>()
+        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .fetchSubscriptionPromotionsDidSucceed(let response):
+                    DispatchQueue.main.async {
+                        self?.response = response
+                        self?.updateViewWith(response: self?.response)
+                    }
+                case .fetchSubscriptionPromotionsDidFail(error: let error):
+                    debugPrint(error.localizedDescription)
+                }
+            }.store(in: &cancellables)
+    }
     @objc func reloadHome() {
       //  presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
     
     func setupUI() {
-        setupTableViewCells()
+       
        // viewHeader.frame = CGRect.init(x: viewHeader.frame.origin.x, y: viewHeader.frame.origin.y, width: viewHeader.frame.size.width, height: 88)
         self.headerView.isHidden = false
         self.headerViewHeight.constant = 270
@@ -121,17 +152,15 @@ class SmilesSubscriptionPromotionVC: UIViewController {
     }
     
     func setupTableViewCells() {
-        
-        tableView.registerCellFromNib(SmilesSubscriptionPromotionCell.self, withIdentifier: String(describing: SmilesSubscriptionPromotionCell.self))
-        
+        tableView.registerCellFromNib(SmilesSubscriptionPromotionCell.self, withIdentifier: String(describing: SmilesSubscriptionPromotionCell.self), bundle: .module)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-//        if let isEligible = presenter?.isUserEligibleForBOGO(), isEligible {
-//            view_eligiblity.frame = emptyDealsContainer.bounds
-//        }
-    }
+//    public override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+////        if let isEligible = presenter?.isUserEligibleForBOGO(), isEligible {
+////            view_eligiblity.frame = emptyDealsContainer.bounds
+////        }
+//    }
     
     @IBAction func enterGiftCardTapped(_ sender: Any) {
        // presenter?.navigateToEnterGiftCardController()
@@ -205,10 +234,9 @@ class SmilesSubscriptionPromotionVC: UIViewController {
                 self.tableViewBottomToEnterGiftView.priority = .defaultLow
                 self.tableViewBottomToSuperView.priority = .defaultHigh
             }
+            self.tableView.reloadData()
         }
     }
-    
-    
     
 }
 

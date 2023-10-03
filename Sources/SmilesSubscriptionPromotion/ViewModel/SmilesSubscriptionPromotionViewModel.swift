@@ -50,26 +50,26 @@ extension SmilesSubscriptionPromotionViewModel {
     }
     
     func getSubscriptionPromotions() {
-//        let exclusiveOffersRequest = ExplorerGetExclusiveOfferRequest(categoryId: categoryId, tag: tag, pageNo: pageNo)
-//
-//        let service = SmilesExplorerGetExclusiveOfferRepository(
-//            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60), baseUrl: AppCommonMethods.serviceBaseUrl,
-//            endpoint: .getExclusiveOffer
-//        )
-//
-//        service.getBogoOffers(request: exclusiveOffersRequest)
-//            .sink { [weak self] completion in
-//                debugPrint(completion)
-//                switch completion {
-//                case .failure(let error):
-//                    self?.output.send(.fetchBogoOffersDidFail(error: error))
-//                case .finished:
-//                    debugPrint("nothing much to do here")
-//                }
-//            } receiveValue: { [weak self] response in
-//                debugPrint("got my response here \(response)")
-//                self?.output.send(.fetchBogoOffersDidSucceed(response: response))
-//            }
-//        .store(in: &cancellables)
+        let exclusiveOffersRequest = SmilesSubscriptionPromotionRequest(isGuestUser: false)
+
+        let service = SmilesSubscriptionPromotionRepository(
+            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60), baseUrl: AppCommonMethods.serviceBaseUrl,
+            endPoint: .fetchSubscriptionPromotionList
+        )
+
+        service.smilesSubscriptionPromotionService(request: exclusiveOffersRequest)
+            .sink { [weak self] completion in
+                debugPrint(completion)
+                switch completion {
+                case .failure(let error):
+                    self?.output.send(.fetchSubscriptionPromotionsDidFail(error: error))
+                case .finished:
+                    debugPrint("nothing much to do here")
+                }
+            } receiveValue: { [weak self] response in
+                debugPrint("got my response here \(response)")
+                    self?.output.send(.fetchSubscriptionPromotionsDidSucceed(response: response))
+            }
+        .store(in: &cancellables)
     }
 }

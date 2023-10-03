@@ -1,9 +1,8 @@
 //
-//  SmilesPromotionCell.swift
-//  House
+//  SmilesSubscriptionPromotionCell.swift
+//  
 //
-//  Created by Ghullam  Abbas on 28/09/2023.
-//  Copyright © 2023 Ahmed samir ali. All rights reserved.
+//  Created by Ghullam  Abbas on 03/10/2023.
 //
 
 import UIKit
@@ -44,6 +43,7 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
     
     weak var delegate: SmilesSubscriptionButtonCellDelegate?
     var bogoLifeStyleOfferModel: BOGODetailsResponseLifestyleOffer?
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
