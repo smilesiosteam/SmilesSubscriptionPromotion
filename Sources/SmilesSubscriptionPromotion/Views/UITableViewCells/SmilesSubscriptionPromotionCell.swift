@@ -59,9 +59,9 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-     func updateCell(rowModel: BaseRowModel) {
-        if let model = rowModel.rowValue as? SmilesSubscriptionTableCellModel {
-            self.delegate = rowModel.delegate as? SmilesSubscriptionButtonCellDelegate
+     func updateCell(rowModel: SmilesSubscriptionTableCellModel) {
+        if let model = rowModel as? SmilesSubscriptionTableCellModel {
+            
             let aed = "AED".localizedString + " "
             
             let smilesAttributes: [NSAttributedString.Key: Any] = [

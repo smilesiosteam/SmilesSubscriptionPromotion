@@ -50,6 +50,8 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
     @objc var bogoEventName: String = ""
     @objc var shouldShowLeftButtons = false
     public var isGuestUser: Bool = false
+    public var showBackButton: Bool = false
+    lazy  var backButton: UIButton = UIButton(type: .custom)
     //var videoPlayerObj: VideoTutorial?
     
     @IBOutlet weak var emptyContainerTopConstraint: NSLayoutConstraint!
@@ -84,8 +86,10 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
         subscriptionSubTitleLbl.fontTextStyle = .smilesBody3
         subscriptionTitleLbl.fontTextStyle = .smilesHeadline1
         subscriptionDescLbl.fontTextStyle = .smilesHeadline4
+        self.enterGiftCardView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true // change me!!!
+
         self.bind(to: viewModel)
-//        setupNavigationBar(withTitle: "", backButtonImg: "", clearHeader: true, rightSideButtons: [])
+        self.setUpNavigationBar(showBackButton)
 //        if !self.shouldShowLeftButtons {
 //            leftSideButtons = nil
 //        }
@@ -115,6 +119,47 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
         self.input.send(.getSubscriptionPromotions)
        // presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
+    private func setUpNavigationBar(_ showBackButton: Bool = false) {
+       
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+        
+        let locationNavBarTitle = UILabel()
+//        if self.SmilesSubscriptionPromotionSourceScreen == .other {
+//            locationNavBarTitle.text = self.response?.themeResources?.explorerSubscriptionTitle ?? "Success".localizedString
+//        } else {
+//            locationNavBarTitle.text = "Success".localizedString
+//        }
+        
+        locationNavBarTitle.textColor = .black
+        locationNavBarTitle.fontTextStyle = .smilesHeadline4
+        locationNavBarTitle.textColor = .appRevampPurpleMainColor
+        
+
+        self.navigationItem.titleView = locationNavBarTitle
+        /// Back Button Show
+        
+            self.backButton = UIButton(type: .custom)
+            // btnBack.backgroundColor = UIColor(red: 226.0 / 255.0, green: 226.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
+            self.backButton.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "purple_back_arrow_ar" : "purple_back_arrow", in: .module, compatibleWith: nil), for: .normal)
+            self.backButton.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
+            self.backButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+            self.backButton.layer.cornerRadius = self.backButton.frame.height / 2
+            self.backButton.clipsToBounds = true
+            
+            let barButton = UIBarButtonItem(customView: self.backButton)
+            self.navigationItem.leftBarButtonItem = barButton
+        if (!showBackButton) {
+            self.backButton.isHidden = true
+        }
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        
+        
+    }
+
     func bind(to viewModel: SmilesSubscriptionPromotionViewModel) {
         input = PassthroughSubject<SmilesSubscriptionPromotionViewModel.Input, Never>()
         let output = viewModel.transform(input: input.eraseToAnyPublisher())
@@ -134,7 +179,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
     @objc func reloadHome() {
       //  presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
-    
+    @objc func onClickBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
     func setupUI() {
        
        // viewHeader.frame = CGRect.init(x: viewHeader.frame.origin.x, y: viewHeader.frame.origin.y, width: viewHeader.frame.size.width, height: 88)
