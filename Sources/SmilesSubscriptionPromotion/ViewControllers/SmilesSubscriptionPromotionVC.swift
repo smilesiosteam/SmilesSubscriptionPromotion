@@ -14,7 +14,7 @@ import SmilesSharedServices
 import NetworkingLayer
 import Combine
 
-public class SmilesSubscriptionPromotionVC: UIViewController {
+public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionButtonCellDelegate {
     @IBOutlet weak var headerViewBottom: UIView! {
         didSet {
             headerViewBottom.layer.cornerRadius = 12
@@ -53,6 +53,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
     private var showBackButton: Bool = false
     lazy  var backButton: UIButton = UIButton(type: .custom)
     //var videoPlayerObj: VideoTutorial?
+    private var delegate: SmilesSubscriptionPromotionDelegate?
     
     @IBOutlet weak var emptyContainerTopConstraint: NSLayoutConstraint!
     
@@ -73,8 +74,10 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
     }()
      var response:SmilesSubscriptionBOGODetailsResponse?
     
+    
     // MARK: Lifecycle
-    public  init(showBackButton: Bool = false,isGuestUser: Bool) {
+    public  init(showBackButton: Bool = false,isGuestUser: Bool,delegate: SmilesSubscriptionPromotionDelegate?) {
+        self.delegate = delegate
         self.isGuestUser = isGuestUser
         self.showBackButton = showBackButton
         super.init(nibName: "SmilesSubscriptionPromotionVC", bundle: .module)
@@ -211,8 +214,12 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
 ////        }
 //    }
     
+    // MARK: - IBActions
     @IBAction func enterGiftCardTapped(_ sender: Any) {
-       // presenter?.navigateToEnterGiftCardController()
+        if let delegate = delegate {
+            delegate.navigateEnterGiftCard()
+        }
+       
     }
     
     @IBAction func scanButtonTapped(_ sender: Any) {
@@ -287,6 +294,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
             
            
         }
+    }
+    func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer?) {
+        
     }
     
 }
