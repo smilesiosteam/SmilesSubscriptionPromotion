@@ -18,7 +18,7 @@
         <array key="Montserrat-Bold.ttf">
             <string>Montserrat-Bold</string>
         </array>
-        <array key="Montserrat-SemiBold.otf">
+        <array key="Montserrat-SemiBold.ttf">
             <string>Montserrat-SemiBold</string>
         </array>
     </customFonts>
@@ -44,6 +44,8 @@
                 <outlet property="tableViewBottomToEnterGiftView" destination="Veq-gZ-6qP" id="U0i-CR-ShV"/>
                 <outlet property="tableViewBottomToSuperView" destination="TzB-ty-A9J" id="Ooi-in-qnV"/>
                 <outlet property="view" destination="QXe-LB-C7w" id="0bk-FV-cGW"/>
+                <outlet property="viewHeader" destination="i1y-ub-XJ5" id="VwR-dN-SPi"/>
+                <outlet property="viewHeaderTitle" destination="UnG-g4-amL" id="yHW-zO-zYv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -54,6 +56,23 @@
                 <view clipsSubviews="YES" tag="1103" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3m4-wG-LRN">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1y-ub-XJ5" userLabel="headerView">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="88"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnG-g4-amL">
+                                    <rect key="frame" x="0.0" y="61" width="393" height="0.0"/>
+                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="19"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="UnG-g4-amL" firstAttribute="leading" secondItem="i1y-ub-XJ5" secondAttribute="leading" id="1dL-L0-8ws"/>
+                                <constraint firstAttribute="height" constant="88" id="aQO-R6-cEE"/>
+                                <constraint firstAttribute="trailing" secondItem="UnG-g4-amL" secondAttribute="trailing" id="wzY-am-55b"/>
+                            </constraints>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsH-N5-cQJ" userLabel="GradientView" customClass="HeaderGradientView" customModule="SmilesUtilities">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="240"/>
                             <subviews>
@@ -123,7 +142,7 @@
                             </constraints>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Njv-MP-zeh">
-                            <rect key="frame" x="0.0" y="318" width="393" height="460"/>
+                            <rect key="frame" x="0.0" y="318" width="393" height="426"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="CY1-Bb-ja2"/>
@@ -131,7 +150,7 @@
                             </connections>
                         </tableView>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hqL-fO-ibI">
-                            <rect key="frame" x="0.0" y="788" width="393" height="64"/>
+                            <rect key="frame" x="0.0" y="754" width="393" height="64"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NGL-8W-35I" customClass="UICustomView" customModule="SmilesUtilities">
                                     <rect key="frame" x="16" y="4" width="361" height="56"/>
@@ -184,6 +203,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                             </subviews>
+                            <viewLayoutGuide key="safeArea" id="P2T-VA-ew1"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="NGL-8W-35I" secondAttribute="trailing" constant="16" id="Tmy-9Y-2ki"/>
@@ -224,22 +244,27 @@ coming soon!</string>
                             </constraints>
                         </view>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="dmb-y2-TXL"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="i1y-ub-XJ5" firstAttribute="top" secondItem="3m4-wG-LRN" secondAttribute="top" id="3Fd-D9-60O"/>
                         <constraint firstItem="Njv-MP-zeh" firstAttribute="top" secondItem="rKM-m2-YVv" secondAttribute="bottom" id="6ye-pT-6Si"/>
                         <constraint firstAttribute="bottom" secondItem="0ak-tU-cO5" secondAttribute="bottom" id="8Eb-Jk-c46"/>
-                        <constraint firstAttribute="bottom" secondItem="hqL-fO-ibI" secondAttribute="bottom" id="9SL-6d-YyI"/>
+                        <constraint firstItem="dmb-y2-TXL" firstAttribute="bottom" secondItem="hqL-fO-ibI" secondAttribute="bottom" id="9SL-6d-YyI"/>
                         <constraint firstItem="BsH-N5-cQJ" firstAttribute="leading" secondItem="3m4-wG-LRN" secondAttribute="leading" id="9WR-er-Ggr"/>
                         <constraint firstItem="Njv-MP-zeh" firstAttribute="leading" secondItem="3m4-wG-LRN" secondAttribute="leading" id="BTT-HM-gIu"/>
                         <constraint firstItem="BsH-N5-cQJ" firstAttribute="top" secondItem="3m4-wG-LRN" secondAttribute="top" id="FZO-1a-Twe"/>
                         <constraint firstItem="Njv-MP-zeh" firstAttribute="leading" secondItem="3m4-wG-LRN" secondAttribute="leading" id="HrJ-jO-b9F"/>
                         <constraint firstAttribute="trailing" secondItem="BsH-N5-cQJ" secondAttribute="trailing" id="I0E-ad-EfB"/>
+                        <constraint firstItem="i1y-ub-XJ5" firstAttribute="leading" secondItem="dmb-y2-TXL" secondAttribute="leading" id="PCf-p3-cSz"/>
                         <constraint firstItem="rKM-m2-YVv" firstAttribute="top" secondItem="BsH-N5-cQJ" secondAttribute="bottom" id="RM4-en-sWo"/>
                         <constraint firstAttribute="trailing" secondItem="Njv-MP-zeh" secondAttribute="trailing" id="Tsg-0s-JRA"/>
                         <constraint firstAttribute="trailing" secondItem="0ak-tU-cO5" secondAttribute="trailing" id="VSZ-uU-Qpv"/>
                         <constraint firstItem="hqL-fO-ibI" firstAttribute="top" secondItem="Njv-MP-zeh" secondAttribute="bottom" priority="750" constant="10" id="Veq-gZ-6qP"/>
                         <constraint firstAttribute="trailing" secondItem="Njv-MP-zeh" secondAttribute="trailing" id="WfN-ua-l7F"/>
                         <constraint firstItem="0ak-tU-cO5" firstAttribute="top" secondItem="3m4-wG-LRN" secondAttribute="top" constant="44" id="a1p-8b-Ggf"/>
+                        <constraint firstItem="dmb-y2-TXL" firstAttribute="top" secondItem="UnG-g4-amL" secondAttribute="top" constant="-2" id="a8x-KF-wxn"/>
+                        <constraint firstItem="dmb-y2-TXL" firstAttribute="trailing" secondItem="i1y-ub-XJ5" secondAttribute="trailing" id="cha-FK-Vm6"/>
                         <constraint firstAttribute="trailing" secondItem="hqL-fO-ibI" secondAttribute="trailing" id="i6M-Dp-qs0"/>
                         <constraint firstItem="rKM-m2-YVv" firstAttribute="leading" secondItem="3m4-wG-LRN" secondAttribute="leading" id="reE-pX-cGI"/>
                         <constraint firstAttribute="trailing" secondItem="rKM-m2-YVv" secondAttribute="trailing" id="syT-UQ-eNe"/>
@@ -266,7 +291,7 @@ coming soon!</string>
                 <constraint firstAttribute="bottom" secondItem="3m4-wG-LRN" secondAttribute="bottom" id="rfi-FY-e6M"/>
                 <constraint firstItem="3m4-wG-LRN" firstAttribute="leading" secondItem="jDr-Hn-n0g" secondAttribute="leading" id="yj2-vj-ZZD"/>
             </constraints>
-            <point key="canvasLocation" x="-431" y="37"/>
+            <point key="canvasLocation" x="-431.29770992366412" y="36.619718309859159"/>
         </view>
     </objects>
     <resources>
