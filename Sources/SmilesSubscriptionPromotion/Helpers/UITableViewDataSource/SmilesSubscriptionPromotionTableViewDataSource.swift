@@ -15,31 +15,37 @@ extension SmilesSubscriptionPromotionVC: UITableViewDataSource, UITableViewDeleg
     
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.response?.lifestyleOffers?.count ?? 0
+        return self.isDummy ? 8 : self.response?.lifestyleOffers?.count ?? 0
     }
 
     public  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SmilesSubscriptionPromotionCell", for: indexPath) as! SmilesSubscriptionPromotionCell
-        cell.delegate = self
-        if let offer = self.response?.lifestyleOffers?[indexPath.row] {
-           
-            let subModel = SmilesSubscriptionTableCellModel()
-            subModel.subscriptionTitle = offer.offerTitle
-            subModel.subscriptionImg = offer.subscribeImage
-            subModel.price = offer.price
-            subModel.freeBogoOffer = offer.freeBogoOffer
-            subModel.monthlyPrice = offer.monthlyPrice
-            subModel.subscriptionDesc = offer.offerDescription
-            subModel.model = offer
-            if let freeDuration = offer.freeDuration, freeDuration > 0 {
-                subModel.trialPeriod = self.response?.themeResources?.subscriptionExpandDescText?[safe: 0]?.replacingOccurrences(of: "%s", with: "\(freeDuration)") ?? ""
+        
+        if self.isDummy {
+            cell.enableSkeleton()
+            cell.showAnimatedSkeleton()
+        } else {
+            cell.hideSkeleton()
+            if let offer = self.response?.lifestyleOffers?[indexPath.row] {
+                cell.delegate = self
+                let subModel = SmilesSubscriptionTableCellModel()
+                subModel.subscriptionTitle = offer.offerTitle
+                subModel.subscriptionImg = offer.subscribeImage
+                subModel.price = offer.price
+                subModel.freeBogoOffer = offer.freeBogoOffer
+                subModel.monthlyPrice = offer.monthlyPrice
+                subModel.subscriptionDesc = offer.offerDescription
+                subModel.model = offer
+                if let freeDuration = offer.freeDuration, freeDuration > 0 {
+                    subModel.trialPeriod = self.response?.themeResources?.subscriptionExpandDescText?[safe: 0]?.replacingOccurrences(of: "%s", with: "\(freeDuration)") ?? ""
+                }
+                
+                if let duration = offer.monthlyPriceCost, !duration.isEmpty {
+                    subModel.autoRenewPrice = self.response?.themeResources?.subscriptionExpandDescText?[safe: 1]?.replacingOccurrences(of: "%s", with: "\(duration)") ?? ""
+                }
+                cell.updateCell(rowModel: subModel)
             }
-            
-            if let duration = offer.monthlyPriceCost, !duration.isEmpty {
-                subModel.autoRenewPrice = self.response?.themeResources?.subscriptionExpandDescText?[safe: 1]?.replacingOccurrences(of: "%s", with: "\(duration)") ?? ""
-            }
-            cell.updateCell(rowModel: subModel)
         }
         return cell
     }
@@ -95,4 +101,14 @@ extension TableViewDataSource where Model == SmilesSubscriptionBOGODetailsRespon
             
         }
     }
+//    fileprivate func configureHideSection<T>(for section: SmilesExplorerSectionIdentifier, dataSource: T.Type) {
+//        if let index = getSectionIndex(for: section) {
+//            (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.models = []
+//            (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.isDummy = false
+//            self.mutatingSectionDetails.removeAll(where: { $0.sectionIdentifier == section.rawValue })
+//            
+//            self.configureDataSource()
+//        }
+//    }
 }
+

@@ -40,6 +40,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
 
     @IBOutlet weak var giftCardBtn: UIButton!
     @IBOutlet weak var enterGiftCardView: UIView!
+    @IBOutlet weak var viewHeader: UIView!
+    @IBOutlet weak var viewHeaderTitle: UILabel!
+    
 
     @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     // MARK: Properties
@@ -51,7 +54,8 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     @objc var shouldShowLeftButtons = false
     private var isGuestUser: Bool = false
     private var showBackButton: Bool = false
-    lazy  var backButton: UIButton = UIButton(type: .custom)
+     var isDummy: Bool = true
+    lazy  var backButton: UIButton? = UIButton(type: .custom)
     //var videoPlayerObj: VideoTutorial?
     private var delegate: SmilesSubscriptionPromotionDelegate?
     
@@ -91,13 +95,13 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         subscriptionSubTitleLbl.fontTextStyle = .smilesBody3
         subscriptionTitleLbl.fontTextStyle = .smilesHeadline1
         subscriptionDescLbl.fontTextStyle = .smilesHeadline4
-        
+        viewHeaderTitle.fontTextStyle = .smilesHeadline4
         
         self.bind(to: viewModel)
-        self.setUpNavigationBar(showBackButton)
-//        if !self.shouldShowLeftButtons {
-//            leftSideButtons = nil
-//        }
+       
+        if !self.showBackButton {
+            backButton = nil
+        }
                 
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadHome), name: .ReloadSubHome, object: nil)
         
@@ -124,47 +128,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         self.input.send(.getSubscriptionPromotions)
        // presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
-    private func setUpNavigationBar(_ showBackButton: Bool = false) {
-       
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        self.navigationItem.standardAppearance = appearance
-        self.navigationItem.scrollEdgeAppearance = appearance
-        
-        let locationNavBarTitle = UILabel()
-//        if self.SmilesSubscriptionPromotionSourceScreen == .other {
-//            locationNavBarTitle.text = self.response?.themeResources?.explorerSubscriptionTitle ?? "Success".localizedString
-//        } else {
-//            locationNavBarTitle.text = "Success".localizedString
-//        }
-        
-        locationNavBarTitle.textColor = .black
-        locationNavBarTitle.fontTextStyle = .smilesHeadline4
-        locationNavBarTitle.textColor = .appRevampPurpleMainColor
-        
-
-        self.navigationItem.titleView = locationNavBarTitle
-        /// Back Button Show
-        
-            self.backButton = UIButton(type: .custom)
-            // btnBack.backgroundColor = UIColor(red: 226.0 / 255.0, green: 226.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
-            self.backButton.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "purple_back_arrow_ar" : "purple_back_arrow", in: .module, compatibleWith: nil), for: .normal)
-            self.backButton.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
-            self.backButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-            self.backButton.layer.cornerRadius = self.backButton.frame.height / 2
-            self.backButton.clipsToBounds = true
-            
-            let barButton = UIBarButtonItem(customView: self.backButton)
-            self.navigationItem.leftBarButtonItem = barButton
-        if (!showBackButton) {
-            self.backButton.isHidden = true
-        }
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        
-        
-    }
-
+    
     func bind(to viewModel: SmilesSubscriptionPromotionViewModel) {
         input = PassthroughSubject<SmilesSubscriptionPromotionViewModel.Input, Never>()
         let output = viewModel.transform(input: input.eraseToAnyPublisher())
@@ -176,12 +140,16 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
                         self?.response = response
                         self?.updateViewWith(response: self?.response)
                     }
-                case .fetchSubscriptionPromotionsDidFail(error: let error):
-                    debugPrint(error.localizedDescription)
+                case .fetchSubscriptionPromotionsDidFail(error: _):
+                    self?.didFetchedBogoDetailsWithFailureResponse()
                 }
             }.store(in: &cancellables)
     }
     @objc func reloadHome() {
+        if let response = BOGODetailsResponseOfferDetail.fromModuleFile() {
+            
+        }
+        self.input.send(.getSubscriptionPromotions)
       //  presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
     @objc func onClickBack() {
@@ -189,12 +157,12 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
     func setupUI() {
        
-       // viewHeader.frame = CGRect.init(x: viewHeader.frame.origin.x, y: viewHeader.frame.origin.y, width: viewHeader.frame.size.width, height: 88)
+       //  viewHeader.frame = CGRect.init(x: viewHeader.frame.origin.x, y: viewHeader.frame.origin.y, width: viewHeader.frame.size.width, height: 88)
         self.headerView.isHidden = false
         self.headerViewHeight.constant = 270
         self.changeNavigationBarStyleWhileScrolling(intialState: true, withTitle: "")
         self.view.layoutIfNeeded()
-        
+        viewHeader.addGradientColors(UIColor.navigationGradientColorArray(), opacity: 1.0, direction: .diagnolLeftToRight)
         emptyDealsContainer.isHidden = true
         
        // self.ytPopUpView.isHidden = true
@@ -219,29 +187,32 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         if let delegate = delegate {
             delegate.navigateEnterGiftCard()
         }
-       
     }
     
     @IBAction func scanButtonTapped(_ sender: Any) {
-       // presenter?.navigateToScanQrController()
+        if let delegate = delegate {
+            delegate.navigateToScanQrController()
+        }
     }
     
     private func changeNavigationBarStyleWhileScrolling(intialState: Bool, withTitle title: String) {
         DispatchQueue.main.async {
-        //    self.setHeaderWithWhiteTitle(title)
+           // self.setHeaderWithWhiteTitle(title)
         }
         
- //       backButton?.RoundedViewConrner(cornerRadius: 12.0)
-//        if intialState {
-//            viewHeader.backgroundColor = .clear
-//            backButton?.backgroundColor = .white
-//            removeHeaderGardientColor()
-//            backButton?.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
-//        }
-//        else {
-//            setHeaderGardientColor()
-//            backButton?.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
-//        }
+        //backButton.RoundedViewConrner(cornerRadius: 12.0)
+        if intialState {
+            //headerView.backgroundColor = .clear
+           // backButton.backgroundColor = .white
+           // removeHeaderGardientColor()
+           // backButton.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
+        }
+        else {
+            viewHeader.addGradientColors(UIColor.navigationGradientColorArray(), opacity: 1.0, direction: .diagnolLeftToRight)
+
+            //setHeaderGardientColor()
+           // backButton.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
+        }
     }
     
     func didScrollTableView(scrollView: UIScrollView) {
@@ -278,12 +249,14 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     
     func updateViewWith(response: SmilesSubscriptionBOGODetailsResponse?) {
         if let response = response {
+            self.isDummy = false
             self.emptyDealsContainer.isHidden  = true
             self.shortTitle = response.themeResources?.lifestyleShortTitle.asStringOrEmpty()
             self.subscriptionLogo.setImageWithUrlString(response.themeResources?.lifestyleLogoUrl ?? "")
             self.subscriptionSubTitleLbl.text = response.themeResources?.lifestyleTitle.asStringOrEmpty()
             self.subscriptionTitleLbl.text = shortTitle
             self.subscriptionDescLbl.text = response.themeResources?.lifestyleSubTitle.asStringOrEmpty()
+            self.viewHeaderTitle.text = self.shortTitle
             self.enterGiftCardView.isHidden = false
             if isGuestUser {
                 self.enterGiftCardView.isHidden = true
@@ -292,12 +265,21 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
             }
             self.tableView.reloadData()
             
-           
         }
     }
     func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer?) {
         
     }
-    
+    func didFetchedBogoDetailsWithFailureResponse() {
+        self.isDummy = false
+        self.tableView.reloadData()
+        eligiblityImageView.subviews.forEach({ $0.removeFromSuperview() })
+        LottieAnimationManager.showAnimation(onView: eligiblityImageView, withJsonFileName: SmilesSbuscriptionPromotionBillsAndRechargeAnimation.BillPaymentNotEligible.rawValue, removeFromSuper: false, loopMode: .playOnce) {_ in
+            
+        }
+        eligiblityMsgLabelView.text = "ServiceFail".localizedString
+        emptyDealsContainer.isHidden = false
+        self.changeNavigationBarStyleWhileScrolling(intialState: false, withTitle: "Unlimited Buy 1 Get 1".localizedString)
+    }
 }
 
