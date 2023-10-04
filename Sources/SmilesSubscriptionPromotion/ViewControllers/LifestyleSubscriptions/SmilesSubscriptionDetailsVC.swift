@@ -1,8 +1,8 @@
 //
-//  SmilesSubscriptionPromotionVC.swift
+//  SmilesSubscriptionDetailsVC.swift
 //  
 //
-//  Created by Ghullam  Abbas on 03/10/2023.
+//  Created by Shmeel Ahmad on 04/10/2023.
 //
 
 
@@ -14,7 +14,8 @@ import SmilesSharedServices
 import NetworkingLayer
 import Combine
 
-public class SmilesSubscriptionPromotionVC: UIViewController {
+public class SmilesSubscriptionDetailsVC: UIViewController {
+    var offer: BOGODetailsResponseLifestyleOffer?
     @IBOutlet weak var headerViewBottom: UIView! {
         didSet {
             headerViewBottom.layer.cornerRadius = 12
@@ -33,34 +34,18 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
     @IBOutlet weak var subscriptionDescLbl: UILabel!
     @IBOutlet weak var subscriptionLogo: UIImageView!
     
-    @IBOutlet var emptyDealsContainer: UIView!
-
-    @IBOutlet var eligiblityImageView: UIImageView!
-    @IBOutlet var eligiblityMsgLabelView: UILabel!
-
-    @IBOutlet weak var giftCardBtn: UIButton!
-    @IBOutlet weak var enterGiftCardView: UIView!
+    @IBOutlet weak var tryNowBtn: UIButton!
+    @IBOutlet weak var tryNowView: UIView!
 
     @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     // MARK: Properties
 
-   // var presenter: SubscriptionRevampPresentation?
     var shortTitle : String?
-   // private var view_eligiblity = EligibilityView.setUpView()
     @objc var bogoEventName: String = ""
     @objc var shouldShowLeftButtons = false
     public var isGuestUser: Bool = false
     public var showBackButton: Bool = false
     lazy  var backButton: UIButton = UIButton(type: .custom)
-    //var videoPlayerObj: VideoTutorial?
-    
-    @IBOutlet weak var emptyContainerTopConstraint: NSLayoutConstraint!
-    
-   
-    //MARK: - Youtube Popup vars
-   // @IBOutlet var ytPopUpView: YoutubePopUpView!
-    @IBOutlet weak var constraint_videoPlayerWidth: NSLayoutConstraint!
-    @IBOutlet weak var constraint_videoPlayerHeight: NSLayoutConstraint!
     
     @IBOutlet weak var tableViewBottomToEnterGiftView: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomToSuperView: NSLayoutConstraint!
@@ -71,11 +56,15 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
     private lazy var viewModel: SmilesSubscriptionPromotionViewModel = {
         return SmilesSubscriptionPromotionViewModel()
     }()
-     var response:SmilesSubscriptionBOGODetailsResponse?
+    var benefitsResponse:SubscriptionDetailsResponse?{
+        didSet{
+            self.reloadData()
+        }
+    }
     
     // MARK: Lifecycle
     public  init() {
-        super.init(nibName: "SmilesSubscriptionPromotionVC", bundle: .module)
+        super.init(nibName: "SmilesSubscriptionDetailsVC", bundle: .module)
     }
     
     required init?(coder: NSCoder) {
@@ -86,15 +75,14 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
         subscriptionSubTitleLbl.fontTextStyle = .smilesBody3
         subscriptionTitleLbl.fontTextStyle = .smilesHeadline1
         subscriptionDescLbl.fontTextStyle = .smilesHeadline4
-        self.enterGiftCardView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true // change me!!!
+        self.tryNowView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true // change me!!!
 
         self.bind(to: viewModel)
         self.setUpNavigationBar(showBackButton)
 //        if !self.shouldShowLeftButtons {
 //            leftSideButtons = nil
 //        }
-                
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadHome), name: .ReloadSubHome, object: nil)
+        
         
         super.viewDidLoad()
 //        if Constants.DeviceType.hasNotch {
@@ -116,8 +104,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
         setupUI()
-        self.input.send(.getSubscriptionPromotions)
-       // presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
+        self.input.send(.getSubscriptionDetails(offer?.subscriptionSegment ?? ""))
     }
     private func setUpNavigationBar(_ showBackButton: Bool = false) {
        
@@ -166,22 +153,16 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
         output
             .sink { [weak self] event in
                 switch event {
-                case .fetchSubscriptionPromotionsDidSucceed(let response):
-                    DispatchQueue.main.async {
-                        self?.response = response
-                        self?.updateViewWith(response: self?.response)
-                    }
-                case .fetchSubscriptionPromotionsDidFail(error: let error):
+                case .fetchSubscriptionPromotionsDidSucceed(_):
+                    break
+                case .fetchSubscriptionPromotionsDidFail(_):
+                    break
+                case .fetchSubscriptionDetailsDidSucceed(let response):
+                    self?.benefitsResponse = response
+                case .fetchSubscriptionDetailsDidFail(error: let error):
                     debugPrint(error.localizedDescription)
-                case .fetchSubscriptionDetailsDidSucceed:
-                    break
-                case .fetchSubscriptionDetailsDidFail:
-                    break
                 }
             }.store(in: &cancellables)
-    }
-    @objc func reloadHome() {
-      //  presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
     @objc func onClickBack() {
         self.navigationController?.popViewController(animated: true)
@@ -194,33 +175,23 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
         self.changeNavigationBarStyleWhileScrolling(intialState: true, withTitle: "")
         self.view.layoutIfNeeded()
         
-        emptyDealsContainer.isHidden = true
         
        // self.ytPopUpView.isHidden = true
        // self.ytPopUpView.ytViewDelegate = self
-        giftCardBtn.titleLabel?.fontTextStyle = .smilesHeadline4
-        giftCardBtn.setTitle("EnterGiftDetails".localizedString, for: .normal)
+        tryNowBtn.titleLabel?.fontTextStyle = .smilesHeadline4
+        tryNowBtn.setTitle("EnterGiftDetails".localizedString, for: .normal)
+        
     }
     
+    func reloadData(){
+        self.tableView.reloadData()
+    }
     func setupTableViewCells() {
-        tableView.registerCellFromNib(SmilesSubscriptionPromotionCell.self, withIdentifier: String(describing: SmilesSubscriptionPromotionCell.self), bundle: .module)
+        tableView.registerCellFromNib(SubscriptionDetailsCell.self, withIdentifier: String(describing: SubscriptionDetailsCell.self), bundle: .module)
     }
     
-//    public override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-////        if let isEligible = presenter?.isUserEligibleForBOGO(), isEligible {
-////            view_eligiblity.frame = emptyDealsContainer.bounds
-////        }
-//    }
-    
-    @IBAction func enterGiftCardTapped(_ sender: Any) {
-       // presenter?.navigateToEnterGiftCardController()
-    }
-    
-    @IBAction func scanButtonTapped(_ sender: Any) {
-       // presenter?.navigateToScanQrController()
-        let vc = SmilesSubscriptionPromotionRouter.shared.pushAndGetLifestyleDetails(navVC: self.navigationController!) as! SmilesSubscriptionDetailsVC
-        vc.offer = response?.lifestyleOffers?.first
+    @IBAction func tryNowButtonTapped(_ sender: Any) {
+       
     }
     
     private func changeNavigationBarStyleWhileScrolling(intialState: Bool, withTitle title: String) {
@@ -275,15 +246,14 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
     
     func updateViewWith(response: SmilesSubscriptionBOGODetailsResponse?) {
         if let response = response {
-            self.emptyDealsContainer.isHidden  = true
             self.shortTitle = response.themeResources?.lifestyleShortTitle.asStringOrEmpty()
             self.subscriptionLogo.setImageWithUrlString(response.themeResources?.lifestyleLogoUrl ?? "")
             self.subscriptionSubTitleLbl.text = response.themeResources?.lifestyleTitle.asStringOrEmpty()
             self.subscriptionTitleLbl.text = shortTitle
             self.subscriptionDescLbl.text = response.themeResources?.lifestyleSubTitle.asStringOrEmpty()
-            self.enterGiftCardView.isHidden = false
+            self.tryNowView.isHidden = false
             if isGuestUser {
-                self.enterGiftCardView.isHidden = true
+                self.tryNowView.isHidden = true
                 self.tableViewBottomToEnterGiftView.priority = .defaultLow
                 self.tableViewBottomToSuperView.priority = .defaultHigh
             }

@@ -13,6 +13,7 @@ import SmilesBaseMainRequestManager
 
 protocol SmilesSubscriptionPromotionServiceable {
     func smilesSubscriptionPromotionService(request: SmilesBaseMainRequest) -> AnyPublisher<SmilesSubscriptionBOGODetailsResponse, NetworkError>
+    func smilesSubscriptionDetailsService(request: SubscriptionDetailsRequest) -> AnyPublisher<SubscriptionDetailsResponse, NetworkError>
 }
 
 class SmilesSubscriptionPromotionRepository: SmilesSubscriptionPromotionServiceable {
@@ -35,4 +36,9 @@ class SmilesSubscriptionPromotionRepository: SmilesSubscriptionPromotionServicea
         return self.networkRequest.request(request)
     }
     
+    func smilesSubscriptionDetailsService(request: SubscriptionDetailsRequest) -> AnyPublisher<SubscriptionDetailsResponse, NetworkError> {
+        let endPoint = SmilesSubscriptionPromotionRequestBuilder.getSmilesSubscriptionPromotions(request: request)
+        let request = endPoint.createRequest(baseUrl: baseUrl, endPoint: .fetchSubscriptionDetails)
+        return self.networkRequest.request(request)
+    }
 }

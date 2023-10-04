@@ -22,12 +22,15 @@ public class SmilesSubscriptionPromotionViewModel: NSObject {
     // MARK: - INPUT. View event methods
   public  enum Input {
         case getSubscriptionPromotions
+        case getSubscriptionDetails(String)
     }
     
     enum Output {
        
         case fetchSubscriptionPromotionsDidSucceed(response: SmilesSubscriptionBOGODetailsResponse)
         case fetchSubscriptionPromotionsDidFail(error: Error)
+        case fetchSubscriptionDetailsDidSucceed(response: SubscriptionDetailsResponse)
+        case fetchSubscriptionDetailsDidFail(error: Error)
     }
     
     // MARK: -- Variables
@@ -44,6 +47,8 @@ extension SmilesSubscriptionPromotionViewModel {
             switch event {
             case .getSubscriptionPromotions:
                 self?.getSubscriptionPromotions()
+            case .getSubscriptionDetails(let segment):
+                self?.getSubscriptionDetails(subscriptionSegment: segment)
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
@@ -69,6 +74,30 @@ extension SmilesSubscriptionPromotionViewModel {
             } receiveValue: { [weak self] response in
                 debugPrint("got my response here \(response)")
                     self?.output.send(.fetchSubscriptionPromotionsDidSucceed(response: response))
+            }
+        .store(in: &cancellables)
+    }
+    
+    func getSubscriptionDetails(subscriptionSegment:String) {
+        let segmentBenefitsRequest = SubscriptionDetailsRequest(subscriptionSegment: subscriptionSegment)
+
+        let service = SmilesSubscriptionPromotionRepository(
+            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60), baseUrl: AppCommonMethods.serviceBaseUrl,
+            endPoint: .fetchSubscriptionDetails
+        )
+
+        service.smilesSubscriptionDetailsService(request: segmentBenefitsRequest)
+            .sink { [weak self] completion in
+                debugPrint(completion)
+                switch completion {
+                case .failure(let error):
+                    self?.output.send(.fetchSubscriptionDetailsDidFail(error: error))
+                case .finished:
+                    debugPrint("nothing much to do here")
+                }
+            } receiveValue: { [weak self] response in
+                debugPrint("got my response here \(response)")
+                    self?.output.send(.fetchSubscriptionDetailsDidSucceed(response: response))
             }
         .store(in: &cancellables)
     }

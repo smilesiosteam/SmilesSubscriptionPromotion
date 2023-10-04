@@ -20,6 +20,11 @@ public final class SmilesSubscriptionPromotionRouter: NSObject {
         let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SmilesSubscriptionPromotion)
         navVC.pushViewController(vc, animated: true)
     }
- 
+    
+    public func pushAndGetLifestyleDetails(navVC: UINavigationController) -> UIViewController {
+        let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails)
+        navVC.pushViewController(vc, animated: true)
+        return vc
+    }
 }
 
