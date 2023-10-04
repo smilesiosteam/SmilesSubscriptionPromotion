@@ -123,7 +123,7 @@
                             </constraints>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Njv-MP-zeh">
-                            <rect key="frame" x="0.0" y="318" width="393" height="460"/>
+                            <rect key="frame" x="0.0" y="318" width="393" height="426"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="CY1-Bb-ja2"/>
@@ -131,7 +131,7 @@
                             </connections>
                         </tableView>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hqL-fO-ibI">
-                            <rect key="frame" x="0.0" y="788" width="393" height="64"/>
+                            <rect key="frame" x="0.0" y="754" width="393" height="64"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NGL-8W-35I" customClass="UICustomView" customModule="SmilesUtilities">
                                     <rect key="frame" x="16" y="4" width="361" height="56"/>
@@ -184,6 +184,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                             </subviews>
+                            <viewLayoutGuide key="safeArea" id="P2T-VA-ew1"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="NGL-8W-35I" secondAttribute="trailing" constant="16" id="Tmy-9Y-2ki"/>
@@ -224,11 +225,12 @@ coming soon!</string>
                             </constraints>
                         </view>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="dmb-y2-TXL"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Njv-MP-zeh" firstAttribute="top" secondItem="rKM-m2-YVv" secondAttribute="bottom" id="6ye-pT-6Si"/>
                         <constraint firstAttribute="bottom" secondItem="0ak-tU-cO5" secondAttribute="bottom" id="8Eb-Jk-c46"/>
-                        <constraint firstAttribute="bottom" secondItem="hqL-fO-ibI" secondAttribute="bottom" id="9SL-6d-YyI"/>
+                        <constraint firstItem="dmb-y2-TXL" firstAttribute="bottom" secondItem="hqL-fO-ibI" secondAttribute="bottom" id="9SL-6d-YyI"/>
                         <constraint firstItem="BsH-N5-cQJ" firstAttribute="leading" secondItem="3m4-wG-LRN" secondAttribute="leading" id="9WR-er-Ggr"/>
                         <constraint firstItem="Njv-MP-zeh" firstAttribute="leading" secondItem="3m4-wG-LRN" secondAttribute="leading" id="BTT-HM-gIu"/>
                         <constraint firstItem="BsH-N5-cQJ" firstAttribute="top" secondItem="3m4-wG-LRN" secondAttribute="top" id="FZO-1a-Twe"/>

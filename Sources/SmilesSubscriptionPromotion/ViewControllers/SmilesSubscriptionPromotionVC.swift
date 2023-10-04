@@ -49,8 +49,8 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
    // private var view_eligiblity = EligibilityView.setUpView()
     @objc var bogoEventName: String = ""
     @objc var shouldShowLeftButtons = false
-    public var isGuestUser: Bool = false
-    public var showBackButton: Bool = false
+    private var isGuestUser: Bool = false
+    private var showBackButton: Bool = false
     lazy  var backButton: UIButton = UIButton(type: .custom)
     //var videoPlayerObj: VideoTutorial?
     
@@ -74,7 +74,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
      var response:SmilesSubscriptionBOGODetailsResponse?
     
     // MARK: Lifecycle
-    public  init() {
+    public  init(showBackButton: Bool = false,isGuestUser: Bool) {
+        self.isGuestUser = isGuestUser
+        self.showBackButton = showBackButton
         super.init(nibName: "SmilesSubscriptionPromotionVC", bundle: .module)
     }
     
@@ -86,8 +88,8 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
         subscriptionSubTitleLbl.fontTextStyle = .smilesBody3
         subscriptionTitleLbl.fontTextStyle = .smilesHeadline1
         subscriptionDescLbl.fontTextStyle = .smilesHeadline4
-        self.enterGiftCardView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true // change me!!!
-
+        
+        
         self.bind(to: viewModel)
         self.setUpNavigationBar(showBackButton)
 //        if !self.shouldShowLeftButtons {
@@ -282,6 +284,8 @@ public class SmilesSubscriptionPromotionVC: UIViewController {
                 self.tableViewBottomToSuperView.priority = .defaultHigh
             }
             self.tableView.reloadData()
+            
+           
         }
     }
     
