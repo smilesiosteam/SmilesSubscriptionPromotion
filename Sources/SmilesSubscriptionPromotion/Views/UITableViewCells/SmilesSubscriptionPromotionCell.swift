@@ -85,21 +85,24 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                 }
             }
             
-            if let subscribedPlan = model.model, let isAutoRenewable = subscribedPlan.autoRenewable {
-                if !isAutoRenewable {
-                    if subscribedPlan.isSubscription.asBoolOrFalse() {
-                        self.subscribeButton.setTitle("ManageSubscriptionText".localizedString, for: .normal)
-                    }
-                    else {
-                        self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
-                    }
-                } else {
-                    self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
-                }
-                
-            } else {
+//            if let subscribedPlan = model.model, let isAutoRenewable = subscribedPlan.autoRenewable {
+//                if !isAutoRenewable {
+                    
+                    
+            if model.model?.isSubscription ?? false {
+                self.subscribeButton.setTitle("ManageSubscriptionText".localizedString, for: .normal)
+            }
+            else {
                 self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
             }
+                    
+//                } else {
+//                    self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
+//                }
+//
+//            } else {
+//                self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
+//            }
             
             
             //"\(String(describing: data.originalDirhamValue ?? "")) \(aed)".strikoutString(strikeOutColor: .appGreyColor_128)

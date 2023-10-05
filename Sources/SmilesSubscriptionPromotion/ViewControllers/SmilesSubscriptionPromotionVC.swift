@@ -63,7 +63,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     
    
     //MARK: - Youtube Popup vars
-   // @IBOutlet var ytPopUpView: YoutubePopUpView!
+    @IBOutlet public var ytPopUpView: UIView!
     @IBOutlet weak var constraint_videoPlayerWidth: NSLayoutConstraint!
     @IBOutlet weak var constraint_videoPlayerHeight: NSLayoutConstraint!
     
@@ -91,6 +91,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         fatalError("init(coder:) has not been implemented")
     }
     public override func viewDidLoad() {
+        if let delegate = delegate {
+            delegate.showYTPopupView(frame: ytPopUpView)
+        }
         self.setupTableViewCells()
         subscriptionSubTitleLbl.fontTextStyle = .smilesBody3
         subscriptionTitleLbl.fontTextStyle = .smilesHeadline1

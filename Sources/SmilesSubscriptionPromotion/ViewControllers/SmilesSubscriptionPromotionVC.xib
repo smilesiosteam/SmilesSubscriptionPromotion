@@ -18,7 +18,7 @@
         <array key="Montserrat-Bold.ttf">
             <string>Montserrat-Bold</string>
         </array>
-        <array key="Montserrat-SemiBold.ttf">
+        <array key="Montserrat-SemiBold.otf">
             <string>Montserrat-SemiBold</string>
         </array>
     </customFonts>
@@ -46,6 +46,7 @@
                 <outlet property="view" destination="QXe-LB-C7w" id="0bk-FV-cGW"/>
                 <outlet property="viewHeader" destination="i1y-ub-XJ5" id="VwR-dN-SPi"/>
                 <outlet property="viewHeaderTitle" destination="UnG-g4-amL" id="yHW-zO-zYv"/>
+                <outlet property="ytPopUpView" destination="SYi-GB-yaB" id="zAd-tg-UDG"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -272,9 +273,10 @@ coming soon!</string>
                         <constraint firstItem="hqL-fO-ibI" firstAttribute="leading" secondItem="3m4-wG-LRN" secondAttribute="leading" id="w9e-PF-oRi"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYi-GB-yaB" customClass="YoutubePopUpView" customModule="Smiles" customModuleProvider="target">
-                    <rect key="frame" x="62.333333333333343" y="665.66666666666663" width="306.66666666666663" height="170.33333333333337"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYi-GB-yaB">
+                    <rect key="frame" x="62.333333333333343" y="647.66666666666663" width="306.66666666666663" height="170.33333333333337"/>
+                    <viewLayoutGuide key="safeArea" id="hU4-RX-rId"/>
+                    <color key="backgroundColor" systemColor="systemTealColor"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="jDr-Hn-n0g"/>
@@ -282,7 +284,7 @@ coming soon!</string>
             <constraints>
                 <constraint firstItem="3m4-wG-LRN" firstAttribute="width" secondItem="QXe-LB-C7w" secondAttribute="width" id="9g2-rK-iCX"/>
                 <constraint firstItem="3m4-wG-LRN" firstAttribute="trailing" secondItem="jDr-Hn-n0g" secondAttribute="trailing" id="Ajr-wY-97g"/>
-                <constraint firstAttribute="bottom" secondItem="SYi-GB-yaB" secondAttribute="bottom" constant="16" id="D5d-Eb-2Y9"/>
+                <constraint firstItem="jDr-Hn-n0g" firstAttribute="bottom" secondItem="SYi-GB-yaB" secondAttribute="bottom" id="D5d-Eb-2Y9"/>
                 <constraint firstItem="jDr-Hn-n0g" firstAttribute="bottom" secondItem="Njv-MP-zeh" secondAttribute="bottom" priority="250" id="TzB-ty-A9J"/>
                 <constraint firstItem="SYi-GB-yaB" firstAttribute="height" secondItem="QXe-LB-C7w" secondAttribute="height" multiplier="0.2" id="ZIb-Dg-fsR"/>
                 <constraint firstAttribute="trailing" secondItem="SYi-GB-yaB" secondAttribute="trailing" constant="24" id="haD-f2-nw7"/>
@@ -300,6 +302,9 @@ coming soon!</string>
         <image name="giftScanBlue" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

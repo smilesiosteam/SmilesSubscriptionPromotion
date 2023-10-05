@@ -8,11 +8,13 @@
 import Foundation
 import SmilesOffers
 import SmilesStoriesManager
+import UIKit
 
 public protocol SmilesSubscriptionPromotionDelegate {
     
     func navigateEnterGiftCard()
     func navigateToScanQrController()
+    func showYTPopupView(frame: UIView)
     
 }
 
