@@ -14,6 +14,7 @@ import SmilesBaseMainRequestManager
 protocol SmilesSubscriptionPromotionServiceable {
     func smilesSubscriptionPromotionService(request: SmilesBaseMainRequest) -> AnyPublisher<SmilesSubscriptionBOGODetailsResponse, NetworkError>
     func smilesSubscriptionDetailsService(request: SubscriptionDetailsRequest) -> AnyPublisher<SubscriptionDetailsResponse, NetworkError>
+    func smilesSubscriptionVideoTutorialService(request: SmilesBaseMainRequest) -> AnyPublisher<SmilesSubsciptionVideoTutorialResponse, NetworkError>
 }
 
 class SmilesSubscriptionPromotionRepository: SmilesSubscriptionPromotionServiceable {
@@ -39,6 +40,11 @@ class SmilesSubscriptionPromotionRepository: SmilesSubscriptionPromotionServicea
     func smilesSubscriptionDetailsService(request: SubscriptionDetailsRequest) -> AnyPublisher<SubscriptionDetailsResponse, NetworkError> {
         let endPoint = SmilesSubscriptionPromotionRequestBuilder.getSmilesSubscriptionPromotions(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl, endPoint: .fetchSubscriptionDetails)
+        return self.networkRequest.request(request)
+    }
+    func smilesSubscriptionVideoTutorialService(request: SmilesBaseMainRequest) -> AnyPublisher<SmilesSubsciptionVideoTutorialResponse, NetworkError> {
+        let endPoint = SmilesSubscriptionPromotionRequestBuilder.getSmilesVideoTutorial(request: request)
+        let request = endPoint.createRequest(baseUrl: baseUrl, endPoint: .fetchVideoTutorials)
         return self.networkRequest.request(request)
     }
 }

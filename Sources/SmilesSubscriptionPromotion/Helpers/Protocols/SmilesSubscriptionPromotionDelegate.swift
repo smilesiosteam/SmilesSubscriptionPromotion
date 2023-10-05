@@ -14,8 +14,7 @@ public protocol SmilesSubscriptionPromotionDelegate {
     
     func navigateEnterGiftCard()
     func navigateToScanQrController()
-    func showYTPopupView(frame: UIView)
-    
+    func registerPersonalizationEventRequest(urlScheme: String?,offerId: String?,bannerType: String?,eventName: String?)
 }
 
 public enum SmilesSbuscriptionPromotionBillsAndRechargeAnimation: String {

@@ -153,6 +153,10 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         output
             .sink { [weak self] event in
                 switch event {
+                case.fetchVideoTutorialsDidSucceed(_):
+                    break
+                case.fetchVideoTutorialsDidFail(_):
+                    break
                 case .fetchSubscriptionPromotionsDidSucceed(_):
                     break
                 case .fetchSubscriptionPromotionsDidFail(_):

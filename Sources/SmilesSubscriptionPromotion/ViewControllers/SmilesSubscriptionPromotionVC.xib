@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -25,6 +24,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SmilesSubscriptionPromotionVC" customModule="SmilesSubscriptionPromotion">
             <connections>
+                <outlet property="backButton" destination="kuO-gX-qwn" id="7uu-Gv-gnQ"/>
                 <outlet property="constraint_videoPlayerHeight" destination="ZIb-Dg-fsR" id="c8Z-Ov-Oua"/>
                 <outlet property="constraint_videoPlayerWidth" destination="nbQ-cT-iq0" id="d3k-RG-9aM"/>
                 <outlet property="eligiblityImageView" destination="5B9-v2-eBD" id="Rco-sc-TsL"/>
@@ -60,6 +60,14 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1y-ub-XJ5" userLabel="headerView">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="88"/>
                             <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kuO-gX-qwn">
+                                    <rect key="frame" x="0.0" y="39" width="44" height="44"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="icon_BackWithBG"/>
+                                    <connections>
+                                        <action selector="onClickBack" destination="-1" eventType="touchUpInside" id="4iX-Vz-Gis"/>
+                                    </connections>
+                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnG-g4-amL">
                                     <rect key="frame" x="0.0" y="61" width="393" height="0.0"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="19"/>
@@ -70,6 +78,8 @@
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="UnG-g4-amL" firstAttribute="leading" secondItem="i1y-ub-XJ5" secondAttribute="leading" id="1dL-L0-8ws"/>
+                                <constraint firstItem="kuO-gX-qwn" firstAttribute="leading" secondItem="i1y-ub-XJ5" secondAttribute="leading" id="3J0-Lo-yyH"/>
+                                <constraint firstItem="kuO-gX-qwn" firstAttribute="centerY" secondItem="UnG-g4-amL" secondAttribute="centerY" id="SgR-OY-C0Y"/>
                                 <constraint firstAttribute="height" constant="88" id="aQO-R6-cEE"/>
                                 <constraint firstAttribute="trailing" secondItem="UnG-g4-amL" secondAttribute="trailing" id="wzY-am-55b"/>
                             </constraints>
@@ -128,7 +138,7 @@
                             <rect key="frame" x="0.0" y="240" width="393" height="78"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enjoy the perks of Smiles Unlimited plans starting at justAED 20/month" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="El6-iz-IHv">
-                                    <rect key="frame" x="16" y="0.0" width="361" height="38.666666666666664"/>
+                                    <rect key="frame" x="16" y="0.0" width="361" height="37.333333333333336"/>
                                     <fontDescription key="fontDescription" name="CircularXXTT-Medium" family="CircularXX TT" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -164,7 +174,7 @@
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mS5-kT-fhS">
-                                            <rect key="frame" x="48" y="14.666666666666629" width="134" height="27"/>
+                                            <rect key="frame" x="48" y="15" width="115" height="26"/>
                                             <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="12"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="Enter gift card details">
@@ -225,7 +235,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utj-sI-Mf0">
-                                    <rect key="frame" x="16" y="491.99999999999994" width="361" height="45.333333333333314"/>
+                                    <rect key="frame" x="16" y="492" width="361" height="42"/>
                                     <string key="text">Something exciting 
 coming soon!</string>
                                     <fontDescription key="fontDescription" name="NeoTechAlt" family="Neo Tech Alt" pointSize="18"/>
@@ -273,10 +283,10 @@ coming soon!</string>
                         <constraint firstItem="hqL-fO-ibI" firstAttribute="leading" secondItem="3m4-wG-LRN" secondAttribute="leading" id="w9e-PF-oRi"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYi-GB-yaB">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYi-GB-yaB" customClass="YoutubePopUpView" customModule="SmilesSubscriptionPromotion">
                     <rect key="frame" x="62.333333333333343" y="647.66666666666663" width="306.66666666666663" height="170.33333333333337"/>
                     <viewLayoutGuide key="safeArea" id="hU4-RX-rId"/>
-                    <color key="backgroundColor" systemColor="systemTealColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="jDr-Hn-n0g"/>
@@ -300,11 +310,9 @@ coming soon!</string>
         <image name="SubBogoLogo" width="61" height="26"/>
         <image name="giftIconBlue" width="24" height="24"/>
         <image name="giftScanBlue" width="24" height="24"/>
+        <image name="icon_BackWithBG" width="44" height="44"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
