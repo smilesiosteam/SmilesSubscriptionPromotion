@@ -15,6 +15,11 @@ public final class SmilesSubscriptionPromotionRouter: NSObject {
     public static let shared = SmilesSubscriptionPromotionRouter()
     
     private override init() {}
- 
+    
+    public func pushAndGetLifestyleDetails(navVC: UINavigationController) -> UIViewController {
+        let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails)
+        navVC.pushViewController(vc, animated: true)
+        return vc
+    }
 }
 
