@@ -33,7 +33,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     @IBOutlet weak var subscriptionDescLbl: UILabel!
     @IBOutlet weak var subscriptionLogo: UIImageView!
     
-    @IBOutlet var emptyDealsContainer: UIView!
+    @IBOutlet public var emptyDealsContainer: UIView!
 
     @IBOutlet var eligiblityImageView: UIImageView!
     @IBOutlet var eligiblityMsgLabelView: UILabel!
@@ -43,6 +43,8 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     @IBOutlet weak var viewHeader: UIView!
     @IBOutlet weak var viewHeaderTitle: UILabel!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var backButtonHeader: UIButton!
+    
     
 
     @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
@@ -52,7 +54,6 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     var shortTitle : String?
    // private var view_eligiblity = EligibilityView.setUpView()
     @objc var bogoEventName: String = ""
-    @objc var shouldShowLeftButtons = false
     private var isGuestUser: Bool = false
     private var showBackButton: Bool = false
      var isDummy: Bool = true
@@ -102,6 +103,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
        
         if self.showBackButton {
             backButton.isHidden = false
+            self.backButtonHeader.isHidden = false
         }
                 
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadHome), name: .ReloadSubHome, object: nil)
@@ -156,15 +158,28 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
                 }
             }.store(in: &cancellables)
     }
-    @objc func reloadHome() {
+    @objc public func reloadHome() {
         self.input.send(.getSubscriptionPromotions)
       //  presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
     
     func setupUI() {
-       
+        
+        
+        
+        self.subscriptionSubTitleLbl.text = "Smiles Unlimited"
+        self.subscriptionTitleLbl.text = "Smiles Unlimited"
+        self.subscriptionDescLbl.text = "Subscribe and save more"
+        
+        headerView.enableSkeleton()
+        headerView.showAnimatedSkeleton()
+        
+        self.backButton.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "backIconWhiteAr" : "backIconWhite", in: .module, compatibleWith: nil), for: .normal)
+        self.backButtonHeader.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "backIconWhiteAr" : "backIconWhite", in: .module, compatibleWith: nil), for: .normal)
+        
        //  viewHeader.frame = CGRect.init(x: viewHeader.frame.origin.x, y: viewHeader.frame.origin.y, width: viewHeader.frame.size.width, height: 88)
-        self.backButton.isHidden = true
+        
+       
         self.headerView.isHidden = false
         self.headerViewHeight.constant = 270
         self.changeNavigationBarStyleWhileScrolling(intialState: true, withTitle: "")
@@ -182,12 +197,12 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         tableView.registerCellFromNib(SmilesSubscriptionPromotionCell.self, withIdentifier: String(describing: SmilesSubscriptionPromotionCell.self), bundle: .module)
     }
     
-//    public override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-////        if let isEligible = presenter?.isUserEligibleForBOGO(), isEligible {
-////            view_eligiblity.frame = emptyDealsContainer.bounds
-////        }
-//    }
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let delegate = self.delegate {
+            delegate.checkEligiblity()
+        }
+    }
     
     // MARK: - IBActions
     @IBAction  func onClickBack() {
@@ -217,14 +232,14 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         if intialState {
             //headerView.backgroundColor = .clear
            // backButton.backgroundColor = .white
-           // removeHeaderGardientColor()
-           // backButton.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
+            //viewHeader.removeGradientColor()
+           
         }
         else {
             viewHeader.addGradientColors(UIColor.navigationGradientColorArray(), opacity: 1.0, direction: .diagnolLeftToRight)
 
             //setHeaderGardientColor()
-           // backButton.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
+           
         }
     }
     
@@ -262,6 +277,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     
     func updateViewWith(response: SmilesSubscriptionBOGODetailsResponse?) {
         if let response = response {
+            self.headerView.hideSkeleton()
             self.isDummy = false
             self.emptyDealsContainer.isHidden  = true
             self.shortTitle = response.themeResources?.lifestyleShortTitle.asStringOrEmpty()
@@ -336,7 +352,7 @@ extension SmilesSubscriptionPromotionVC:  YoutubeViewDelegate {
         
         ytPopUpView.layoutIfNeeded()
         
-        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.tabBar.isHidden = true
 
         self.ytPopUpView.superview?.bringSubviewToFront(self.ytPopUpView)
 

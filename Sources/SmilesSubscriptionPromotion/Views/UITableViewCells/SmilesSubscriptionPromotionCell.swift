@@ -128,10 +128,11 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
 //            }
 //
             if let trialPeriod = model.trialPeriod, !trialPeriod.isEmpty {
+                self.trialPeriodButton.isHidden = false
                 self.trialPeriodButton.setTitle(trialPeriod, for: .normal)
                 
             } else {
-               
+                self.trialPeriodButton.isHidden = true
             }
 //            if let autoRenewPrice = model.autoRenewPrice, !autoRenewPrice.isEmpty {
 //                autoRenewPriceLabel.isHidden = false
