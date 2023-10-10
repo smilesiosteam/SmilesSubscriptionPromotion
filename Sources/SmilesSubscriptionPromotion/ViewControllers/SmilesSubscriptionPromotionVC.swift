@@ -278,7 +278,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         }
     }
     func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer?) {
-        
+        let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: self.isGuestUser, showBackButton: true, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
+        vc.offer = model
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     func didFetchedBogoDetailsWithFailureResponse() {
         self.isDummy = false
