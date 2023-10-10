@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import NetworkingLayer
+
 public enum SmilesSubscriptionPromotionEndPoints: String, CaseIterable {
     case fetchSubscriptionPromotionList
     case fetchSubscriptionDetails
+    case fetchVideoTutorials
 }
 
 extension SmilesSubscriptionPromotionEndPoints {
@@ -18,6 +21,8 @@ extension SmilesSubscriptionPromotionEndPoints {
             return "lifestyle/v2/lifestyle-offers"
         case .fetchSubscriptionDetails:
             return "lifestyle/segment-benefits"
+        case .fetchVideoTutorials:
+            return "\(EndPoints.homeEndpoint)/v1/get-video-tutorial"
         }
     }
 }

@@ -14,6 +14,7 @@ enum SmilesSubscriptionPromotionRequestBuilder {
     
     
     case getSmilesSubscriptionPromotions(request: SmilesBaseMainRequest)
+    case getSmilesVideoTutorial(request: SmilesBaseMainRequest)
     
     
     var requestTimeOut: Int {
@@ -24,6 +25,8 @@ enum SmilesSubscriptionPromotionRequestBuilder {
     var httpMethod: SmilesHTTPMethod {
         switch self {
         case .getSmilesSubscriptionPromotions:
+            return .POST
+        case.getSmilesVideoTutorial:
             return .POST
         }
     }
@@ -43,6 +46,8 @@ enum SmilesSubscriptionPromotionRequestBuilder {
     var requestBody: Encodable? {
         switch self {
         case .getSmilesSubscriptionPromotions(let request):
+            return request
+        case.getSmilesVideoTutorial(let request):
             return request
         }
         

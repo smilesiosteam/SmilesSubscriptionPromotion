@@ -33,7 +33,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     @IBOutlet weak var subscriptionDescLbl: UILabel!
     @IBOutlet weak var subscriptionLogo: UIImageView!
     
-    @IBOutlet var emptyDealsContainer: UIView!
+    @IBOutlet public var emptyDealsContainer: UIView!
 
     @IBOutlet var eligiblityImageView: UIImageView!
     @IBOutlet var eligiblityMsgLabelView: UILabel!
@@ -42,6 +42,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     @IBOutlet weak var enterGiftCardView: UIView!
     @IBOutlet weak var viewHeader: UIView!
     @IBOutlet weak var viewHeaderTitle: UILabel!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var backButtonHeader: UIButton!
+    
     
 
     @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
@@ -51,19 +54,17 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     var shortTitle : String?
    // private var view_eligiblity = EligibilityView.setUpView()
     @objc var bogoEventName: String = ""
-    @objc var shouldShowLeftButtons = false
     private var isGuestUser: Bool = false
     private var showBackButton: Bool = false
      var isDummy: Bool = true
-    lazy  var backButton: UIButton? = UIButton(type: .custom)
-    //var videoPlayerObj: VideoTutorial?
+    var videoPlayerObj: SmilesSubsciptionVideoTutorial?
     private var delegate: SmilesSubscriptionPromotionDelegate?
     
     @IBOutlet weak var emptyContainerTopConstraint: NSLayoutConstraint!
     
    
     //MARK: - Youtube Popup vars
-    @IBOutlet public var ytPopUpView: UIView!
+    @IBOutlet var ytPopUpView: YoutubePopUpView!
     @IBOutlet weak var constraint_videoPlayerWidth: NSLayoutConstraint!
     @IBOutlet weak var constraint_videoPlayerHeight: NSLayoutConstraint!
     
@@ -91,9 +92,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         fatalError("init(coder:) has not been implemented")
     }
     public override func viewDidLoad() {
-        if let delegate = delegate {
-            delegate.showYTPopupView(frame: ytPopUpView)
-        }
+        
         self.setupTableViewCells()
         subscriptionSubTitleLbl.fontTextStyle = .smilesBody3
         subscriptionTitleLbl.fontTextStyle = .smilesHeadline1
@@ -102,8 +101,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         
         self.bind(to: viewModel)
        
-        if !self.showBackButton {
-            backButton = nil
+        if self.showBackButton {
+            backButton.isHidden = false
+            self.backButtonHeader.isHidden = false
         }
                 
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadHome), name: .ReloadSubHome, object: nil)
@@ -129,6 +129,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         navigationController?.setNavigationBarHidden(true, animated: true)
         setupUI()
         self.input.send(.getSubscriptionPromotions)
+        self.input.send(.getVideoTutorials)
        // presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
     
@@ -138,6 +139,11 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         output
             .sink { [weak self] event in
                 switch event {
+                case.fetchVideoTutorialsDidSucceed(let videos):
+                    self?.showTutorialView(with: videos.videoTutorial)
+                case.fetchVideoTutorialsDidFail(let error):
+                    debugPrint(error.localizedDescription)
+                    
                 case .fetchSubscriptionPromotionsDidSucceed(let response):
                     DispatchQueue.main.async {
                         self?.response = response
@@ -152,19 +158,28 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
                 }
             }.store(in: &cancellables)
     }
-    @objc func reloadHome() {
-        if let response = BOGODetailsResponseOfferDetail.fromModuleFile() {
-            
-        }
+    @objc public func reloadHome() {
         self.input.send(.getSubscriptionPromotions)
       //  presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
-    @objc func onClickBack() {
-        self.navigationController?.popViewController(animated: true)
-    }
+    
     func setupUI() {
-       
+        
+        
+        
+        self.subscriptionSubTitleLbl.text = "Smiles Unlimited"
+        self.subscriptionTitleLbl.text = "Smiles Unlimited"
+        self.subscriptionDescLbl.text = "Subscribe and save more"
+        
+        headerView.enableSkeleton()
+        headerView.showAnimatedSkeleton()
+        
+        self.backButton.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "backIconWhiteAr" : "backIconWhite", in: .module, compatibleWith: nil), for: .normal)
+        self.backButtonHeader.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "backIconWhiteAr" : "backIconWhite", in: .module, compatibleWith: nil), for: .normal)
+        
        //  viewHeader.frame = CGRect.init(x: viewHeader.frame.origin.x, y: viewHeader.frame.origin.y, width: viewHeader.frame.size.width, height: 88)
+        
+       
         self.headerView.isHidden = false
         self.headerViewHeight.constant = 270
         self.changeNavigationBarStyleWhileScrolling(intialState: true, withTitle: "")
@@ -172,8 +187,8 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         viewHeader.addGradientColors(UIColor.navigationGradientColorArray(), opacity: 1.0, direction: .diagnolLeftToRight)
         emptyDealsContainer.isHidden = true
         
-       // self.ytPopUpView.isHidden = true
-       // self.ytPopUpView.ytViewDelegate = self
+       self.ytPopUpView.isHidden = true
+       self.ytPopUpView.ytViewDelegate = self
         giftCardBtn.titleLabel?.fontTextStyle = .smilesHeadline4
         giftCardBtn.setTitle("EnterGiftDetails".localizedString, for: .normal)
     }
@@ -182,14 +197,17 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         tableView.registerCellFromNib(SmilesSubscriptionPromotionCell.self, withIdentifier: String(describing: SmilesSubscriptionPromotionCell.self), bundle: .module)
     }
     
-//    public override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-////        if let isEligible = presenter?.isUserEligibleForBOGO(), isEligible {
-////            view_eligiblity.frame = emptyDealsContainer.bounds
-////        }
-//    }
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let delegate = self.delegate {
+            delegate.checkEligiblity()
+        }
+    }
     
     // MARK: - IBActions
+    @IBAction  func onClickBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func enterGiftCardTapped(_ sender: Any) {
         if let delegate = delegate {
             delegate.navigateEnterGiftCard()
@@ -214,14 +232,14 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         if intialState {
             //headerView.backgroundColor = .clear
            // backButton.backgroundColor = .white
-           // removeHeaderGardientColor()
-           // backButton.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
+            //viewHeader.removeGradientColor()
+           
         }
         else {
             viewHeader.addGradientColors(UIColor.navigationGradientColorArray(), opacity: 1.0, direction: .diagnolLeftToRight)
 
             //setHeaderGardientColor()
-           // backButton.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
+           
         }
     }
     
@@ -259,6 +277,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     
     func updateViewWith(response: SmilesSubscriptionBOGODetailsResponse?) {
         if let response = response {
+            self.headerView.hideSkeleton()
             self.isDummy = false
             self.emptyDealsContainer.isHidden  = true
             self.shortTitle = response.themeResources?.lifestyleShortTitle.asStringOrEmpty()
@@ -275,6 +294,18 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
             }
             self.tableView.reloadData()
             
+        }
+    }
+    func showTutorialView(with videoPlayer: SmilesSubsciptionVideoTutorial?) {
+        
+        self.videoPlayerObj = videoPlayer
+        if let thumbNail = videoPlayer?.thumbnailImageURL, !thumbNail.isEmpty {
+            DispatchQueue.main.async {
+                self.ytPopUpView.isHidden = false
+                self.ytPopUpView.thumbImgView.setImageWithUrlString(thumbNail)
+            }
+        } else {
+            self.ytPopUpView.isHidden = true
         }
     }
     func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer?) {
@@ -295,3 +326,46 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
 }
 
+extension SmilesSubscriptionPromotionVC:  YoutubeViewDelegate {
+    func didTappedClose() {
+        ytPopUpView.removeFromSuperview()
+        if let delegate = self.delegate {
+            delegate.registerPersonalizationEventRequest(urlScheme:nil , offerId:videoPlayerObj?.watchKey ?? "" , bannerType:nil , eventName:"tutorial_video_closed")
+        }
+//        HouseConfig.registerPersonalizationEventRequest(withAccountType: GetEligibilityMatrixResponse.sharedInstance.accountType.asStringOrEmpty(),
+//                                                        urlScheme: nil,
+//                                                        offerId: videoPlayerObj?.watchKey,
+//                                                        bannerType: nil,
+//                                                        eventName: "tutorial_video_closed")
+    }
+    
+    func didTappedExpand() {
+                
+        constraint_videoPlayerWidth.isActive = false
+        constraint_videoPlayerHeight.isActive = false
+        
+        ytPopUpView.translatesAutoresizingMaskIntoConstraints = false
+        
+        ytPopUpView.bottomAnchor.constraint(equalTo: (self.navigationController!.view.bottomAnchor), constant: 0).isActive = true
+        ytPopUpView.topAnchor.constraint(equalTo: (self.view.topAnchor), constant: 0).isActive = true
+        ytPopUpView.leadingAnchor.constraint(equalTo: (self.navigationController?.view.leadingAnchor)!).isActive = true
+        ytPopUpView.trailingAnchor.constraint(equalTo: (self.navigationController?.view.trailingAnchor)!).isActive = true
+        ytPopUpView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
+        
+        ytPopUpView.layoutIfNeeded()
+        
+        //self.tabBarController?.tabBar.isHidden = true
+
+        self.ytPopUpView.superview?.bringSubviewToFront(self.ytPopUpView)
+
+        ytPopUpView.playVideo(videoURL: videoPlayerObj?.videoURL)
+        if let delegate = self.delegate {
+            delegate.registerPersonalizationEventRequest(urlScheme:nil , offerId:videoPlayerObj?.watchKey ?? "" , bannerType:nil , eventName:"tutorial_video_played")
+        }
+//        HouseConfig.registerPersonalizationEventRequest(withAccountType: GetEligibilityMatrixResponse.sharedInstance.accountType.asStringOrEmpty(),
+//                                                        urlScheme: nil,
+//                                                        offerId: videoPlayerObj?.watchKey,
+//                                                        bannerType: nil,
+//                                                        eventName: "tutorial_video_played")
+    }
+}
