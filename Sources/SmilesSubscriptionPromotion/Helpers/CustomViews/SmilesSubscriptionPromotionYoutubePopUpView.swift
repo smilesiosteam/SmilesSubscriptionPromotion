@@ -10,12 +10,12 @@ import UIKit
 import YouTubeiOSPlayerHelper
 import AVFoundation
 
- @objc protocol YoutubeViewDelegate: AnyObject {
+ @objc protocol SmilesSubscriptionPromotionYoutubeViewDelegate: AnyObject {
     @objc func didTappedClose()
     @objc func didTappedExpand()
 }
 
-public class YoutubePopUpView: UIView, NibLoadable {
+public class SmilesSubscriptionPromotionYoutubePopUpView: UIView, NibLoadable {
     @IBOutlet private var containerView: UIView!
     @IBOutlet weak var shadowParentView: UIView!
     @IBOutlet weak var roundedCornerView: UIView!
@@ -25,7 +25,7 @@ public class YoutubePopUpView: UIView, NibLoadable {
     @objc @IBOutlet weak var thumbImgView: UIImageView!
     @IBOutlet weak var ytPlayerView: YTPlayerView!
     
-    @objc var ytViewDelegate: YoutubeViewDelegate?
+    @objc var ytViewDelegate: SmilesSubscriptionPromotionYoutubeViewDelegate?
     @objc var nibName = "YoutubePopUpView"
     @objc var contentView: UIView?
     
@@ -98,7 +98,7 @@ public class YoutubePopUpView: UIView, NibLoadable {
 }
 
 
-extension YoutubePopUpView: YTPlayerViewDelegate {
+extension SmilesSubscriptionPromotionYoutubePopUpView: YTPlayerViewDelegate {
     public func  playerViewDidBecomeReady(_ playerView: YTPlayerView) {
         playerView.playVideo()
     }

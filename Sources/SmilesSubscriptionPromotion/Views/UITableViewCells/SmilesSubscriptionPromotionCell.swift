@@ -145,6 +145,7 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
         
     }
     @IBAction func subscribeBtnTapped(_ sender: UIButton) {
+        
         if let delegate = delegate {
             delegate.subscribeDidTapped(model: bogoLifeStyleOfferModel)
         }

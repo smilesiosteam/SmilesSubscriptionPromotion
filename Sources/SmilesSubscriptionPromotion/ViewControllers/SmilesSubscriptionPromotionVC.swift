@@ -64,7 +64,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     
    
     //MARK: - Youtube Popup vars
-    @IBOutlet var ytPopUpView: YoutubePopUpView!
+    @IBOutlet var ytPopUpView: SmilesSubscriptionPromotionYoutubePopUpView!
     @IBOutlet weak var constraint_videoPlayerWidth: NSLayoutConstraint!
     @IBOutlet weak var constraint_videoPlayerHeight: NSLayoutConstraint!
     
@@ -324,7 +324,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
 }
 
-extension SmilesSubscriptionPromotionVC:  YoutubeViewDelegate {
+extension SmilesSubscriptionPromotionVC:  SmilesSubscriptionPromotionYoutubeViewDelegate {
     func didTappedClose() {
         ytPopUpView.removeFromSuperview()
         if let delegate = self.delegate {
