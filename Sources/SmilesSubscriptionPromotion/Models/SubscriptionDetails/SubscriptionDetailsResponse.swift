@@ -15,20 +15,22 @@ import SmilesSharedServices
 class SubscriptionDetailsResponse: BaseMainResponse {
     let subscriptionSegment: String?
     let benefitsList: [BenefitsList]?
-
+    let benefitsTitle: String?
     enum CodingKeys: String, CodingKey {
-        case subscriptionSegment, benefitsList
+        case subscriptionSegment, benefitsList, benefitsTitle
     }
 
-    init(extTransactionID: String?, subscriptionSegment: String?, benefitsList: [BenefitsList]?) {
+    init(extTransactionID: String?, subscriptionSegment: String?, benefitsList: [BenefitsList]?, benefitsTitle:String?) {
         self.subscriptionSegment = subscriptionSegment
         self.benefitsList = benefitsList
+        self.benefitsTitle = benefitsTitle
         super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         subscriptionSegment = try values.decodeIfPresent(String.self, forKey: .subscriptionSegment)
+        benefitsTitle = try values.decodeIfPresent(String.self, forKey: .benefitsTitle)
         benefitsList = try values.decodeIfPresent([BenefitsList].self, forKey: .benefitsList)
         try super.init(from: decoder)
     }

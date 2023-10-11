@@ -56,7 +56,12 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
         self.benefits = benefits
         let textColor = UIColor(hexString: benefits.textColor ?? "#e03d26")
         titleLabel.textColor = textColor
-        updateAttributedTextTo(label: detailLabel, string: benefits.subTitle ?? "", subString: "AED", color: textColor)
+        let style = NSMutableParagraphStyle()
+        style.alignment = NSTextAlignment.center
+        let attr = benefits.subTitle?.htmlToAttributedString ?? NSAttributedString()
+        let attriHtml = NSMutableAttributedString(attributedString: attr)
+        attriHtml.addAttributes([.paragraphStyle:style],range: NSRange(location: 0, length: attriHtml.length))
+        detailLabel.attributedText = attriHtml
         containerView.backgroundColor = UIColor(hexString: benefits.backgroundColor ?? "#eb8a2433")
         collectionView.reloadData()
         

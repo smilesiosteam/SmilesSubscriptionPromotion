@@ -16,6 +16,9 @@ import Combine
 
 public class SmilesSubscriptionDetailsVC: UIViewController {
     var offer: BOGODetailsResponseLifestyleOffer?
+    
+    @IBOutlet weak var tableHeader: UIView!
+    
     @IBOutlet weak var headerViewBottom: UIView! {
         didSet {
             headerViewBottom.layer.cornerRadius = 12
@@ -32,10 +35,14 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     @IBOutlet weak var subscriptionTitleLbl: UILabel!
     @IBOutlet weak var subscriptionSubTitleLbl: UILabel!
     @IBOutlet weak var subscriptionDescLbl: UILabel!
+    @IBOutlet weak var monthlyPrice: UILabel!
     @IBOutlet weak var subscriptionLogo: UIImageView!
     
     @IBOutlet weak var tryNowBtn: UIButton!
     @IBOutlet weak var tryNowView: UIView!
+    @IBOutlet weak var viewHeader: UIView!
+    @IBOutlet weak var viewHeaderTitle: UILabel!
+    
 
     @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     // MARK: Properties
@@ -45,10 +52,10 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     @objc var shouldShowLeftButtons = false
     public var isGuestUser: Bool = false
     public var showBackButton: Bool = false
-    lazy  var backButton: UIButton = UIButton(type: .custom)
+    lazy var backButton: UIButton? = UIButton(type: .custom)
     
-    @IBOutlet weak var tableViewBottomToEnterGiftView: NSLayoutConstraint!
-    @IBOutlet weak var tableViewBottomToSuperView: NSLayoutConstraint!
+    var isDummy: Bool = true
+    private var delegate: SmilesSubscriptionPromotionDelegate?
     
     // MARK: - PROPERTIES -
     private var input: PassthroughSubject<SmilesSubscriptionPromotionViewModel.Input, Never> = .init()
@@ -63,25 +70,41 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     }
     
     // MARK: Lifecycle
-    public  init() {
+    public  init(showBackButton: Bool = false,isGuestUser: Bool,delegate: SmilesSubscriptionPromotionDelegate?) {
+        self.delegate = delegate
+        self.isGuestUser = isGuestUser
+        self.showBackButton = showBackButton
         super.init(nibName: "SmilesSubscriptionDetailsVC", bundle: .module)
     }
-    
+    public override func viewDidLayoutSubviews() {
+        tableHeader.frame = CGRect(origin: tableHeader.frame.origin, size: CGSize(width: tableView.bounds.size.width, height: tableHeader.bounds.size.height))
+        
+        tableView.setNeedsLayout()
+        tableView.layoutIfNeeded()
+        super.viewDidLayoutSubviews()
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     public override func viewDidLoad() {
+        tableHeader.removeFromSuperview()
+        tableView.tableHeaderView = tableHeader
         self.setupTableViewCells()
         subscriptionSubTitleLbl.fontTextStyle = .smilesBody3
         subscriptionTitleLbl.fontTextStyle = .smilesHeadline1
         subscriptionDescLbl.fontTextStyle = .smilesHeadline4
         self.tryNowView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true // change me!!!
-
+        viewHeaderTitle.fontTextStyle = .smilesHeadline4
+        self.shortTitle = offer?.offerTitle
         self.bind(to: viewModel)
-        self.setUpNavigationBar(showBackButton)
-//        if !self.shouldShowLeftButtons {
-//            leftSideButtons = nil
-//        }
+//        subscriptionLogo.setImageWithUrlString(offer?.subscriptionIcon ?? "")
+        subscriptionTitleLbl.text = offer?.offerTitle
+        subscriptionSubTitleLbl.text = "subscription".localizedString.capitalizingFirstLetter()
+        monthlyPrice.text = offer?.monthlyPrice
+//        subscriptionDescLbl.text = offer.benefitsTitle
+        if !self.showBackButton {
+            backButton = nil
+        }
         
         
         super.viewDidLoad()
@@ -90,7 +113,9 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
 //        } else {
 //            emptyContainerTopConstraint.constant = 44
 //        }
-        
+        NSLayoutConstraint.activate([
+            tableHeader.widthAnchor.constraint(equalTo: tableView.widthAnchor)
+        ])
         if let navigationController = self.navigationController {
             if let previousViewController = navigationController.viewControllers[safe: navigationController.viewControllers.count - 2] {
                 // Use the previousViewController
@@ -105,46 +130,6 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
         setupUI()
         self.input.send(.getSubscriptionDetails(offer?.subscriptionSegment ?? ""))
-    }
-    private func setUpNavigationBar(_ showBackButton: Bool = false) {
-       
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        self.navigationItem.standardAppearance = appearance
-        self.navigationItem.scrollEdgeAppearance = appearance
-        
-        let locationNavBarTitle = UILabel()
-//        if self.SmilesSubscriptionPromotionSourceScreen == .other {
-//            locationNavBarTitle.text = self.response?.themeResources?.explorerSubscriptionTitle ?? "Success".localizedString
-//        } else {
-//            locationNavBarTitle.text = "Success".localizedString
-//        }
-        
-        locationNavBarTitle.textColor = .black
-        locationNavBarTitle.fontTextStyle = .smilesHeadline4
-        locationNavBarTitle.textColor = .appRevampPurpleMainColor
-        
-
-        self.navigationItem.titleView = locationNavBarTitle
-        /// Back Button Show
-        
-            self.backButton = UIButton(type: .custom)
-            // btnBack.backgroundColor = UIColor(red: 226.0 / 255.0, green: 226.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
-            self.backButton.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "purple_back_arrow_ar" : "purple_back_arrow", in: .module, compatibleWith: nil), for: .normal)
-            self.backButton.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
-            self.backButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-            self.backButton.layer.cornerRadius = self.backButton.frame.height / 2
-            self.backButton.clipsToBounds = true
-            
-            let barButton = UIBarButtonItem(customView: self.backButton)
-            self.navigationItem.leftBarButtonItem = barButton
-        if (!showBackButton) {
-            self.backButton.isHidden = true
-        }
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        
-        
     }
 
     func bind(to viewModel: SmilesSubscriptionPromotionViewModel) {
@@ -173,25 +158,25 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     }
     func setupUI() {
        
-       // viewHeader.frame = CGRect.init(x: viewHeader.frame.origin.x, y: viewHeader.frame.origin.y, width: viewHeader.frame.size.width, height: 88)
+       //  viewHeader.frame = CGRect.init(x: viewHeader.frame.origin.x, y: viewHeader.frame.origin.y, width: viewHeader.frame.size.width, height: 88)
         self.headerView.isHidden = false
         self.headerViewHeight.constant = 270
-        self.changeNavigationBarStyleWhileScrolling(intialState: true, withTitle: "")
+        self.changeNavigationBarStyleWhileScrolling(intialState: true, withTitle: offer?.offerTitle ?? "")
         self.view.layoutIfNeeded()
+        viewHeader.addGradientColors(UIColor.navigationGradientColorArray(), opacity: 1.0, direction: .diagnolLeftToRight)
         
-        
-       // self.ytPopUpView.isHidden = true
-       // self.ytPopUpView.ytViewDelegate = self
         tryNowBtn.titleLabel?.fontTextStyle = .smilesHeadline4
-        tryNowBtn.setTitle("EnterGiftDetails".localizedString, for: .normal)
+        tryNowBtn.setTitle("Try 14-days free".localizedString, for: .normal)
         
     }
     
     func reloadData(){
         self.tableView.reloadData()
+        self.subscriptionDescLbl.text = benefitsResponse?.benefitsTitle
     }
     func setupTableViewCells() {
         tableView.registerCellFromNib(SubscriptionDetailsCell.self, withIdentifier: String(describing: SubscriptionDetailsCell.self), bundle: .module)
+        tableView.registerCellFromNib(SubscriptionMoreBenefitsCell.self, withIdentifier: String(describing: SubscriptionMoreBenefitsCell.self), bundle: .module)
     }
     
     @IBAction func tryNowButtonTapped(_ sender: Any) {
@@ -200,20 +185,22 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     
     private func changeNavigationBarStyleWhileScrolling(intialState: Bool, withTitle title: String) {
         DispatchQueue.main.async {
-        //    self.setHeaderWithWhiteTitle(title)
+           // self.setHeaderWithWhiteTitle(title)
         }
         
- //       backButton?.RoundedViewConrner(cornerRadius: 12.0)
-//        if intialState {
-//            viewHeader.backgroundColor = .clear
-//            backButton?.backgroundColor = .white
-//            removeHeaderGardientColor()
-//            backButton?.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
-//        }
-//        else {
-//            setHeaderGardientColor()
-//            backButton?.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
-//        }
+        //backButton.RoundedViewConrner(cornerRadius: 12.0)
+        if intialState {
+            //headerView.backgroundColor = .clear
+           // backButton.backgroundColor = .white
+           // removeHeaderGardientColor()
+           // backButton.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
+        }
+        else {
+            viewHeader.addGradientColors(UIColor.navigationGradientColorArray(), opacity: 1.0, direction: .diagnolLeftToRight)
+
+            //setHeaderGardientColor()
+           // backButton.setImage(UIImage(assetIdentifier: .BackArrow_black), for: .normal)
+        }
     }
     
     func didScrollTableView(scrollView: UIScrollView) {
@@ -250,20 +237,16 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     
     func updateViewWith(response: SmilesSubscriptionBOGODetailsResponse?) {
         if let response = response {
+            self.isDummy = false
             self.shortTitle = response.themeResources?.lifestyleShortTitle.asStringOrEmpty()
             self.subscriptionLogo.setImageWithUrlString(response.themeResources?.lifestyleLogoUrl ?? "")
             self.subscriptionSubTitleLbl.text = response.themeResources?.lifestyleTitle.asStringOrEmpty()
             self.subscriptionTitleLbl.text = shortTitle
             self.subscriptionDescLbl.text = response.themeResources?.lifestyleSubTitle.asStringOrEmpty()
-            self.tryNowView.isHidden = false
-            if isGuestUser {
-                self.tryNowView.isHidden = true
-                self.tableViewBottomToEnterGiftView.priority = .defaultLow
-                self.tableViewBottomToSuperView.priority = .defaultHigh
-            }
+            self.viewHeaderTitle.text = self.shortTitle
             self.tableView.reloadData()
+            
         }
     }
-    
 }
 
