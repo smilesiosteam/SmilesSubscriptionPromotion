@@ -97,11 +97,11 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         viewHeaderTitle.fontTextStyle = .smilesHeadline4
         self.shortTitle = offer?.offerTitle
         self.bind(to: viewModel)
-        subscriptionLogo.setImageWithUrlString(offer?.subi ?? "")
+//        subscriptionLogo.setImageWithUrlString(offer?.subscriptionIcon ?? "")
         subscriptionTitleLbl.text = offer?.offerTitle
         subscriptionSubTitleLbl.text = "subscription".localizedString.capitalizingFirstLetter()
         monthlyPrice.text = offer?.monthlyPrice
-        subscriptionDescLbl.text = offer.
+//        subscriptionDescLbl.text = offer.benefitsTitle
         if !self.showBackButton {
             backButton = nil
         }
