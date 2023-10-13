@@ -26,6 +26,25 @@ class SmilesSubscriptionTableCellModel {
     var trialPeriod: String?
     var autoRenewPrice: String?
     
+    var subscriptionStateColor: UIColor?
+    var subscribedSegment: String?
+    var autoRenewHeading: String?
+    var expiryDate: String?
+    var nextRenewalDate: String?
+    var paymentMethodHeading: String?
+    var paymentMethodType: String?
+    var subscriptionStatus: String?
+    var cardImg: String?
+    var autoRenewable: Bool?
+    var isSubscription: Bool?
+    var isSubscriptionOnHold: Bool?
+    var subscriptionOnHoldDesc: String?
+    var subscriptionAccountNumber: String?
+    var freePlanTitle: String?
+    var subscriptionAmount: String?
+    var isCBDOffer: Bool?
+    var subscribedStatus: String?
+    
     init() {}
 }
 
@@ -40,6 +59,10 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
     @IBOutlet weak var trialPeriodButton: UIButton!
     @IBOutlet weak var subscribeButton: UIButton!
     @IBOutlet weak var offerImageView: UIImageView!
+    
+    @IBOutlet weak var subscriptionStateView: UIView!
+    @IBOutlet weak var subscriptionStateLabel: UILabel!
+    @IBOutlet weak var subscriptionStateIconView: UIImageView!
     
     weak var delegate: SmilesSubscriptionButtonCellDelegate?
     var bogoLifeStyleOfferModel: BOGODetailsResponseLifestyleOffer?
@@ -89,11 +112,13 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
 //                if !isAutoRenewable {
                     
                     
-            if model.model?.isSubscription ?? false {
+            if model.model?.isSubscription ?? false ||  model.isSubscriptionOnHold ?? false{
                 self.subscribeButton.setTitle("ManageSubscriptionText".localizedString, for: .normal)
+                self.subscriptionStateView.isHidden = false
             }
             else {
                 self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
+                subscriptionStateView.isHidden = true
             }
                     
 //                } else {
@@ -141,6 +166,16 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
 //                autoRenewPriceLabel.isHidden = true
 //            }
             self.bogoLifeStyleOfferModel = model.model
+            
+//            if model.isSubscriptionOnHold ?? false {
+//
+//            } else {
+//
+//            }
+            self.subscriptionStateIconView.RoundedViewConrner(cornerRadius: self.subscriptionStateIconView.frame.width / 2)
+            subscriptionStateLabel.text = model.subscribedStatus.asStringOrEmpty()
+            subscriptionStateLabel.textColor = model.subscriptionStateColor
+            self.subscriptionStateIconView.backgroundColor = model.subscriptionStateColor
         }
         
     }

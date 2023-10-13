@@ -13,6 +13,8 @@ import SmilesUtilities
 import SmilesSharedServices
 import NetworkingLayer
 import Combine
+import SmilesYoutubePopUpView
+
 
 public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionButtonCellDelegate {
     @IBOutlet weak var headerViewBottom: UIView! {
@@ -64,7 +66,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     
    
     //MARK: - Youtube Popup vars
-    @IBOutlet var ytPopUpView: SmilesSubscriptionPromotionYoutubePopUpView!
+    @IBOutlet var ytPopUpView: SmilesYoutubePopUpView!
     @IBOutlet weak var constraint_videoPlayerWidth: NSLayoutConstraint!
     @IBOutlet weak var constraint_videoPlayerHeight: NSLayoutConstraint!
     
@@ -164,8 +166,6 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
     
     func setupUI() {
-        
-        
         
         self.subscriptionSubTitleLbl.text = "Smiles Unlimited"
         self.subscriptionTitleLbl.text = "Smiles Unlimited"
@@ -276,6 +276,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
     
     func updateViewWith(response: SmilesSubscriptionBOGODetailsResponse?) {
+        
         if let response = response {
             self.headerView.hideSkeleton()
             self.isDummy = false
@@ -326,8 +327,8 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
 }
 
-extension SmilesSubscriptionPromotionVC:  SmilesSubscriptionPromotionYoutubeViewDelegate {
-    func didTappedClose() {
+extension SmilesSubscriptionPromotionVC:  SmilesYoutubeViewDelegate {
+    public func didTappedClose() {
         ytPopUpView.removeFromSuperview()
         if let delegate = self.delegate {
             delegate.registerPersonalizationEventRequest(urlScheme:nil , offerId:videoPlayerObj?.watchKey ?? "" , bannerType:nil , eventName:"tutorial_video_closed")
@@ -339,7 +340,7 @@ extension SmilesSubscriptionPromotionVC:  SmilesSubscriptionPromotionYoutubeView
 //                                                        eventName: "tutorial_video_closed")
     }
     
-    func didTappedExpand() {
+    public func didTappedExpand() {
                 
         constraint_videoPlayerWidth.isActive = false
         constraint_videoPlayerHeight.isActive = false

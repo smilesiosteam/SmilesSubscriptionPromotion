@@ -27,3 +27,4 @@ public struct SmilesSubscriptionPromotionConfigurator {
     }
     
 }
+

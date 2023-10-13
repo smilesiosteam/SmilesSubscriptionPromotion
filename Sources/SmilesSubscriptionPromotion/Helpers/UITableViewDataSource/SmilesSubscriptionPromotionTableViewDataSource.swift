@@ -44,6 +44,21 @@ extension SmilesSubscriptionPromotionVC: UITableViewDataSource, UITableViewDeleg
                 if let duration = offer.monthlyPriceCost, !duration.isEmpty {
                     subModel.autoRenewPrice = self.response?.themeResources?.subscriptionExpandDescText?[safe: 1]?.replacingOccurrences(of: "%s", with: "\(duration)") ?? ""
                 }
+                if let subscriptionStatus = offer.subscriptionStatus, !subscriptionStatus.isEmpty, subscriptionStatus.lowercased() ==  "parked" {
+                    if let expireyText = offer.subscriptionStatusText, !expireyText.isEmpty {
+                        subModel.isSubscriptionOnHold = true
+                        subModel.subscriptionOnHoldDesc = expireyText
+                        subModel.subscriptionAccountNumber = offer.subscriptionAccountNumber
+                        subModel.subscriptionStateColor = .subscriptionOnHoldColor
+                        subModel.subscribedSegment = self.response?.themeResources?.subscriptionOnHoldText
+                        subModel.subscribedStatus = self.response?.themeResources?.subscriptionOnHoldText
+                    }
+                } else {
+                    subModel.isSubscriptionOnHold = false
+                    subModel.subscriptionStateColor = .appGreenSecondaryColor
+                    subModel.subscribedStatus = self.response?.themeResources?.subscriptionActiveText
+                }
+
                 cell.updateCell(rowModel: subModel)
             }
         }
