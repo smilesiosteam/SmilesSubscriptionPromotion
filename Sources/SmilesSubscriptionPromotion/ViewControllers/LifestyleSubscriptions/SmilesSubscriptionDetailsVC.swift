@@ -130,6 +130,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
         setupUI()
         self.input.send(.getSubscriptionDetails(offer?.subscriptionSegment ?? ""))
+        
     }
 
     func bind(to viewModel: SmilesSubscriptionPromotionViewModel) {
@@ -180,7 +181,9 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     }
     
     @IBAction func tryNowButtonTapped(_ sender: Any) {
-       
+        let param = SmilesSubscriptionPromotionPaymentParams()
+        param.lifeStyleOffer = offer
+        self.delegate?.proceedToPayment(params: param, navigationType: .payment)
     }
     
     private func changeNavigationBarStyleWhileScrolling(intialState: Bool, withTitle title: String) {
