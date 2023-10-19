@@ -15,7 +15,7 @@ import NetworkingLayer
 import Combine
 
 public class SmilesSubscriptionDetailsVC: UIViewController {
-    var offer: BOGODetailsResponseLifestyleOffer?
+   public var offer: BOGODetailsResponseLifestyleOffer?
     
     @IBOutlet weak var tableHeader: UIView!
     

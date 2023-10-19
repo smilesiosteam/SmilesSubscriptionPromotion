@@ -13,6 +13,7 @@ public struct SmilesSubscriptionPromotionConfigurator {
    public enum ConfiguratorType {
        case SubscriptionDetails(isGuestUser: Bool,showBackButton: Bool,delegate: SmilesSubscriptionPromotionDelegate?)
        case SmilesSubscriptionPromotion(isGuestUser: Bool,showBackButton: Bool,delegate: SmilesSubscriptionPromotionDelegate?)
+       case CancelSubscriptionFeedBack
     }
     
     public static func create(type: ConfiguratorType) -> UIViewController {
@@ -22,6 +23,8 @@ public struct SmilesSubscriptionPromotionConfigurator {
             return vc
         case .SmilesSubscriptionPromotion(let isGuestUser, let showBackButton,let delegate):
             return SmilesSubscriptionPromotionVC(showBackButton: showBackButton, isGuestUser: isGuestUser,delegate: delegate)
+        case.CancelSubscriptionFeedBack:
+            return SubscriptionCancelFeedBackViewController()
         }
         
     }
