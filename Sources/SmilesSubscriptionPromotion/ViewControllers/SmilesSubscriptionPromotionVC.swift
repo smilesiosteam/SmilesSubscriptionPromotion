@@ -315,10 +315,12 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .CancelSubscriptionFeedBack) as! SubscriptionCancelFeedBackViewController
             vc.offer = model
             vc.response = self.response
+            vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: self.isGuestUser, showBackButton: true, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
             vc.offer = model
+            vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
