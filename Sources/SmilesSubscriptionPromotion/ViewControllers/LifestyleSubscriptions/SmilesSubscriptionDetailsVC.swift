@@ -253,3 +253,8 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     }
 }
 
+extension SmilesSubscriptionDetailsVC: SubscriptionMoreBenefitsCellProtocol {
+    func didTapOnTermsAndConditions(termsAndConditions: String) {
+        self.delegate?.navigateToTermsAndConditions(terms: termsAndConditions)
+    }
+}
