@@ -310,8 +310,12 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         }
     }
     func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer?) {
+        
         if (model?.isSubscription ?? false) {
-            
+            let vc = SmilesSubscriptionPromotionConfigurator.create(type: .CancelSubscriptionFeedBack) as! SubscriptionCancelFeedBackViewController
+            vc.offer = model
+            vc.response = self.response
+            self.navigationController?.pushViewController(vc, animated: true)
         } else {
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: self.isGuestUser, showBackButton: true, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
             vc.offer = model
@@ -321,6 +325,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
     func didFetchedBogoDetailsWithFailureResponse() {
         self.isDummy = false
+        self.headerView.hideSkeleton()
         self.tableView.reloadData()
         eligiblityImageView.subviews.forEach({ $0.removeFromSuperview() })
         LottieAnimationManager.showAnimation(onView: eligiblityImageView, withJsonFileName: SmilesSbuscriptionPromotionBillsAndRechargeAnimation.BillPaymentNotEligible.rawValue, removeFromSuper: false, loopMode: .playOnce) {_ in
