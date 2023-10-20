@@ -27,12 +27,14 @@ extension SmilesSubscriptionDetailsVC: UITableViewDataSource, UITableViewDelegat
             }else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitsCell", for: indexPath) as! SubscriptionMoreBenefitsCell
                 cell.updateCell(offer: self.offer!)
+                cell.delegate = self
                 return cell
             }
         }else{
             if indexPath.row >= (benefitsResponse?.benefitsList?.count ?? 0)  && offer != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitsCell", for: indexPath) as! SubscriptionMoreBenefitsCell
                 cell.updateCell(offer: self.offer!)
+                cell.delegate = self
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionDetailsCell") as! SubscriptionDetailsCell
