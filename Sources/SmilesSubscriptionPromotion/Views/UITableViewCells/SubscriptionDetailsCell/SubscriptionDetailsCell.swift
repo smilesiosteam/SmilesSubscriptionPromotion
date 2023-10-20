@@ -56,6 +56,7 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
         self.benefits = benefits
         let textColor = UIColor(hexString: benefits.textColor ?? "#e03d26")
         titleLabel.textColor = textColor
+        titleLabel.text = benefits.title
         let style = NSMutableParagraphStyle()
         style.alignment = NSTextAlignment.center
         let attr = benefits.subTitle?.htmlToAttributedString ?? NSAttributedString()
