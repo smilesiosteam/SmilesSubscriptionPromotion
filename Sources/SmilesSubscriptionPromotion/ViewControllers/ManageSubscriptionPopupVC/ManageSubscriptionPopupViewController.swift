@@ -16,6 +16,7 @@ class ManageSubscriptionPopupViewController: UIViewController {
     @IBOutlet var panDismissView: UIView!
     
     
+    @IBOutlet weak var unsubBtnVu: UIView!
     
     @IBOutlet weak var cardImgView: UIImageView!
     @IBOutlet weak var paymentMethodView: UIView!
@@ -28,6 +29,7 @@ class ManageSubscriptionPopupViewController: UIViewController {
     @IBOutlet weak var pricePerMonth: UILabel!
     @IBOutlet weak var autoRenewsLbl: UILabel!
     
+    @IBOutlet weak var unsubInfoView: UIView!
     
     // MARK: Properties
     var bogoResponse: SmilesSubscriptionBOGODetailsResponse?
@@ -36,6 +38,9 @@ class ManageSubscriptionPopupViewController: UIViewController {
     var offer: BOGODetailsResponseLifestyleOffer?
     // MARK: Lifecycle
     var onDismiss = {}
+    
+    
+    @IBOutlet weak var unsubInfoLbl: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         panDismissView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
@@ -91,7 +96,33 @@ class ManageSubscriptionPopupViewController: UIViewController {
             paymentMethodView.isHidden = true
         }
         paymentMethodLbl.text = bogoResponse.themeResources?.subscriptionPaymentMethodText
+        unsubInfoLbl.text = self.bogoResponse?.themeResources?.manageSubscriptionDescText ?? ""
+        disableCancellationIfNeeded()
+    }
+    
+    func disableCancellationIfNeeded(){
         
+        if let subscriptionAccountNumber = offer?.subscriptionAccountNumber, !subscriptionAccountNumber.isEmpty {
+            //ELife offer
+            if offer?.subscribedSegment?.lowercased() == "passive" {
+                self.unsubBtnVu.isHidden = true
+            } else if offer?.duration == -1 {
+                //Freedom Plan
+                self.unsubBtnVu.isHidden = true
+            }
+        }
+        
+        if offer?.coBrandFlag == true && offer?.subscribedSegment?.lowercased() == "active" {
+            //CBD Offer
+            self.unsubBtnVu.isHidden = true
+        }
+        if offer?.autoRenewable == false {
+            self.unsubBtnVu.isHidden = true
+        }
+        if offer?.autoRenewable == true && offer?.expiryDate != nil {
+            self.unsubBtnVu.isHidden = true
+        }
+        self.unsubInfoView.isHidden = self.unsubBtnVu.isHidden
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

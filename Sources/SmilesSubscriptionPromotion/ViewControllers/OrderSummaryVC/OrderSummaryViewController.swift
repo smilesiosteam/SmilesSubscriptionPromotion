@@ -42,15 +42,8 @@ class OrderSummaryViewController: UIViewController {
     var bogoResponse: SmilesSubscriptionBOGODetailsResponse?
     var delegate: SmilesSubscriptionPromotionDelegate?
     var dismissViewTranslation = CGPoint(x: 0, y: 0)
-    var isComingFromTreasureChest: Bool?
     var offer: BOGODetailsResponseLifestyleOffer?
-    var timeFromTreasure: String?
-    var notificationOfferId: String?
-    var notificationPromoCode: String?
-    var promoCode: String?
-    var isComingFromSpecialOffer: Bool = false
     var themeResource: ThemeResources?
-    var bogoPromoCode: BOGOPromoCode?
     
     var onDismiss = {}
     // MARK: Lifecycle
