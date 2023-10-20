@@ -320,10 +320,12 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
                 let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: false, bogoResponse: self.response!, offer: model, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
                         self.navigationController?.pushViewController(vc, animated: true)
             }))
+            vc.hidesBottomBarWhenPushed = true
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)
         } else {
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: isGuestUser, bogoResponse: self.response!, offer: model, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
+            vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
