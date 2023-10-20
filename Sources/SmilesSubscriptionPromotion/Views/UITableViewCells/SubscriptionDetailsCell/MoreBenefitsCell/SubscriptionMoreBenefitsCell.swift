@@ -56,8 +56,8 @@ class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITa
         
     }
     @IBAction func termPressed(_ sender: Any) {
-        if let terms = self.offer?.termsAndConditions {
-            self.delegate?.didTapOnTermsAndConditions(termsAndConditions: terms)
+        if let terms = self.offer?.termsAndConditions, let delegate = self.delegate {
+            delegate.didTapOnTermsAndConditions(termsAndConditions: terms)
         }
     }
 }
