@@ -20,11 +20,12 @@ extension SmilesSubscriptionDetailsVC: UITableViewDataSource, UITableViewDelegat
 
     public  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row >= (benefitsResponse?.benefitsList?.count ?? 0)  && offer != nil {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitsCell", for: indexPath) as! SubscriptionMoreBenefitsCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitsCell", for: indexPath) as?  SubscriptionMoreBenefitsCell else {return UITableViewCell()}
             cell.updateCell(offer: self.offer!)
+            cell.delegate = self
             return cell
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionDetailsCell", for: indexPath) as! SubscriptionDetailsCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionDetailsCell", for: indexPath) as? SubscriptionDetailsCell else {return UITableViewCell()}
             cell.updateCell(benefits: benefitsResponse!.benefitsList![indexPath.row])
             return cell
         }
