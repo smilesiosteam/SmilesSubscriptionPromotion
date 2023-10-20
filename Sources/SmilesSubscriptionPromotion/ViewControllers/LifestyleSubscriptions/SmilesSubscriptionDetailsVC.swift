@@ -174,6 +174,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     func reloadData(){
         self.tableView.reloadData()
         self.subscriptionDescLbl.text = benefitsResponse?.benefitsTitle
+//        self.subscriptionDescLbl.attributedText = benefitsResponse?.benefitsTitle?.htmlToAttributedString
     }
     func setupTableViewCells() {
         tableView.registerCellFromNib(SubscriptionDetailsCell.self, withIdentifier: String(describing: SubscriptionDetailsCell.self), bundle: .module)
@@ -190,6 +191,8 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
                 let param = SmilesSubscriptionPromotionPaymentParams()
                 param.lifeStyleOffer = self.offer
                 self.delegate?.proceedToPayment(params: param, navigationType: .payment)
+            }, moveToTerms: {
+                self.delegate?.navigateToTermsAndConditions(terms: self.bogoDetailsResponse?.termsAndConditions ?? "")
             }))
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)

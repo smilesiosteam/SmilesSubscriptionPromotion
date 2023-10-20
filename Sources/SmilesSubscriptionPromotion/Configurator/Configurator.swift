@@ -13,7 +13,7 @@ public struct SmilesSubscriptionPromotionConfigurator {
    public enum ConfiguratorType {
        case SubscriptionDetails(isGuestUser: Bool,bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?)
        case SmilesSubscriptionPromotion(isGuestUser: Bool,showBackButton: Bool,delegate: SmilesSubscriptionPromotionDelegate?)
-       case SmilesSubscriptionOrderSummary(bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:()->Void)
+       case SmilesSubscriptionOrderSummary(bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:()->Void, moveToTerms:()->Void)
        case smilesManageSubscriptionPop(bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:()->Void)
        case CancelSubscriptionFeedBack
     }
@@ -25,8 +25,8 @@ public struct SmilesSubscriptionPromotionConfigurator {
             return vc
         case .SmilesSubscriptionPromotion(let isGuestUser, let showBackButton,let delegate):
             return SmilesSubscriptionPromotionVC(showBackButton: showBackButton, isGuestUser: isGuestUser,delegate: delegate)
-        case .SmilesSubscriptionOrderSummary(let bogoResponse, let offer, let delegate, let onDismiss):
-            let vc = OrderSummaryViewController(bogoDetailsResponse: bogoResponse, offer: offer, delegate: delegate, onDismiss: onDismiss)
+        case .SmilesSubscriptionOrderSummary(let bogoResponse, let offer, let delegate, let onDismiss, let moveToTerms):
+            let vc = OrderSummaryViewController(bogoDetailsResponse: bogoResponse, offer: offer, delegate: delegate, onDismiss: onDismiss, moveToTerms: moveToTerms)
             return vc
         case .smilesManageSubscriptionPop(let bogoResponse, let offer, let delegate, let onDismiss):
             let vc = ManageSubscriptionPopupViewController(bogoDetailsResponse: bogoResponse, offer: offer, delegate: delegate,onDismiss: onDismiss)

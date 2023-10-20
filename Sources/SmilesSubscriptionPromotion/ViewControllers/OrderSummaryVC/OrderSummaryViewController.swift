@@ -46,6 +46,7 @@ class OrderSummaryViewController: UIViewController {
     var themeResource: ThemeResources?
     
     var onDismiss = {}
+    var moveToTerms = {}
     // MARK: Lifecycle
 
     fileprivate func setupUI() {
@@ -108,7 +109,7 @@ class OrderSummaryViewController: UIViewController {
         
         
         continueButton.setTitle(self.themeResource?.cancelSubscriptionButtonText ?? themeResource?.cancelSubscriptionButtonText, for: .normal)
-        continueButtonView.isUserInteractionEnabled = false
+        
         roundedView.layer.cornerRadius = 12
         roundedView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
@@ -119,6 +120,7 @@ class OrderSummaryViewController: UIViewController {
         }else{
             totalPriceText.text = "\(offer?.price ?? -1) " + "AED".localizedString
         }
+        udpateContinueBtn(isEnabled: termsCheckBoxBtn.isSelected)
     }
     
     override func viewDidLoad() {
@@ -126,7 +128,8 @@ class OrderSummaryViewController: UIViewController {
         setupUI()
     }
     
-    public  init(bogoDetailsResponse:SmilesSubscriptionBOGODetailsResponse,offer:BOGODetailsResponseLifestyleOffer, delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:@escaping ()->Void) {
+    public  init(bogoDetailsResponse:SmilesSubscriptionBOGODetailsResponse,offer:BOGODetailsResponseLifestyleOffer, delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:@escaping ()->Void, moveToTerms:@escaping ()->Void) {
+        self.moveToTerms = moveToTerms
         self.onDismiss = onDismiss
         self.delegate = delegate
         self.bogoResponse = bogoDetailsResponse
@@ -184,11 +187,23 @@ class OrderSummaryViewController: UIViewController {
     }
     
     @IBAction func termsPressed(_ sender: Any) {
-        
+        self.dismiss {
+            self.moveToTerms()
+        }
     }
     
+    func udpateContinueBtn(isEnabled:Bool){
+        continueButtonView.isUserInteractionEnabled = isEnabled
+        continueButtonView.backgroundColor = isEnabled ? UIColor.appRevampPurpleMainColor : UIColor.black.withAlphaComponent(0.1)
+        let textColor = isEnabled ? .white : UIColor.black.withAlphaComponent(0.5)
+        continueButton.setTitleColor(textColor, for: .normal)
+        vatLbl.textColor = textColor
+        totalPriceText.textColor = textColor
+        totalHeadingLabel.textColor = textColor
+    }
     @IBAction func termsCheckBoxPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        udpateContinueBtn(isEnabled: sender.isSelected)
     }
     
     @IBAction func closePressed(_ sender: Any) {

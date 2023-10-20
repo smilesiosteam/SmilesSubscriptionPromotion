@@ -16,7 +16,7 @@ protocol SubscriptionMoreBenefitsCellProtocol: AnyObject {
 class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitRowCell") as! SubscriptionMoreBenefitRowCell
-        cell.textLbl.text = isSubscription ? offer?.whatYouMissTextList[indexPath.row] : offer?.whatYouGetTextList?[indexPath.row]
+        cell.textLbl.text = isSubscription ? offer?.whatYouMissTextList?[indexPath.row] : offer?.whatYouGetTextList?[indexPath.row]
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -24,7 +24,7 @@ class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        (isSubscription ? offer?.whatYouMissTextList.count : offer?.whatYouGetTextList!.count) ?? 0
+        (isSubscription ? offer?.whatYouMissTextList?.count : offer?.whatYouGetTextList?.count) ?? 0
     }
     //MARK: - IBOutlets -
     @IBOutlet weak var tableVuHgt: NSLayoutConstraint!
