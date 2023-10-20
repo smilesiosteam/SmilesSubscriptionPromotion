@@ -208,12 +208,21 @@
       }
     },
     {
+      "identity" : "smilesyoutubepopupview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesYoutubePopUpView.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "95513c7837f382a702dfb79a13bccbcd3e9d499e"
+      }
+    },
+    {
       "identity" : "youtube-ios-player-helper",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/youtube/youtube-ios-player-helper.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "f57129cd4380ec0a74dd3a59da3270a1d653d59b"
+        "revision" : "f57129cd4380ec0a74dd3a59da3270a1d653d59b",
+        "version" : "1.0.4"
       }
     }
   ],

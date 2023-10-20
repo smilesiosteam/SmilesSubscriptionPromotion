@@ -10,7 +10,7 @@ import NetworkingLayer
 import SmilesUtilities
 import SmilesSharedServices
 
-class SmilesSubscriptionBOGODetailsResponse : BaseMainResponse {
+public class SmilesSubscriptionBOGODetailsResponse : BaseMainResponse {
     let themeResources: ThemeResources?
     let lifestyleOffers : [BOGODetailsResponseLifestyleOffer]?
     let offerHeader : String?

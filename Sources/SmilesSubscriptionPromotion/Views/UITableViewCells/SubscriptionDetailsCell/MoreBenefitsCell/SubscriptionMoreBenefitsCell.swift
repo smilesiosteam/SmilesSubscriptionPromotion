@@ -13,7 +13,7 @@ import SmilesFontsManager
 class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitRowCell") as! SubscriptionMoreBenefitRowCell
-        cell.textLbl.text = offer?.whatYouGetTextList?[indexPath.row]
+        cell.textLbl.text = isSubscription ? offer?.whatYouMissTextList[indexPath.row] : offer?.whatYouGetTextList?[indexPath.row]
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -21,7 +21,7 @@ class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        offer!.whatYouGetTextList!.count
+        (isSubscription ? offer?.whatYouMissTextList.count : offer?.whatYouGetTextList!.count) ?? 0
     }
     
     @IBOutlet weak var tableVuHgt: NSLayoutConstraint!
@@ -39,7 +39,7 @@ class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITa
     @IBOutlet weak var termsBtn: UIButton!
     
     @IBOutlet weak var rowsTableView: UITableView!
-    
+    var isSubscription:Bool { offer?.isSubscription ?? false }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -52,7 +52,7 @@ class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITa
     func updateCell(offer: BOGODetailsResponseLifestyleOffer) {
         self.offer = offer
         containerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05)
-        self.titleLabel.text = self.offer?.whatYouGetTitle
+        self.titleLabel.text = isSubscription ? self.offer?.whatYouMissTitle : self.offer?.whatYouGetTitle
         self.infoLbl.text = self.offer?.disclaimerText
         rowsTableView.reloadData()
         tableVuHgt.constant = rowsTableView.contentSize.height

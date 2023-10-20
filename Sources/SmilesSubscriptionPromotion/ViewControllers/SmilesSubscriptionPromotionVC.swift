@@ -309,12 +309,16 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
             self.ytPopUpView.isHidden = true
         }
     }
-    func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer?) {
-        if (model?.isSubscription ?? false) {
-            
+    func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer) {
+        if (model.isSubscription ?? false) {
+            let vc = SmilesSubscriptionPromotionConfigurator.create(type: .smilesManageSubscriptionPop(bogoResponse: self.response!, offer: model, delegate: self.delegate, onDismiss: {
+                let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: false, bogoResponse: self.response!, offer: model, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
+                        self.navigationController?.pushViewController(vc, animated: true)
+            }))
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, animated: true)
         } else {
-            let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: self.isGuestUser, showBackButton: true, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
-            vc.offer = model
+            let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: isGuestUser, bogoResponse: self.response!, offer: model, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

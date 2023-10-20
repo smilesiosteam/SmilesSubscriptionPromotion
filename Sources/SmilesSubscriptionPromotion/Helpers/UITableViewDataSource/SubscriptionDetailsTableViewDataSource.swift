@@ -15,18 +15,31 @@ extension SmilesSubscriptionDetailsVC: UITableViewDataSource, UITableViewDelegat
     
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.benefitsResponse?.benefitsList?.count ?? 0) + (offer != nil ? 1 : 0)
+        return (offer?.isSubscription ?? false) ? 2 : (self.benefitsResponse?.benefitsList?.count ?? 0) + (offer != nil ? 1 : 0)
     }
 
-    public  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row >= (benefitsResponse?.benefitsList?.count ?? 0)  && offer != nil {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitsCell", for: indexPath) as! SubscriptionMoreBenefitsCell
-            cell.updateCell(offer: self.offer!)
-            return cell
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (offer?.isSubscription ?? false){
+            if (indexPath.row == 0) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SubscribedInfoCell", for: indexPath) as! SubscribedInfoCell
+                cell.updateCell(offer: self.offer!, bogoResponse: self.bogoDetailsResponse)
+                return cell
+            }else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitsCell", for: indexPath) as! SubscriptionMoreBenefitsCell
+                cell.updateCell(offer: self.offer!)
+                return cell
+            }
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionDetailsCell", for: indexPath) as! SubscriptionDetailsCell
-            cell.updateCell(benefits: benefitsResponse!.benefitsList![indexPath.row])
-            return cell
+            if indexPath.row >= (benefitsResponse?.benefitsList?.count ?? 0)  && offer != nil {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitsCell", for: indexPath) as! SubscriptionMoreBenefitsCell
+                cell.updateCell(offer: self.offer!)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionDetailsCell") as! SubscriptionDetailsCell
+                cell.updateCell(benefits: benefitsResponse!.benefitsList![indexPath.row])
+                return cell
+            }
+            
         }
     }
 

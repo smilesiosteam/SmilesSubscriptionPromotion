@@ -10,7 +10,7 @@ import SmilesUtilities
 import SmilesFontsManager
 
 protocol SmilesSubscriptionButtonCellDelegate: AnyObject {
-    func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer?)
+    func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer)
 }
 
 
@@ -180,8 +180,8 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
         
     }
     @IBAction func subscribeBtnTapped(_ sender: UIButton) {
-        
-        if let delegate = delegate {
+
+        if let delegate, let bogoLifeStyleOfferModel {
             delegate.subscribeDidTapped(model: bogoLifeStyleOfferModel)
         }
     }
