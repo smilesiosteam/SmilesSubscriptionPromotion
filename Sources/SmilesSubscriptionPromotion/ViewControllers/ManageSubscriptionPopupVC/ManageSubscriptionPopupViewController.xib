@@ -36,6 +36,9 @@
                 <outlet property="roundedView" destination="xEg-Ne-n2c" id="Mln-pr-xkY"/>
                 <outlet property="subscriptionChannelLbl" destination="AOq-fN-sid" id="Pua-BF-NQP"/>
                 <outlet property="subscriptionChannelName" destination="uhg-Bn-e8s" id="aVp-MH-J9B"/>
+                <outlet property="unsubBtnVu" destination="i0b-Xy-UuJ" id="TrM-cJ-YpU"/>
+                <outlet property="unsubInfoLbl" destination="S5y-bo-3AZ" id="QFh-Vg-O71"/>
+                <outlet property="unsubInfoView" destination="R08-WT-wF6" id="pVu-EI-XhW"/>
                 <outlet property="view" destination="uXw-eI-bLk" id="RDA-Pf-yrH"/>
             </connections>
         </placeholder>
@@ -92,54 +95,14 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uyl-qa-Tki">
-                    <rect key="frame" x="0.0" y="755" width="393" height="97"/>
-                    <subviews>
-                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rig-gV-Gcc">
-                            <rect key="frame" x="16" y="0.0" width="361" height="60"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJw-rG-Abl">
-                                    <rect key="frame" x="5" y="5" width="351" height="50"/>
-                                    <subviews>
-                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1a-0g-JGf">
-                                            <rect key="frame" x="0.0" y="0.0" width="351" height="50"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="Unsubscribe"/>
-                                            <connections>
-                                                <action selector="continueAction" destination="-1" eventType="touchUpInside" id="QgI-jO-bBl"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </stackView>
-                            </subviews>
-                            <color key="backgroundColor" red="0.45882352941176469" green="0.25882352939999997" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstItem="SJw-rG-Abl" firstAttribute="top" secondItem="Rig-gV-Gcc" secondAttribute="top" constant="5" id="6lw-Xc-Jyq"/>
-                                <constraint firstItem="SJw-rG-Abl" firstAttribute="leading" secondItem="Rig-gV-Gcc" secondAttribute="leading" constant="5" id="Bsd-pn-3yc"/>
-                                <constraint firstAttribute="height" constant="60" id="Sd9-id-ygE"/>
-                                <constraint firstAttribute="bottom" secondItem="SJw-rG-Abl" secondAttribute="bottom" constant="5" id="dJ2-25-VKh"/>
-                                <constraint firstAttribute="trailing" secondItem="SJw-rG-Abl" secondAttribute="trailing" constant="5" id="tFb-Or-Meq"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="30"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                    </subviews>
+                    <rect key="frame" x="0.0" y="805" width="393" height="47"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="97" id="8Tf-oY-cy2"/>
-                        <constraint firstAttribute="bottom" secondItem="Rig-gV-Gcc" secondAttribute="bottom" constant="37" id="H01-RZ-JjD"/>
-                        <constraint firstItem="Rig-gV-Gcc" firstAttribute="leading" secondItem="uyl-qa-Tki" secondAttribute="leading" constant="16" id="NxZ-oz-ReS"/>
-                        <constraint firstItem="Rig-gV-Gcc" firstAttribute="top" secondItem="uyl-qa-Tki" secondAttribute="top" id="U6q-UT-ihV"/>
-                        <constraint firstAttribute="trailing" secondItem="Rig-gV-Gcc" secondAttribute="trailing" constant="16" id="upe-He-svM"/>
+                        <constraint firstAttribute="height" constant="47" id="8Tf-oY-cy2"/>
                     </constraints>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNw-Jk-KTC" userLabel="MainRoundedView" customClass="UICustomView" customModule="SmilesUtilities">
-                    <rect key="frame" x="0.0" y="501" width="393" height="254"/>
+                    <rect key="frame" x="0.0" y="501" width="393" height="304"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jH2-L6-vVF">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
@@ -169,7 +132,7 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9EI-C3-ccj">
-                            <rect key="frame" x="0.0" y="56" width="393" height="198"/>
+                            <rect key="frame" x="0.0" y="56" width="393" height="248"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ip4-j8-GAG">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="40"/>
@@ -300,6 +263,36 @@
                                         <constraint firstItem="yhy-B9-GSS" firstAttribute="bottom" secondItem="36D-vI-G3h" secondAttribute="bottom" constant="16" id="Rp5-eK-Cdp"/>
                                         <constraint firstAttribute="trailing" secondItem="36D-vI-G3h" secondAttribute="trailing" constant="16" id="ZS7-QF-8rk"/>
                                         <constraint firstItem="36D-vI-G3h" firstAttribute="top" secondItem="R08-WT-wF6" secondAttribute="top" constant="16" id="zqw-Js-ojh"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i0b-Xy-UuJ">
+                                    <rect key="frame" x="0.0" y="198" width="393" height="50"/>
+                                    <subviews>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1a-0g-JGf">
+                                            <rect key="frame" x="16" y="0.0" width="361" height="50"/>
+                                            <color key="backgroundColor" red="0.45882352939999999" green="0.25882352939999997" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="gPC-IV-8o8"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Unsubscribe"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="25"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="continueAction" destination="-1" eventType="touchUpInside" id="QgI-jO-bBl"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="u1a-0g-JGf" firstAttribute="leading" secondItem="i0b-Xy-UuJ" secondAttribute="leading" constant="16" id="4Wb-e5-fsZ"/>
+                                        <constraint firstItem="u1a-0g-JGf" firstAttribute="top" secondItem="i0b-Xy-UuJ" secondAttribute="top" id="en7-Z7-g6z"/>
+                                        <constraint firstAttribute="bottom" secondItem="u1a-0g-JGf" secondAttribute="bottom" id="ewO-rj-IVn"/>
+                                        <constraint firstAttribute="trailing" secondItem="u1a-0g-JGf" secondAttribute="trailing" constant="16" id="xDy-L8-1Me"/>
                                     </constraints>
                                 </view>
                             </subviews>
