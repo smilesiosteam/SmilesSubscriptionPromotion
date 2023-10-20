@@ -22,6 +22,7 @@ import UIKit
     func registerPersonalizationEventRequest(urlScheme: String?,offerId: String?,bannerType: String?,eventName: String?)
     func checkEligiblity()
     func proceedToPayment(params: SmilesSubscriptionPromotionPaymentParams, navigationType: SmilesSubscriptionPromotionNavigationType)
+    func navigateToTermsAndConditions(terms: String)
 }
 
 public enum SmilesSbuscriptionPromotionBillsAndRechargeAnimation: String {

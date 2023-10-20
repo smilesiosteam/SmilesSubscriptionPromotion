@@ -12,6 +12,7 @@ public enum SmilesSubscriptionPromotionEndPoints: String, CaseIterable {
     case fetchSubscriptionPromotionList
     case fetchSubscriptionDetails
     case fetchVideoTutorials
+    case cancelSubscription
 }
 
 extension SmilesSubscriptionPromotionEndPoints {
@@ -23,6 +24,8 @@ extension SmilesSubscriptionPromotionEndPoints {
             return "lifestyle/segment-benefits"
         case .fetchVideoTutorials:
             return "\(EndPoints.homeEndpoint)/v1/get-video-tutorial"
+        case .cancelSubscription:
+            return "payment/lifestyle-subscription"
         }
     }
 }

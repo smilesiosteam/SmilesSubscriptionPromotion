@@ -9,6 +9,9 @@ import UIKit
 import SmilesUtilities
 import SmilesFontsManager
 
+protocol SubscriptionMoreBenefitsCellProtocol: AnyObject {
+    func didTapOnTermsAndConditions(termsAndConditions: String)
+}
 
 class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -23,23 +26,17 @@ class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         (isSubscription ? offer?.whatYouMissTextList.count : offer?.whatYouGetTextList!.count) ?? 0
     }
-    
-    @IBOutlet weak var tableVuHgt: NSLayoutConstraint!
-    
-    @IBOutlet weak var containerView: UICustomView!
-    
-    
-    @IBOutlet weak var infoLbl: UILabel!
     //MARK: - IBOutlets -
-    
+    @IBOutlet weak var tableVuHgt: NSLayoutConstraint!
+    @IBOutlet weak var containerView: UICustomView!
+    @IBOutlet weak var infoLbl: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    
-    var offer:BOGODetailsResponseLifestyleOffer?
-    
     @IBOutlet weak var termsBtn: UIButton!
-    
     @IBOutlet weak var rowsTableView: UITableView!
     var isSubscription:Bool { offer?.isSubscription ?? false }
+    var offer:BOGODetailsResponseLifestyleOffer?
+    public weak var delegate: SubscriptionMoreBenefitsCellProtocol?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -59,5 +56,8 @@ class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITa
         
     }
     @IBAction func termPressed(_ sender: Any) {
+        if let terms = self.offer?.termsAndConditions {
+            self.delegate?.didTapOnTermsAndConditions(termsAndConditions: terms)
+        }
     }
 }

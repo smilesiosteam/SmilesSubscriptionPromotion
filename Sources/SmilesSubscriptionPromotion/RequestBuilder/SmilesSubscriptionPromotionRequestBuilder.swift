@@ -15,6 +15,7 @@ enum SmilesSubscriptionPromotionRequestBuilder {
     
     case getSmilesSubscriptionPromotions(request: SmilesBaseMainRequest)
     case getSmilesVideoTutorial(request: SmilesBaseMainRequest)
+    case cancelSubscription(request: SmilesBaseMainRequest)
     
     
     var requestTimeOut: Int {
@@ -27,6 +28,8 @@ enum SmilesSubscriptionPromotionRequestBuilder {
         case .getSmilesSubscriptionPromotions:
             return .POST
         case.getSmilesVideoTutorial:
+            return .POST
+        case .cancelSubscription:
             return .POST
         }
     }
@@ -48,6 +51,8 @@ enum SmilesSubscriptionPromotionRequestBuilder {
         case .getSmilesSubscriptionPromotions(let request):
             return request
         case.getSmilesVideoTutorial(let request):
+            return request
+        case .cancelSubscription(request: let request):
             return request
         }
         

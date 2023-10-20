@@ -21,6 +21,7 @@ class SmilesSubscriptionTableCellModel {
     var subscriptionDesc : String?
     var monthlyPrice: String?
     var price: Double?
+    var beforeDiscountedPrice: Double?
     var freeBogoOffer: Bool?
     var model: BOGODetailsResponseLifestyleOffer?
     var trialPeriod: String?
@@ -92,7 +93,7 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                 .foregroundColor: UIColor.black,
             ]
             
-            let crossedAmount = "\(String(describing: model.price ?? 0))".strikoutString(strikeOutColor: .appGreyColor_128)
+            let crossedAmount = "\(String(describing: model.beforeDiscountedPrice ?? 0))".strikoutString(strikeOutColor: .appGreyColor_128)
             
             var attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
             attributedString.append(crossedAmount)
@@ -114,11 +115,16 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                     
             if model.model?.isSubscription ?? false ||  model.isSubscriptionOnHold ?? false{
                 self.subscribeButton.setTitle("ManageSubscriptionText".localizedString, for: .normal)
+                self.subscribeButton.backgroundColor = .appRevampPurpleMainColor
+                self.subscribeButton.setTitleColor(.white, for: .normal)
                 self.subscriptionStateView.isHidden = false
             }
             else {
                 self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
                 subscriptionStateView.isHidden = true
+                self.subscribeButton.backgroundColor = .white
+                self.subscribeButton.setTitleColor(.appRevampPurpleMainColor, for: .normal)
+                self.subscriptionStateView.isHidden = false
             }
                     
 //                } else {

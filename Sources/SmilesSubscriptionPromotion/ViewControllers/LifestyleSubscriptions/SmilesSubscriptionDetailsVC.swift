@@ -15,7 +15,7 @@ import NetworkingLayer
 import Combine
 
 public class SmilesSubscriptionDetailsVC: UIViewController {
-    var offer: BOGODetailsResponseLifestyleOffer?
+   public var offer: BOGODetailsResponseLifestyleOffer?
     
     @IBOutlet weak var unsubInfoLbl: UILabel!
     
@@ -245,3 +245,8 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     
 }
 
+extension SmilesSubscriptionDetailsVC: SubscriptionMoreBenefitsCellProtocol {
+    func didTapOnTermsAndConditions(termsAndConditions: String) {
+        self.delegate?.navigateToTermsAndConditions(terms: termsAndConditions)
+    }
+}

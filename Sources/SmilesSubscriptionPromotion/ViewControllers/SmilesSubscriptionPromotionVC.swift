@@ -171,8 +171,8 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         self.subscriptionTitleLbl.text = "Smiles Unlimited"
         self.subscriptionDescLbl.text = "Subscribe and save more"
         
-        headerView.enableSkeleton()
-        headerView.showAnimatedSkeleton()
+//        headerView.enableSkeleton()
+//        headerView.showAnimatedSkeleton()
         
         self.backButton.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "backIconWhiteAr" : "backIconWhite", in: .module, compatibleWith: nil), for: .normal)
         self.backButtonHeader.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "backIconWhiteAr" : "backIconWhite", in: .module, compatibleWith: nil), for: .normal)
@@ -311,6 +311,11 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
     func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer) {
         if (model.isSubscription ?? false) {
+//            let vc = SmilesSubscriptionPromotionConfigurator.create(type: .CancelSubscriptionFeedBack) as! SubscriptionCancelFeedBackViewController
+//            vc.offer = model
+//            vc.response = self.response
+//            vc.hidesBottomBarWhenPushed = true
+//            self.navigationController?.pushViewController(vc, animated: true)
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .smilesManageSubscriptionPop(bogoResponse: self.response!, offer: model, delegate: self.delegate, onDismiss: {
                 let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: false, bogoResponse: self.response!, offer: model, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
                         self.navigationController?.pushViewController(vc, animated: true)
@@ -325,6 +330,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
     func didFetchedBogoDetailsWithFailureResponse() {
         self.isDummy = false
+        self.headerView.hideSkeleton()
         self.tableView.reloadData()
         eligiblityImageView.subviews.forEach({ $0.removeFromSuperview() })
         LottieAnimationManager.showAnimation(onView: eligiblityImageView, withJsonFileName: SmilesSbuscriptionPromotionBillsAndRechargeAnimation.BillPaymentNotEligible.rawValue, removeFromSuper: false, loopMode: .playOnce) {_ in

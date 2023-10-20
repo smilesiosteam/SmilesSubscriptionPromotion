@@ -15,6 +15,7 @@ public struct SmilesSubscriptionPromotionConfigurator {
        case SmilesSubscriptionPromotion(isGuestUser: Bool,showBackButton: Bool,delegate: SmilesSubscriptionPromotionDelegate?)
        case SmilesSubscriptionOrderSummary(bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:()->Void)
        case smilesManageSubscriptionPop(bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:()->Void)
+       case CancelSubscriptionFeedBack
     }
     
     public static func create(type: ConfiguratorType) -> UIViewController {
@@ -30,6 +31,8 @@ public struct SmilesSubscriptionPromotionConfigurator {
         case .smilesManageSubscriptionPop(let bogoResponse, let offer, let delegate, let onDismiss):
             let vc = ManageSubscriptionPopupViewController(bogoDetailsResponse: bogoResponse, offer: offer, delegate: delegate,onDismiss: onDismiss)
             return vc
+        case.CancelSubscriptionFeedBack:
+            return SubscriptionCancelFeedBackViewController()
         }
         
     }

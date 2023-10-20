@@ -39,7 +39,6 @@ extension SmilesSubscriptionDetailsVC: UITableViewDataSource, UITableViewDelegat
                 cell.updateCell(benefits: benefitsResponse!.benefitsList![indexPath.row])
                 return cell
             }
-            
         }
     }
 
