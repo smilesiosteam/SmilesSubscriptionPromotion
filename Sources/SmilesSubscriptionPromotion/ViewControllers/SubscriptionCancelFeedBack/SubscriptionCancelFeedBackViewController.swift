@@ -159,7 +159,7 @@ class SubscriptionCancelFeedBackViewController: UIViewController {
     @IBAction func doneButtonClicked(_ sender: Any) {
         if let reasons = rejectionReasons?[rejectionReasonSelectedIndex]{
             print(reasons)
-            self.input.send(.cancelSubscription(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: promoVal, duration: promoDur, packageId: packageId ?? "", subscriptionId: subscriptionId, subscriptionSegement: subscriptionSegement ?? "", cancelationReason: reasons))
+            self.input.send(.cancelSubscription(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: nil, duration:String(offer?.duration ?? 0) , packageId: offer?.offerId ?? "", subscriptionId: offer?.subscriptionId, subscriptionSegement:  offer?.subscribedSegment ?? "", cancelationReason: reasons, paymentMethod: nil))
         }
     }
     

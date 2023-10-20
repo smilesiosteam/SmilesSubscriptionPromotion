@@ -97,7 +97,7 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
             
             var attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
             attributedString.append(crossedAmount)
-            attributedString.append(NSMutableAttributedString(string:  " \(model.model?.discountedPrice ?? 0)/month",attributes: smilesAttributes))
+            attributedString.append(NSMutableAttributedString(string:  " \(model.price ?? 0)/month",attributes: smilesAttributes))
             self.amountLabel.attributedText = attributedString
             //"\(aed) \(crossedAmount) \( model.monthlyPrice.asStringOrEmpty())"
             self.titleLabel.text = model.subscriptionTitle

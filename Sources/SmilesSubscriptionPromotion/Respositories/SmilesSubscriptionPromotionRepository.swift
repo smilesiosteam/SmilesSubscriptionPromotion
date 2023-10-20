@@ -15,7 +15,7 @@ protocol SmilesSubscriptionPromotionServiceable {
     func smilesSubscriptionPromotionService(request: SmilesBaseMainRequest) -> AnyPublisher<SmilesSubscriptionBOGODetailsResponse, NetworkError>
     func smilesSubscriptionDetailsService(request: SubscriptionDetailsRequest) -> AnyPublisher<SubscriptionDetailsResponse, NetworkError>
     func smilesSubscriptionVideoTutorialService(request: SmilesBaseMainRequest) -> AnyPublisher<SmilesSubsciptionVideoTutorialResponse, NetworkError>
-    func cancelSubscriptionService(request: SmilesBaseMainRequest) -> AnyPublisher<CancelSubscriptionResponseModel, NetworkError>
+    func cancelSubscriptionService(request: CancelSubscriptionRequestModel) -> AnyPublisher<CancelSubscriptionResponseModel, NetworkError>
 }
 
 class SmilesSubscriptionPromotionRepository: SmilesSubscriptionPromotionServiceable {
@@ -50,7 +50,7 @@ class SmilesSubscriptionPromotionRepository: SmilesSubscriptionPromotionServicea
         let request = endPoint.createRequest(baseUrl: baseUrl, endPoint: .fetchVideoTutorials)
         return self.networkRequest.request(request)
     }
-    func cancelSubscriptionService(request: SmilesBaseMainRequest) -> AnyPublisher<CancelSubscriptionResponseModel, NetworkingLayer.NetworkError> {
+    func cancelSubscriptionService(request: CancelSubscriptionRequestModel) -> AnyPublisher<CancelSubscriptionResponseModel, NetworkingLayer.NetworkError> {
         let endPoint = SmilesSubscriptionPromotionRequestBuilder.cancelSubscription(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl, endPoint: .cancelSubscription)
         return self.networkRequest.request(request)

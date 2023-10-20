@@ -187,6 +187,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
             //move to cancel
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .CancelSubscriptionFeedBack) as! SubscriptionCancelFeedBackViewController
             vc.response = bogoDetailsResponse
+            vc.offer = offer
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }else{

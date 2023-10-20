@@ -13,14 +13,14 @@ import SmilesBaseMainRequestManager
 
 class CancelSubscriptionRequestModel : SmilesBaseMainRequest {
     
-    var promoCode : String? = nil
-    var duration : String? = nil
-    var action : Int? = nil
-    var packageId : String? = nil
-    var subscriptionId : String? = nil
-    var subscriptionSegment : String? = nil
-    var paymentMethod : String? = nil
-    var rejectionReason : String? = nil
+    var promoCode : String?
+    var duration : String?
+    var action : Int?
+    var packageId : String?
+    var subscriptionId : String?
+    var subscriptionSegment : String?
+    var paymentMethod : String?
+    var rejectionReason : String? 
 
     enum CodingKeys: String, CodingKey {
 
@@ -36,13 +36,20 @@ class CancelSubscriptionRequestModel : SmilesBaseMainRequest {
     }
 
 
-    override init() {
+    public init(promoCode: String?, duration: String?,action: Int?,packageId: String?,subscriptionId: String?,subscriptionSegment: String?,paymentMethod: String?,rejectionReason: String?) {
+        self.promoCode = promoCode
+        self.duration = duration
+        self.action = action
+        self.packageId = packageId
+        self.subscriptionId = subscriptionId
+        self.subscriptionSegment = subscriptionSegment
+        self.paymentMethod = paymentMethod
+        self.rejectionReason = rejectionReason
         super.init()
     }
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
-    
     func asDictionary(dictionary: [String: Any]) -> [String: Any] {
           let encoder = DictionaryEncoder()
           guard let encoded = try? encoder.encode(self) as [String: Any] else {
@@ -50,7 +57,18 @@ class CancelSubscriptionRequestModel : SmilesBaseMainRequest {
           }
           return encoded.mergeDictionaries(dictionary: dictionary)
       }
-    
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(self.promoCode, forKey: .promoCode)
+        try container.encodeIfPresent(self.duration, forKey: .duration)
+        try container.encodeIfPresent(self.action, forKey: .action)
+        try container.encodeIfPresent(self.packageId, forKey: .packageId)
+        try container.encodeIfPresent(self.subscriptionId, forKey: .subscriptionId)
+        try container.encodeIfPresent(self.subscriptionId, forKey: .subscriptionId)
+        try container.encodeIfPresent(self.paymentMethod, forKey: .paymentMethod)
+        try container.encodeIfPresent(self.rejectionReason, forKey: .rejectionReason)
+    }
 
 }
 
