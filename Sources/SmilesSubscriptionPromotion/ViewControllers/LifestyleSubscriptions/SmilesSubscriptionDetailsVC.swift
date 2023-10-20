@@ -100,10 +100,13 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
+       // navigationController?.setNavigationBarHidden(true, animated: true)
         
         self.changeNavigationBarStyleWhileScrolling(intialState: true, withTitle: offer?.offerTitle ?? "")
         self.view.layoutIfNeeded()
+    }
+    override public func viewDidDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     func bind(to viewModel: SmilesSubscriptionPromotionViewModel) {

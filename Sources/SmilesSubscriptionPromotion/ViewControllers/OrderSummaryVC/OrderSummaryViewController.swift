@@ -141,9 +141,6 @@ class OrderSummaryViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
-    }
 
     @objc func handleDismiss(sender: UIPanGestureRecognizer) {
         switch sender.state {

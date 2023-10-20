@@ -60,7 +60,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     private var showBackButton: Bool = false
      var isDummy: Bool = true
     var videoPlayerObj: SmilesSubsciptionVideoTutorial?
-    private var delegate: SmilesSubscriptionPromotionDelegate?
+    public  var delegate: SmilesSubscriptionPromotionDelegate?
     
     @IBOutlet weak var emptyContainerTopConstraint: NSLayoutConstraint!
     
@@ -128,7 +128,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        //navigationController?.setNavigationBarHidden(true, animated: true)
         setupUI()
         self.input.send(.getSubscriptionPromotions)
         self.input.send(.getVideoTutorials)
@@ -311,11 +311,6 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     }
     func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer) {
         if (model.isSubscription ?? false) {
-//            let vc = SmilesSubscriptionPromotionConfigurator.create(type: .CancelSubscriptionFeedBack) as! SubscriptionCancelFeedBackViewController
-//            vc.offer = model
-//            vc.response = self.response
-//            vc.hidesBottomBarWhenPushed = true
-//            self.navigationController?.pushViewController(vc, animated: true)
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .smilesManageSubscriptionPop(bogoResponse: self.response!, offer: model, delegate: self.delegate, onDismiss: {
                 let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: false, bogoResponse: self.response!, offer: model, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
                         self.navigationController?.pushViewController(vc, animated: true)

@@ -127,10 +127,6 @@ class ManageSubscriptionPopupViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
-    }
 
     @objc func handleDismiss(sender: UIPanGestureRecognizer) {
         switch sender.state {
