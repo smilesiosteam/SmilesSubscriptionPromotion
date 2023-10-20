@@ -11,6 +11,7 @@ import Lottie
 import LottieAnimationManager
 import SmilesUtilities
 import SmilesSharedServices
+import Combine
 
 enum OrderCancelFlowType {
     case COMMON
@@ -39,7 +40,7 @@ class SubscriptionCancelFeedBackViewController: UIViewController {
    // var actionSheet: CustomizableActionSheet?
     var orderCancelFlowType: OrderCancelFlowType? = .SUBSCRIPTION
     var askForOption: String?
-    var animationName = SubscriptionAnimation.OrderCancelled.rawValue
+    var animationName = SubscriptionAnimation.Feedback.rawValue
     var themeResources: ThemeResources?
     
     var promoVal: String?
@@ -50,6 +51,13 @@ class SubscriptionCancelFeedBackViewController: UIViewController {
     
     var offer: BOGODetailsResponseLifestyleOffer?
     var response:SmilesSubscriptionBOGODetailsResponse?
+    
+    private var input: PassthroughSubject<SmilesSubscriptionCancellViewModel.Input, Never> = .init()
+    private var cancellables = Set<AnyCancellable>()
+    private lazy var viewModel: SmilesSubscriptionCancellViewModel = {
+        return SmilesSubscriptionCancellViewModel()
+    }()
+     
     
     // MARK: Lifecycle
     
@@ -62,14 +70,26 @@ class SubscriptionCancelFeedBackViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        self.bind(to: viewModel)
         setupCollectionView()
         animateViewWithAnimation()
         styleViewUI()
         setDataForView()
        // self.presenter?.viewDidLoad(themeResources: self.themeResources)
     }
-    
+    func bind(to viewModel: SmilesSubscriptionCancellViewModel) {
+        input = PassthroughSubject<SmilesSubscriptionCancellViewModel.Input, Never>()
+        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case.cancelSubscriptionDidSucceed(let response):
+                    print(response)
+                case.cancelSubscriptionDidFail(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            }.store(in: &cancellables)
+    }
      func styleViewUI() {
 
          doneButton.setTitle("DoneTitle".localizedString, for: .normal)
@@ -137,16 +157,10 @@ class SubscriptionCancelFeedBackViewController: UIViewController {
     }
     
     @IBAction func doneButtonClicked(_ sender: Any) {
-//        if let reasons = rejectionReasons?[rejectionReasonSelectedIndex]{
-//            print(reasons)
-//            switch self.orderCancelFlowType ?? .COMMON {
-//            case .COMMON:
-//                presenter?.callServiceForCancelOrder(withOrderId: orderId, rejectionReasons: reasons)
-//            case .SUBSCRIPTION:
-//                // Need to call API for cancel subscription.
-//                self.presenter?.unSubscribeToAutoRenewablePlan(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: promoVal, duration: promoDur, packageId: packageId ?? "", subscriptionId: subscriptionId, subscriptionSegement: subscriptionSegement ?? "", cancelationReason: reasons)
-//            }
-//        }
+        if let reasons = rejectionReasons?[rejectionReasonSelectedIndex]{
+            print(reasons)
+            self.input.send(.cancelSubscription(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: promoVal, duration: promoDur, packageId: packageId ?? "", subscriptionId: subscriptionId, subscriptionSegement: subscriptionSegement ?? "", cancelationReason: reasons))
+        }
     }
     
     func animateViewWithAnimation() {

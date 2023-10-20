@@ -124,7 +124,6 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                 subscriptionStateView.isHidden = true
                 self.subscribeButton.backgroundColor = .white
                 self.subscribeButton.setTitleColor(.appRevampPurpleMainColor, for: .normal)
-                self.subscriptionStateView.isHidden = false
             }
                     
 //                } else {
