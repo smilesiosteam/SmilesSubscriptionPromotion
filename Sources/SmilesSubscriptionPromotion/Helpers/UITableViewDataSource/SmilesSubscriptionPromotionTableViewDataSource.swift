@@ -33,6 +33,7 @@ extension SmilesSubscriptionPromotionVC: UITableViewDataSource, UITableViewDeleg
                 subModel.subscriptionTitle = offer.offerTitle
                 subModel.subscriptionImg = offer.subscribeImage
                 subModel.price = offer.price
+                subModel.beforeDiscountedPrice = Double(offer.priceBeforeDiscount ?? 0)
                 subModel.freeBogoOffer = offer.freeBogoOffer
                 subModel.monthlyPrice = offer.monthlyPrice
                 subModel.subscriptionDesc = offer.offerDescription
