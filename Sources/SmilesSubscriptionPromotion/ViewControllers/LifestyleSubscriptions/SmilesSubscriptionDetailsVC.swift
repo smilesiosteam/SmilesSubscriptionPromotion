@@ -185,6 +185,8 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
 
         if (offer?.isSubscription ?? false){
             //move to cancel
+            let vc = SmilesSubscriptionPromotionConfigurator.create(type: .CancelSubscriptionFeedBack)
+            self.navigationController?.pushViewController(vc, animated: true)
         }else{
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SmilesSubscriptionOrderSummary(bogoResponse: self.bogoDetailsResponse!, offer: self.offer!, delegate: self.delegate, onDismiss:{
                 let param = SmilesSubscriptionPromotionPaymentParams()
