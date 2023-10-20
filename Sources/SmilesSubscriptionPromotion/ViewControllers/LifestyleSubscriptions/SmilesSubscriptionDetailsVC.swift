@@ -195,8 +195,8 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
                 let param = SmilesSubscriptionPromotionPaymentParams()
                 param.lifeStyleOffer = self.offer
                 self.delegate?.proceedToPayment(params: param, navigationType: .payment)
-            }, moveToTerms: {
-                self.delegate?.navigateToTermsAndConditions(terms: self.bogoDetailsResponse?.termsAndConditions ?? "")
+            }, moveToTerms: { terms in
+                self.delegate?.navigateToTermsAndConditions(terms: terms)
             }))
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)
