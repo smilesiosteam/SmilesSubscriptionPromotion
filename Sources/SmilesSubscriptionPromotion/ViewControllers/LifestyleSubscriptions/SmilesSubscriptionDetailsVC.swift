@@ -192,6 +192,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .CancelSubscriptionFeedBack) as! SubscriptionCancelFeedBackViewController
             vc.response = bogoDetailsResponse
             vc.offer = offer
+
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }else{
@@ -199,8 +200,8 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
                 let param = SmilesSubscriptionPromotionPaymentParams()
                 param.lifeStyleOffer = self.offer
                 self.delegate?.proceedToPayment(params: param, navigationType: .payment)
-            }, moveToTerms: {
-                self.delegate?.navigateToTermsAndConditions(terms: self.bogoDetailsResponse?.termsAndConditions ?? "")
+            }, moveToTerms: { terms in
+                self.delegate?.navigateToTermsAndConditions(terms: terms)
             }))
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)

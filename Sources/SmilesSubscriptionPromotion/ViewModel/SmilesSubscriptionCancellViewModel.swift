@@ -21,13 +21,13 @@ public class SmilesSubscriptionCancellViewModel: NSObject {
     
     // MARK: - INPUT. View event methods
     public  enum Input {
-        case cancelSubscription(subscriptionStatus: SmilesSubscribtionStatus, promoCodeValue: String?, duration: String?, packageId: String?, subscriptionId: String?, subscriptionSegement: String?, cancelationReason: String?,paymentMethod: String?)
+        case cancelSubscription(subscriptionStatus: SmilesSubscribtionStatus, promoCodeValue: String?, packageId: String?, subscriptionId: String?, subscriptionSegement: String?, cancelationReason: String?)
     }
     
     enum Output {
         
         case cancelSubscriptionDidSucceed(response: CancelSubscriptionResponseModel)
-        case cancelSubscriptionDidFail(error: Error)
+        case cancelSubscriptionDidFail(error: NetworkError)
     }
     
     // MARK: -- Variables
@@ -42,22 +42,21 @@ extension SmilesSubscriptionCancellViewModel {
         output = PassthroughSubject<Output, Never>()
         input.sink { [weak self] event in
             switch event {
-            case .cancelSubscription(let status,let promoValue,let duration,let packageId,let subscriptionId,let subscriptionSegment,let cancelReason,let paymentMethod):
-                self?.cancelSubscription(subscriptionStatus: status, promoCodeValue: promoValue, duration: duration, packageId: packageId, subscriptionId: subscriptionId, subscriptionSegement: subscriptionSegment, cancelationReason: cancelReason,paymentMethod: paymentMethod)
+            case .cancelSubscription(let status,let promoValue,let packageId,let subscriptionId,let subscriptionSegment,let cancelReason):
+                self?.cancelSubscription(subscriptionStatus: status, promoCodeValue: promoValue, packageId: packageId, subscriptionId: subscriptionId, subscriptionSegement: subscriptionSegment, cancelationReason: cancelReason)
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
     }
     
-    func cancelSubscription(subscriptionStatus: SmilesSubscribtionStatus, promoCodeValue: String?, duration: String?, packageId: String?, subscriptionId: String?, subscriptionSegement: String?, cancelationReason: String?,paymentMethod: String?) {
+    func cancelSubscription(subscriptionStatus: SmilesSubscribtionStatus, promoCodeValue: String?, packageId: String?, subscriptionId: String?, subscriptionSegement: String?, cancelationReason: String?) {
         
-        let cancelRequest = CancelSubscriptionRequestModel(promoCode:promoCodeValue , duration: duration, action: subscriptionStatus.rawValue, packageId: packageId, subscriptionId: subscriptionId, subscriptionSegment:subscriptionSegement , paymentMethod:paymentMethod , rejectionReason: cancelationReason)
+        let cancelRequest = CancelSubscriptionRequestModel(promoCode:promoCodeValue , action: subscriptionStatus.rawValue, packageId: packageId, subscriptionId: subscriptionId, subscriptionSegment:subscriptionSegement, rejectionReason: cancelationReason)
         cancelRequest.promoCode = promoCodeValue
-        cancelRequest.duration = duration
         cancelRequest.subscriptionId = subscriptionId
         cancelRequest.packageId = packageId
         cancelRequest.subscriptionSegment = subscriptionSegement
-        cancelRequest.rejectionReason = cancelationReason
+        cancelRequest.cancellationReason = cancelationReason
         cancelRequest.action = subscriptionStatus.rawValue
         
         let service = SmilesSubscriptionPromotionRepository(

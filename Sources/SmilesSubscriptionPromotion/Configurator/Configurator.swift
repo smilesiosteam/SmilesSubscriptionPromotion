@@ -13,7 +13,7 @@ public struct SmilesSubscriptionPromotionConfigurator {
    public enum ConfiguratorType {
        case SubscriptionDetails(isGuestUser: Bool,bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?)
        case SmilesSubscriptionPromotion(isGuestUser: Bool,showBackButton: Bool,delegate: SmilesSubscriptionPromotionDelegate?)
-       case SmilesSubscriptionOrderSummary(bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:()->Void, moveToTerms:()->Void)
+       case SmilesSubscriptionOrderSummary(bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:()->Void, moveToTerms:((String) -> Void))
        case smilesManageSubscriptionPop(bogoResponse: SmilesSubscriptionBOGODetailsResponse,offer: BOGODetailsResponseLifestyleOffer,delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:()->Void)
        case CancelSubscriptionFeedBack
     }

@@ -70,12 +70,22 @@ class SubscriptionCancelFeedBackViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+        
+        
         self.bind(to: viewModel)
         setupCollectionView()
         animateViewWithAnimation()
         styleViewUI()
         setDataForView()
        // self.presenter?.viewDidLoad(themeResources: self.themeResources)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     func bind(to viewModel: SmilesSubscriptionCancellViewModel) {
         input = PassthroughSubject<SmilesSubscriptionCancellViewModel.Input, Never>()
@@ -84,12 +94,13 @@ class SubscriptionCancelFeedBackViewController: UIViewController {
             .sink { [weak self] event in
                 switch event {
                 case.cancelSubscriptionDidSucceed(let response):
-                    print(response)
+                    self?.showCancelledPopup(model: response)
                 case.cancelSubscriptionDidFail(let error):
                     debugPrint(error.localizedDescription)
                 }
             }.store(in: &cancellables)
     }
+    
      func styleViewUI() {
 
          doneButton.setTitle("DoneTitle".localizedString, for: .normal)
@@ -157,9 +168,11 @@ class SubscriptionCancelFeedBackViewController: UIViewController {
     }
     
     @IBAction func doneButtonClicked(_ sender: Any) {
-        if let reasons = rejectionReasons?[rejectionReasonSelectedIndex]{
-            print(reasons)
-            self.input.send(.cancelSubscription(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: nil, duration:String(offer?.duration ?? 0) , packageId: offer?.offerId ?? "", subscriptionId: offer?.subscriptionId, subscriptionSegement:  offer?.subscribedSegment ?? "", cancelationReason: reasons, paymentMethod: nil))
+        if rejectionReasonSelectedIndex != -1 {
+            if let reasons = rejectionReasons?[rejectionReasonSelectedIndex] {
+               
+                self.input.send(.cancelSubscription(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: promoVal, packageId: self.offer?.offerId ?? "", subscriptionId: self.offer?.subscriptionId, subscriptionSegement: self.offer?.subscriptionSegment ?? "", cancelationReason: reasons))
+            }
         }
     }
     
@@ -221,21 +234,21 @@ extension SubscriptionCancelFeedBackViewController : UICollectionViewDataSource,
 
 }
 
-extension SubscriptionCancelFeedBackViewController {
+extension SubscriptionCancelFeedBackViewController: SubscriptionCanceledFeedbackViewControllerDeelegate {
+    func popToSubscriptionHomeVC() {
+        for controller in (self.navigationController!.viewControllers) as Array<Any> {
+            if (controller as AnyObject).isKind(of: SmilesSubscriptionPromotionVC.self) {
+                self.navigationController?.popToViewController(controller as! UIViewController, animated: false)
+                break
+            }
+        }
+    }
     
-//    func showCancelledPopup(vc: OrderCancelledFeedbackViewController) {
-//        var items = [CustomizableActionSheetItem]()
-//        let sampleViewItem = CustomizableActionSheetItem(type: .view, height: 332)
-//        sampleViewItem.view = vc.view
-//        items.append(sampleViewItem)
-//
-//        let actionSheet = CustomizableActionSheet()
-//        actionSheet.tag = cartActionSheetTag.changeToPickup.rawValue
-//        actionSheet.defaultCornerRadius = 12
-//        actionSheet.shouldDismiss = false
-//        self.actionSheet = actionSheet
-//
-//        actionSheet.showInView(view, items: items)
-//    }
+    
+    func showCancelledPopup(model: CancelSubscriptionResponseModel) {
+        let vc = CancelSubscriptionFeedBackPopUpVC(canceResponse: model)
+        vc.delegate = self
+        self.present(vc, animated: false)
+    }
     
 }

@@ -18,7 +18,7 @@
         <array key="CircularXXTT-Regular.ttf">
             <string>CircularXXTT-Regular</string>
         </array>
-        <array key="Montserrat-Bold.otf">
+        <array key="Montserrat-Bold.ttf">
             <string>Montserrat-Bold</string>
         </array>
     </customFonts>
@@ -48,7 +48,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="CircularXXTT-Medium" family="CircularXX TT" pointSize="16"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Subscribe now">
+                                <state key="normal">
                                     <color key="titleColor" red="0.47450980390000003" green="0.25882352939999997" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -161,7 +161,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Axp-aX-gli" customClass="UICustomButton" customModule="SmilesUtilities">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Axp-aX-gli" customClass="UICustomButton" customModule="SmilesUtilities">
                         <rect key="frame" x="32" y="4" width="122" height="24"/>
                         <color key="backgroundColor" red="0.8392156959" green="0.7019608021" blue="0.31372550129999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -213,7 +213,7 @@
             <size key="intrinsicContentSize" width="102" height="29"/>
         </designable>
         <designable name="fjf-3E-2bk">
-            <size key="intrinsicContentSize" width="109" height="32"/>
+            <size key="intrinsicContentSize" width="30" height="32"/>
         </designable>
     </designables>
     <resources>

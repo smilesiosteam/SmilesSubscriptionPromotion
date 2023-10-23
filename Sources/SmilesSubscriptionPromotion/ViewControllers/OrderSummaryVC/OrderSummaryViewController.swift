@@ -46,7 +46,7 @@ class OrderSummaryViewController: UIViewController {
     var themeResource: ThemeResources?
     
     var onDismiss = {}
-    var moveToTerms = {}
+    var moveToTerms: ((String) -> Void)
     // MARK: Lifecycle
 
     fileprivate func setupUI() {
@@ -128,7 +128,7 @@ class OrderSummaryViewController: UIViewController {
         setupUI()
     }
     
-    public  init(bogoDetailsResponse:SmilesSubscriptionBOGODetailsResponse,offer:BOGODetailsResponseLifestyleOffer, delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:@escaping ()->Void, moveToTerms:@escaping ()->Void) {
+    public  init(bogoDetailsResponse:SmilesSubscriptionBOGODetailsResponse,offer:BOGODetailsResponseLifestyleOffer, delegate: SmilesSubscriptionPromotionDelegate?, onDismiss:@escaping ()->Void, moveToTerms:@escaping ((String) -> Void)) {
         self.moveToTerms = moveToTerms
         self.onDismiss = onDismiss
         self.delegate = delegate
@@ -185,7 +185,9 @@ class OrderSummaryViewController: UIViewController {
     
     @IBAction func termsPressed(_ sender: Any) {
         self.dismiss {
-            self.moveToTerms()
+            if let terms = self.offer?.termsAndConditions {
+                self.moveToTerms(terms)
+            }
         }
     }
     
