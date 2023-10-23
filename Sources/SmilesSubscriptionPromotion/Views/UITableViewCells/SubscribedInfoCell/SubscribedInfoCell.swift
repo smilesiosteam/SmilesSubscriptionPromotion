@@ -58,6 +58,8 @@ class SubscribedInfoCell: UITableViewCell {
         } else if offer.nextRenewalDate != nil,let reneDt=AppCommonMethods.returnDate(from: offer.nextRenewalDate!, format: "dd-MM-yyyy HH:mm:ss") {
             autoRenewsLbl.text = bogoResponse?.themeResources?.subscriptionAutoRenewsText
             autoRenewDate.text = AppCommonMethods.convert(date: reneDt, format: "dd MMM yyyy HH:mm:ss")
+        }else{
+            autoRenewalView.isHidden = true
         }
         var paymentMethodType = ""
         if let paymentId = offer.paymentDetails?.paymentMethodId, paymentId == "2" {

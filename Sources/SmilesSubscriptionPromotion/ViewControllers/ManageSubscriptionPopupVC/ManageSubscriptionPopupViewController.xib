@@ -33,6 +33,7 @@
                 <outlet property="paymentMethodLbl" destination="WZx-Sf-7XE" id="Ev8-jq-i7P"/>
                 <outlet property="paymentMethodView" destination="wkS-oA-EFD" id="8hz-Lt-w0a"/>
                 <outlet property="pricePerMonth" destination="2go-d2-4bZ" id="7Vt-vc-Fxf"/>
+                <outlet property="rewnewalView" destination="ip4-j8-GAG" id="1cW-MD-5fk"/>
                 <outlet property="roundedView" destination="xEg-Ne-n2c" id="Mln-pr-xkY"/>
                 <outlet property="subscriptionChannelLbl" destination="AOq-fN-sid" id="Pua-BF-NQP"/>
                 <outlet property="subscriptionChannelName" destination="uhg-Bn-e8s" id="aVp-MH-J9B"/>

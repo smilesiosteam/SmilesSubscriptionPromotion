@@ -138,7 +138,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         cancelInfoLbl.text = "Cancel anytime without commitment".localizedString
         backBtn.isSelected = isSubscribed
         unsubInfoLbl.text = self.bogoDetailsResponse?.themeResources?.manageSubscriptionDescText ?? ""
-        self.headerViewHeight.constant = headerView.isHidden ? 88 : 270
+        self.headerViewHeight.constant = headerView.isHidden ? 88 : 310
         self.changeNavigationBarStyleWhileScrolling(intialState: false, withTitle: self.offer?.offerTitle ?? "")
         viewHeaderTitle.textColor = isSubscribed ? .black : .white
 
@@ -247,7 +247,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
             } else {
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: .transitionCrossDissolve, animations: {
                     self.headerView.isHidden = false
-                    self.headerViewHeight.constant = 270
+                    self.headerViewHeight.constant = 310
                     self.changeNavigationBarStyleWhileScrolling(intialState: true, withTitle: "")
                     self.view.layoutIfNeeded()
                 })
