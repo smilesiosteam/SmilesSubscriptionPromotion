@@ -40,7 +40,7 @@ class CancelSubscriptionFeedBackPopUpVC: UIViewController {
         self.navigationItem.standardAppearance = appearance
         self.navigationItem.scrollEdgeAppearance = appearance
         
-        self.titleLabel.fontTextStyle = .smilesHeadline2
+        self.titleLabel.fontTextStyle = .smilesHeadline3
         self.titleLabel.textColor = .black
         
         self.descriptionLabel.fontTextStyle = .smilesBody2
@@ -49,8 +49,8 @@ class CancelSubscriptionFeedBackPopUpVC: UIViewController {
         mainContainerView.layer.cornerRadius = 16
         mainContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         if let response = canceResponse {
-            titleLabel.text = response.title
-            descriptionLabel.text = response.description
+            titleLabel.text = response.successPopupTitle
+            descriptionLabel.text = response.successPopupMessage
         }
         animateViewWithAnimation()
     }
@@ -59,7 +59,7 @@ class CancelSubscriptionFeedBackPopUpVC: UIViewController {
     }
     func animateViewWithAnimation(){
         
-        LottieAnimationManager.showAnimationForOrders(onView: animationView, withJsonFileName: SubscriptionAnimation.Feedback.rawValue, removeFromSuper: false, loopMode: .playOnce) { _ in
+        LottieAnimationManager.showAnimationForOrders(onView: animationView, withJsonFileName: SubscriptionAnimation.Feedback.rawValue, removeFromSuper: false, loopMode: .loop) { _ in
 //            self.navigationController?.popToRootViewController()
            
         }

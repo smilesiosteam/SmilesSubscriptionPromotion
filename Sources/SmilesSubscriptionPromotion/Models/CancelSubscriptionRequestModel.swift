@@ -66,16 +66,15 @@ class CancelSubscriptionRequestModel : SmilesBaseMainRequest {
 
 class CancelSubscriptionResponseModel : BaseMainResponse {
     var status : Int?
-    var title : String?
-    var description : String?
-    var rejectionReasons : [String]?
+    var successPopupMessage : String?
+    var successPopupTitle : String?
+    
 
     enum CodingKeys: String, CodingKey {
 
         case status = "status"
-        case title = "title"
-        case description = "description"
-        case rejectionReasons = "rejectionReasons"
+        case successPopupMessage = "successPopupMessage"
+        case successPopupTitle = "successPopupTitle"
     }
     
     override init() {
@@ -85,10 +84,8 @@ class CancelSubscriptionResponseModel : BaseMainResponse {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         status = try values.decodeIfPresent(Int.self, forKey: .status)
-        title = try values.decodeIfPresent(String.self, forKey: .title)
-        description = try values.decodeIfPresent(String.self, forKey: .description)
-        rejectionReasons = try values.decodeIfPresent([String].self, forKey: .rejectionReasons)
-        
+        successPopupMessage = try values.decodeIfPresent(String.self, forKey: .successPopupMessage)
+        successPopupTitle = try values.decodeIfPresent(String.self, forKey: .successPopupTitle)
         try super.init(from: decoder)
     }
 
