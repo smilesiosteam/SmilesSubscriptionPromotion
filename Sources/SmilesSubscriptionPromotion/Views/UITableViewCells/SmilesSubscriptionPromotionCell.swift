@@ -85,7 +85,7 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
     }
      func updateCell(rowModel: SmilesSubscriptionTableCellModel) {
         if let model = rowModel as? SmilesSubscriptionTableCellModel {
-            
+            self.subscribeButton.isHidden = false
             let aed = "AED".localizedString + " "
             
             let smilesAttributes: [NSAttributedString.Key: Any] = [
@@ -118,7 +118,8 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                 self.subscribeButton.backgroundColor = .appRevampPurpleMainColor
                 self.subscribeButton.setTitleColor(.white, for: .normal)
                 self.subscriptionStateView.isHidden = false
-            }
+                
+}
             else {
                 self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
                 subscriptionStateView.isHidden = true

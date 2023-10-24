@@ -41,7 +41,7 @@
                                     <constraint firstAttribute="height" constant="100" id="MxH-oS-CXi"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjf-3E-2bk" customClass="UICustomButton" customModule="SmilesUtilities">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjf-3E-2bk" customClass="UICustomButton" customModule="SmilesUtilities">
                                 <rect key="frame" x="16" y="244" width="311" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="Cci-IX-hRq"/>
