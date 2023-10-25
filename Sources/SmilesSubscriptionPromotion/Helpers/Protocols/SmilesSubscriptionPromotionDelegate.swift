@@ -23,6 +23,7 @@ import UIKit
     func checkEligiblity()
     func proceedToPayment(params: SmilesSubscriptionPromotionPaymentParams, navigationType: SmilesSubscriptionPromotionNavigationType)
     func navigateToTermsAndConditions(terms: String)
+    func setPersonalizationEventSource(personalizationEventSource: String?)
 }
 
 public enum SmilesSbuscriptionPromotionBillsAndRechargeAnimation: String {

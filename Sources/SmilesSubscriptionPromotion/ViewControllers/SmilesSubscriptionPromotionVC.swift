@@ -80,6 +80,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         return SmilesSubscriptionPromotionViewModel()
     }()
      var response:SmilesSubscriptionBOGODetailsResponse?
+  public  var personalizationEventSource: String?
     
     
     // MARK: Lifecycle
@@ -111,11 +112,10 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadHome), name: .ReloadSubHome, object: nil)
         
         super.viewDidLoad()
-//        if Constants.DeviceType.hasNotch {
-//            emptyContainerTopConstraint.constant = 74
-//        } else {
-//            emptyContainerTopConstraint.constant = 44
-//        }
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
         
         if let navigationController = self.navigationController {
             if let previousViewController = navigationController.viewControllers[safe: navigationController.viewControllers.count - 2] {
@@ -191,6 +191,11 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
        self.ytPopUpView.ytViewDelegate = self
         giftCardBtn.titleLabel?.fontTextStyle = .smilesHeadline4
         giftCardBtn.setTitle("EnterGiftDetails".localizedString, for: .normal)
+        if let delegate = delegate {
+            if let personalizationEventSource = personalizationEventSource {
+                delegate.setPersonalizationEventSource(personalizationEventSource: personalizationEventSource)
+            }
+        }
     }
     
     func setupTableViewCells() {
@@ -345,11 +350,7 @@ extension SmilesSubscriptionPromotionVC:  SmilesYoutubeViewDelegate {
         if let delegate = self.delegate {
             delegate.registerPersonalizationEventRequest(urlScheme:nil , offerId:videoPlayerObj?.watchKey ?? "" , bannerType:nil , eventName:"tutorial_video_closed")
         }
-//        HouseConfig.registerPersonalizationEventRequest(withAccountType: GetEligibilityMatrixResponse.sharedInstance.accountType.asStringOrEmpty(),
-//                                                        urlScheme: nil,
-//                                                        offerId: videoPlayerObj?.watchKey,
-//                                                        bannerType: nil,
-//                                                        eventName: "tutorial_video_closed")
+
     }
     
     public func didTappedExpand() {
@@ -367,18 +368,12 @@ extension SmilesSubscriptionPromotionVC:  SmilesYoutubeViewDelegate {
         
         ytPopUpView.layoutIfNeeded()
         
-        //self.tabBarController?.tabBar.isHidden = true
-
         self.ytPopUpView.superview?.bringSubviewToFront(self.ytPopUpView)
 
         ytPopUpView.playVideo(videoURL: videoPlayerObj?.videoURL)
         if let delegate = self.delegate {
             delegate.registerPersonalizationEventRequest(urlScheme:nil , offerId:videoPlayerObj?.watchKey ?? "" , bannerType:nil , eventName:"tutorial_video_played")
         }
-//        HouseConfig.registerPersonalizationEventRequest(withAccountType: GetEligibilityMatrixResponse.sharedInstance.accountType.asStringOrEmpty(),
-//                                                        urlScheme: nil,
-//                                                        offerId: videoPlayerObj?.watchKey,
-//                                                        bannerType: nil,
-//                                                        eventName: "tutorial_video_played")
+
     }
 }

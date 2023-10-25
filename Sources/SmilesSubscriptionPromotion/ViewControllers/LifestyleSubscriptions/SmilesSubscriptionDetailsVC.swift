@@ -95,18 +95,22 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
         setupUI()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         
         self.changeNavigationBarStyleWhileScrolling(intialState: true, withTitle: offer?.offerTitle ?? "")
         self.view.layoutIfNeeded()
     }
     override public func viewDidDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+       
         let cells = self.tableView.visibleCells
         for cell in cells {
             if let cell = cell as? SubscriptionDetailsCell {
