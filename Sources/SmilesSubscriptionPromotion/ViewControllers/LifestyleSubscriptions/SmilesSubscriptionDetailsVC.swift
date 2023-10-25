@@ -107,6 +107,13 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     }
     override public func viewDidDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: true)
+        let cells = self.tableView.visibleCells
+        for cell in cells {
+            if let cell = cell as? SubscriptionDetailsCell {
+                cell.stopTimer()
+            }
+            // call invalidate
+        }
     }
 
     func bind(to viewModel: SmilesSubscriptionPromotionViewModel) {
@@ -254,7 +261,9 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
             }
         }
     }
-    
+    func stopAutoScrollTimer() {
+        
+    }
 }
 
 extension SmilesSubscriptionDetailsVC: SubscriptionMoreBenefitsCellProtocol {

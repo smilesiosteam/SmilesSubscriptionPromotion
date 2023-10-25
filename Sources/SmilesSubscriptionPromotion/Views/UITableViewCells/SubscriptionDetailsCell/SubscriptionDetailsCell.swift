@@ -25,6 +25,11 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+   
+    var autoScrollTimer: Timer?
+    var currentIndexPath: IndexPath = IndexPath(item: 0, section: 0)
+    var numberOfItems: Int = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,12 +38,44 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
         collectionView.register(UINib(nibName: "SubscriptionBenefitCollectionCell", bundle: .module), forCellWithReuseIdentifier: "SubscriptionBenefitCollectionCell")
         collectionView.dataSource = self
         collectionView.delegate = self
+        startAutoScroll()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    // Start the auto-scroll timer
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        autoScrollTimer?.invalidate()
+    }
+    
+    func startAutoScroll() {
+        autoScrollTimer = Timer.scheduledTimer(
+            timeInterval: 2.0, // Adjust the time interval as needed
+            target: self,
+            selector: #selector(autoScroll),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+    func stopTimer() {
+        autoScrollTimer?.invalidate()
+        autoScrollTimer = nil
+    }
+    @objc func autoScroll() {
+        var nextIndexPath = IndexPath(item: currentIndexPath.item + 1, section: 0)
+        if nextIndexPath.item >= numberOfItems {
+                    nextIndexPath.item = 0
+            }
+        // Scroll to the next cell with animation
+        UIView.animate(withDuration: 0.5, animations: {
+                  self.collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: false)
+              })
+        
+        currentIndexPath = nextIndexPath
     }
     
     func updateAttributedTextTo(label: UILabel, string: String, subString: String, color:UIColor) {
@@ -54,6 +91,7 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
     
     func updateCell(benefits: BenefitsList) {
         self.benefits = benefits
+        self.numberOfItems = self.benefits?.images?.count ?? 0
         let textColor = UIColor(hexString: benefits.textColor ?? "#e03d26")
         titleLabel.textColor = textColor
         titleLabel.text = benefits.title
@@ -67,6 +105,7 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
         collectionView.reloadData()
         
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubscriptionBenefitCollectionCell", for: indexPath) as! SubscriptionBenefitCollectionCell
         cell.imageView.setImageWithUrlString(benefits!.images![indexPath.row], defaultImage: nil)
@@ -74,9 +113,11 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        benefits?.images?.count ?? 0
+       benefits?.images?.count ?? 0
+        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: 96, height: 96)
     }
+    
 }
