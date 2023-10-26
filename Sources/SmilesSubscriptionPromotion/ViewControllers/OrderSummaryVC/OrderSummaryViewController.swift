@@ -47,6 +47,7 @@ class OrderSummaryViewController: UIViewController {
     
     var onDismiss = {}
     var moveToTerms: ((String) -> Void)
+    var isSpecialOffer = false
     // MARK: Lifecycle
 
     fileprivate func setupUI() {
@@ -76,9 +77,9 @@ class OrderSummaryViewController: UIViewController {
         
         let crossedAmount = (offer?.priceBeforeDiscount == nil ? "" : "\(offer!.priceBeforeDiscount!)").strikoutString(strikeOutColor: .appGreyColor_128)
         
-        var attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
+        let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
         attributedString.append(crossedAmount)
-        attributedString.append(NSMutableAttributedString(string:  " \(offer?.price ?? 0)/month",attributes: smilesAttributes))
+        attributedString.append(NSMutableAttributedString(string: isSpecialOffer ?  "Free".localizedString.capitalizingFirstLetter(): " \(offer?.price ?? 0)/month",attributes: smilesAttributes))
         self.monthlyPrice.attributedText = attributedString
         
         
@@ -118,7 +119,11 @@ class OrderSummaryViewController: UIViewController {
         if offer?.freeDuration ?? 0 > 0 {
             totalPriceText.text = "Free".localizedString
         }else{
-            totalPriceText.text = "\(offer?.price ?? -1) " + "AED".localizedString
+            totalPriceText.text = "\(offer?.price ?? 0) " + "AED".localizedString
+        }
+        if (isSpecialOffer) {
+            totalPriceText.text = "Free".localizedString.capitalizingFirstLetter()
+            self.vatLbl.isHidden = true
         }
         udpateContinueBtn(isEnabled: termsCheckBoxBtn.isSelected)
     }
@@ -199,6 +204,7 @@ class OrderSummaryViewController: UIViewController {
         vatLbl.textColor = textColor
         totalPriceText.textColor = textColor
         totalHeadingLabel.textColor = textColor
+        vatLbl.text = "VatInclusiveText".localizedString
     }
     @IBAction func termsCheckBoxPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected

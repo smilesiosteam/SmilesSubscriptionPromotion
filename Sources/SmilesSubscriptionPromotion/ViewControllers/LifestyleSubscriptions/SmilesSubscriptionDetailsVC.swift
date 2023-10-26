@@ -74,7 +74,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
             self.reloadData()
         }
     }
-    
+  public  var promoCode: BOGOPromoCode?
     // MARK: Lifecycle
     public  init(bogoDetailsResponse:SmilesSubscriptionBOGODetailsResponse,offer:BOGODetailsResponseLifestyleOffer, isGuestUser: Bool,delegate: SmilesSubscriptionPromotionDelegate?) {
         self.delegate = delegate
@@ -167,6 +167,10 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         subscriptionTitleLbl.text = offer?.offerTitle
         subscriptionSubTitleLbl.text = "subscription".localizedString.capitalizingFirstLetter()
         monthlyPrice.text = offer?.monthlyPrice
+        if promoCode != nil {
+            monthlyPrice.text = "Free".localizedString
+        }
+        
         
         if !isSubscribed {
             tableView.tableHeaderView = tableHeader
@@ -213,8 +217,11 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
                 self.delegate?.proceedToPayment(params: param, navigationType: .payment)
             }, moveToTerms: { terms in
                 self.delegate?.navigateToTermsAndConditions(terms: terms)
-            }))
+            })) as! OrderSummaryViewController
             vc.modalPresentationStyle = .overFullScreen
+            if (promoCode != nil) {
+                vc.isSpecialOffer = true
+            }
             self.present(vc, animated: true)
         }
     }
