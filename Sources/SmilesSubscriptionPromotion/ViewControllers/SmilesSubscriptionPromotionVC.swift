@@ -283,6 +283,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
     func updateViewWith(response: SmilesSubscriptionBOGODetailsResponse?) {
         
         if let response = response {
+            if let delegate = delegate {
+                delegate.setBogoAndOfferData(bogoDetailsResponse: response, offer: nil)
+            }
             self.headerView.hideSkeleton()
             self.isDummy = false
             self.emptyDealsContainer.isHidden  = true

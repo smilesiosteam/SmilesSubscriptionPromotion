@@ -24,6 +24,7 @@ import UIKit
     func proceedToPayment(params: SmilesSubscriptionPromotionPaymentParams, navigationType: SmilesSubscriptionPromotionNavigationType)
     func navigateToTermsAndConditions(terms: String)
     func setPersonalizationEventSource(personalizationEventSource: String?)
+    func setBogoAndOfferData(bogoDetailsResponse:AnyObject?,offer:AnyObject?)
 }
 
 public enum SmilesSbuscriptionPromotionBillsAndRechargeAnimation: String {
