@@ -162,7 +162,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         self.bind(to: viewModel)
         
         self.subscriptionLogo.setImageWithUrlString(offer?.subscriptionIcon ?? "")
-        self.viewHeaderTitle.text = self.offer?.offerTitle
+        self.viewHeaderTitle.text = offer?.isSubscription ?? false ?  self.bogoDetailsResponse?.themeResources?.cancelSubscriptionTitle: self.offer?.offerTitle
         
         subscriptionTitleLbl.text = offer?.offerTitle
         subscriptionSubTitleLbl.text = "subscription".localizedString.capitalizingFirstLetter()

@@ -19,6 +19,7 @@ class CancelSubscriptionRequestModel : SmilesBaseMainRequest {
     var subscriptionId : String?
     var subscriptionSegment : String?
     var cancellationReason : String?
+    var duration: String?
 
     enum CodingKeys: String, CodingKey {
 
@@ -28,17 +29,19 @@ class CancelSubscriptionRequestModel : SmilesBaseMainRequest {
         case subscriptionId = "subscriptionId"
         case subscriptionSegment = "subscriptionSegment"
         case cancellationReason = "cancellationReason"
+        case duration = "duration"
      
     }
 
 
-    public init(promoCode: String?,action: Int?,packageId: String?,subscriptionId: String?,subscriptionSegment: String?,rejectionReason: String?) {
+    public init(promoCode: String?,action: Int?,packageId: String?,subscriptionId: String?,subscriptionSegment: String?,rejectionReason: String?,duration: String?) {
         self.promoCode = promoCode
         self.action = action
         self.packageId = packageId
         self.subscriptionId = subscriptionId
         self.subscriptionSegment = subscriptionSegment
         self.cancellationReason = rejectionReason
+        self.duration = duration
         super.init()
     }
     required init(from decoder: Decoder) throws {
@@ -54,6 +57,7 @@ class CancelSubscriptionRequestModel : SmilesBaseMainRequest {
     public override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(self.duration, forKey: .duration)
         try container.encodeIfPresent(self.promoCode, forKey: .promoCode)
         try container.encodeIfPresent(self.action, forKey: .action)
         try container.encodeIfPresent(self.packageId, forKey: .packageId)

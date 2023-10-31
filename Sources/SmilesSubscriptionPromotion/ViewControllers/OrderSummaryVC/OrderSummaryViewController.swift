@@ -7,6 +7,7 @@
 
 import UIKit
 import SmilesUtilities
+import Combine
 
 class OrderSummaryViewController: UIViewController {
 
@@ -48,9 +49,17 @@ class OrderSummaryViewController: UIViewController {
     var onDismiss = {}
     var moveToTerms: ((String) -> Void)
     var isSpecialOffer = false
+    
+    private var input: PassthroughSubject<SmilesSubscriptionCancellViewModel.Input, Never> = .init()
+    private var cancellables = Set<AnyCancellable>()
+    private lazy var viewModel: SmilesSubscriptionCancellViewModel = {
+        return SmilesSubscriptionCancellViewModel()
+    }()
+    
     // MARK: Lifecycle
 
     fileprivate func setupUI() {
+        self.bind(to: viewModel)
         panDismissView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
         panDismissView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         if themeResource == nil {
@@ -146,7 +155,19 @@ class OrderSummaryViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    func bind(to viewModel: SmilesSubscriptionCancellViewModel) {
+        input = PassthroughSubject<SmilesSubscriptionCancellViewModel.Input, Never>()
+        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case.cancelSubscriptionDidSucceed(let response):
+                    print(response)
+                case.cancelSubscriptionDidFail(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            }.store(in: &cancellables)
+    }
     @objc func handleDismiss(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .changed:
@@ -183,9 +204,14 @@ class OrderSummaryViewController: UIViewController {
     }
 
     @IBAction func continueAction() {
-        self.dismiss {
-            self.onDismiss()
+        if (isSpecialOffer) {
+            self.input.send(.cancelSubscription(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: nil, packageId: self.offer?.offerId ?? "", subscriptionId: self.offer?.subscriptionId, subscriptionSegement: self.offer?.subscriptionSegment ?? "", cancelationReason: nil, duration: "\(offer?.duration ?? 0)"))
+        } else {
+            self.dismiss {
+                self.onDismiss()
+            }
         }
+        
     }
     
     @IBAction func termsPressed(_ sender: Any) {

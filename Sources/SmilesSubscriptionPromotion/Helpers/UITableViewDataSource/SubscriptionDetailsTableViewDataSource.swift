@@ -26,7 +26,7 @@ extension SmilesSubscriptionDetailsVC: UITableViewDataSource, UITableViewDelegat
                 return cell
             }else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionMoreBenefitsCell", for: indexPath) as! SubscriptionMoreBenefitsCell
-                cell.updateCell(offer: self.offer!)
+                cell.updateCell(offer: self.offer!,bogoResponse: self.bogoDetailsResponse)
                 cell.delegate = self
                 return cell
             }

@@ -171,7 +171,7 @@ class SubscriptionCancelFeedBackViewController: UIViewController {
         if rejectionReasonSelectedIndex != -1 {
             if let reasons = rejectionReasons?[rejectionReasonSelectedIndex] {
                
-                self.input.send(.cancelSubscription(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: promoVal, packageId: self.offer?.offerId ?? "", subscriptionId: self.offer?.subscriptionId, subscriptionSegement: self.offer?.subscriptionSegment ?? "", cancelationReason: reasons))
+                self.input.send(.cancelSubscription(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: promoVal, packageId: self.offer?.offerId ?? "", subscriptionId: self.offer?.subscriptionId, subscriptionSegement: self.offer?.subscriptionSegment ?? "", cancelationReason: reasons,duration:nil))
             }
         }
     }

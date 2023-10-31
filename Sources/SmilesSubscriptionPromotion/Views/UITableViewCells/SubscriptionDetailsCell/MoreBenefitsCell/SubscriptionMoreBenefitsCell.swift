@@ -46,11 +46,17 @@ class SubscriptionMoreBenefitsCell: UITableViewCell, UITableViewDataSource, UITa
         rowsTableView.delegate = self
     }
     
-    func updateCell(offer: BOGODetailsResponseLifestyleOffer) {
+    func updateCell(offer: BOGODetailsResponseLifestyleOffer,bogoResponse:SmilesSubscriptionBOGODetailsResponse? = nil) {
         self.offer = offer
         containerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05)
-        self.titleLabel.text = isSubscription ? self.offer?.whatYouMissTitle : self.offer?.whatYouGetTitle
-        self.infoLbl.text = self.offer?.disclaimerText
+        if (offer.isSubscription ?? false) {
+            self.titleLabel.text = offer.isSubscription ?? false ? bogoResponse?.themeResources?.cancellationLandingBenefitTitle : self.offer?.whatYouGetTitle
+            self.infoLbl.text = self.offer?.disclaimerText
+        } else {
+            self.titleLabel.text = isSubscription ? self.offer?.whatYouMissTitle : self.offer?.whatYouGetTitle
+            self.infoLbl.text = self.offer?.disclaimerText
+        }
+        
         rowsTableView.reloadData()
         tableVuHgt.constant = rowsTableView.contentSize.height
         
