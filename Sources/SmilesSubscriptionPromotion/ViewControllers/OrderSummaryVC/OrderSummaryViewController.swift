@@ -55,7 +55,7 @@ class OrderSummaryViewController: UIViewController {
     private lazy var viewModel: SmilesSubscriptionCancellViewModel = {
         return SmilesSubscriptionCancellViewModel()
     }()
-    
+    weak var moveToHomeDelegate: SubscriptionCanceledFeedbackViewControllerDeelegate?
     // MARK: Lifecycle
 
     fileprivate func setupUI() {
@@ -162,11 +162,21 @@ class OrderSummaryViewController: UIViewController {
             .sink { [weak self] event in
                 switch event {
                 case.cancelSubscriptionDidSucceed(let response):
-                    print(response)
+                    debugPrint(response)
+                    if (response.responseCode != "1") {
+                        self?.popToSubscriptionHomeVC()
+                    }
+                    
                 case.cancelSubscriptionDidFail(let error):
                     debugPrint(error.localizedDescription)
                 }
             }.store(in: &cancellables)
+    }
+    func popToSubscriptionHomeVC() {
+        self.dismiss() {
+            self.moveToHomeDelegate?.popToSubscriptionHomeVC()
+        }
+        
     }
     @objc func handleDismiss(sender: UIPanGestureRecognizer) {
         switch sender.state {
@@ -204,8 +214,9 @@ class OrderSummaryViewController: UIViewController {
     }
 
     @IBAction func continueAction() {
-        if (isSpecialOffer) {
-            self.input.send(.cancelSubscription(subscriptionStatus: .UNSUBSCRIBE, promoCodeValue: nil, packageId: self.offer?.offerId ?? "", subscriptionId: self.offer?.subscriptionId, subscriptionSegement: self.offer?.subscriptionSegment ?? "", cancelationReason: nil, duration: "\(offer?.duration ?? 0)"))
+        debugPrint(offer?.price)
+        if (isSpecialOffer && offer?.price == 0.0 || offer?.price == nil) {
+            self.input.send(.cancelSubscription(subscriptionStatus: .SUBSCRIBE, promoCodeValue: nil, packageId: self.offer?.offerId ?? "", subscriptionId: self.offer?.subscriptionId, subscriptionSegement: self.offer?.subscriptionSegment ?? "", cancelationReason: nil, duration: "\(offer?.duration ?? 0)"))
         } else {
             self.dismiss {
                 self.onDismiss()

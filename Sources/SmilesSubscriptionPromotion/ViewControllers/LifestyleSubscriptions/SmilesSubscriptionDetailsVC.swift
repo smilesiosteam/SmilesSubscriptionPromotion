@@ -61,7 +61,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     public var showBackButton: Bool = true
     
     private var delegate: SmilesSubscriptionPromotionDelegate?
-    
+   
     // MARK: - PROPERTIES -
     private var input: PassthroughSubject<SmilesSubscriptionPromotionViewModel.Input, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
@@ -220,6 +220,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
             })) as! OrderSummaryViewController
             vc.modalPresentationStyle = .overFullScreen
             if (promoCode != nil) {
+                vc.moveToHomeDelegate = self
                 vc.isSpecialOffer = true
             }
             self.present(vc, animated: true)
@@ -277,8 +278,16 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
     }
 }
 
-extension SmilesSubscriptionDetailsVC: SubscriptionMoreBenefitsCellProtocol {
+extension SmilesSubscriptionDetailsVC: SubscriptionMoreBenefitsCellProtocol,SubscriptionCanceledFeedbackViewControllerDeelegate {
     func didTapOnTermsAndConditions(termsAndConditions: String) {
         self.delegate?.navigateToTermsAndConditions(terms: termsAndConditions)
+    }
+    func popToSubscriptionHomeVC() {
+        for controller in (self.navigationController!.viewControllers) as Array<Any> {
+            if (controller as AnyObject).isKind(of: SmilesSubscriptionPromotionVC.self) {
+                self.navigationController?.popToViewController(controller as! UIViewController, animated: false)
+                break
+            }
+        }
     }
 }
