@@ -12,7 +12,6 @@ import Combine
 class OrderSummaryViewController: UIViewController {
 
     @IBOutlet weak var infoBtnHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var roundedView: UIView!
     @IBOutlet weak var totalPriceText: UILabel!
     @IBOutlet weak var totalValueView: UIView!
@@ -22,21 +21,13 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet weak var orderSummaryTitle: UILabel!
     @IBOutlet var panDismissView: UIView!
     @IBOutlet weak var totalHeadingLabel: UILabel!
-
     @IBOutlet weak var termsCheckBoxBtn: UIButton!
     @IBOutlet weak var offerTitleLbl: UILabel!
-    
     @IBOutlet weak var offerSubtitle: UILabel!
-    
     @IBOutlet weak var offerInfoBtn: UIButton!
-    
     @IBOutlet weak var renewalInfo: UILabel!
-    
     @IBOutlet weak var monthlyPrice: UILabel!
-    
-    
     @IBOutlet weak var termsLbl: UILabel!
-    
     @IBOutlet weak var vatLbl: UILabel!
     
     // MARK: Properties
@@ -60,6 +51,7 @@ class OrderSummaryViewController: UIViewController {
 
     fileprivate func setupUI() {
         self.bind(to: viewModel)
+        continueButton.fontTextStyle  = .smilesTitle1
         panDismissView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
         panDismissView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         if themeResource == nil {
@@ -103,12 +95,12 @@ class OrderSummaryViewController: UIViewController {
         }
         suffixStr = " "+suffixStr
         
-        var prefix = NSMutableAttributedString(string: prefixStr,attributes: [
+        let prefix = NSMutableAttributedString(string: prefixStr,attributes: [
             .font: UIFont.circularXXTTRegularFont(size: 16),
             .foregroundColor: UIColor.black,
         ])
         
-        var suffix = NSMutableAttributedString(string: suffixStr,attributes: [
+        let suffix = NSMutableAttributedString(string: suffixStr,attributes: [
             .font: UIFont.circularXXTTMediumFont(size: 16),
             .foregroundColor: UIColor(hexString: "#424c99"),
         ])
@@ -195,7 +187,7 @@ class OrderSummaryViewController: UIViewController {
             }
             else {
                 dismiss(animated: true) {
-                    if let delegate = self.delegate {
+                    if let _ = self.delegate {
                         
                     }
                 }
@@ -207,14 +199,14 @@ class OrderSummaryViewController: UIViewController {
 
     @objc func handleTap(sender: UITapGestureRecognizer) {
         dismiss(animated: true) {
-            if let delegate = self.delegate {
+            if let _ = self.delegate {
                 
             }
         }
     }
 
     @IBAction func continueAction() {
-        debugPrint(offer?.price)
+        
         if (isSpecialOffer && offer?.price == 0.0 || offer?.price == nil) {
             self.input.send(.cancelSubscription(subscriptionStatus: .SUBSCRIBE, promoCodeValue: nil, packageId: self.offer?.offerId ?? "", subscriptionId: self.offer?.subscriptionId, subscriptionSegement: self.offer?.subscriptionSegment ?? "", cancelationReason: nil, duration: "\(offer?.duration ?? 0)"))
         } else {
@@ -250,7 +242,7 @@ class OrderSummaryViewController: UIViewController {
     
     @IBAction func closePressed(_ sender: Any) {
         dismiss(animated: true) {
-            if let delegate = self.delegate {
+            if let _ = self.delegate {
                 
             }
         }
