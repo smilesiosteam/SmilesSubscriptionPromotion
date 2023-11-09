@@ -172,7 +172,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         //self.subscriptionDescLbl.text = "Subscribe and save more"
         
         headerView.enableSkeleton()
-        headerView.showAnimatedSkeleton()
+        headerView.showAnimatedGradientSkeleton()
         
         self.backButton.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "backIconWhiteAr" : "backIconWhite", in: .module, compatibleWith: nil), for: .normal)
         self.backButtonHeader.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "backIconWhiteAr" : "backIconWhite", in: .module, compatibleWith: nil), for: .normal)
