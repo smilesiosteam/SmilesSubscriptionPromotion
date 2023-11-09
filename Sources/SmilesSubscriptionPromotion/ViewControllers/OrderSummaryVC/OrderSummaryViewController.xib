@@ -52,7 +52,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEg-Ne-n2c">
-                    <rect key="frame" x="0.0" y="403.33333333333331" width="393" height="60.666666666666686"/>
+                    <rect key="frame" x="0.0" y="408.33333333333331" width="393" height="60"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zjf-mK-fdJ">
                             <rect key="frame" x="176.66666666666666" y="8" width="40" height="5"/>
@@ -63,13 +63,13 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smiles Subscription" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzL-cg-EN7" customClass="BaseLabel" customModule="Smiles" customModuleProvider="target">
-                            <rect key="frame" x="16" y="31" width="361" height="21.666666666666671"/>
+                            <rect key="frame" x="16" y="31" width="361" height="21"/>
                             <fontDescription key="fontDescription" name="CircularXXTT-Medium" family="CircularXX TT" pointSize="18"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0p-7h-Rya">
-                            <rect key="frame" x="345" y="25.666666666666686" width="32" height="32"/>
+                            <rect key="frame" x="345" y="25.333333333333371" width="32" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="CJu-af-0oH"/>
                                 <constraint firstAttribute="width" secondItem="P0p-7h-Rya" secondAttribute="height" id="bdF-zP-bKE"/>
@@ -95,7 +95,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azp-je-OAS">
-                    <rect key="frame" x="0.0" y="59" width="393" height="344.33333333333331"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="349.33333333333331"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uyl-qa-Tki">
@@ -111,19 +111,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="50"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4j-vx-LYX" userLabel="Total">
-                                                    <rect key="frame" x="16" y="10" width="29" height="14.666666666666664"/>
+                                                    <rect key="frame" x="16" y="10" width="29" height="14"/>
                                                     <fontDescription key="fontDescription" name="CircularXXTT-Book" family="CircularXX TT" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 55.0 AED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cR6-43-ll0">
-                                                    <rect key="frame" x="16" y="26.666666666666629" width="80.666666666666671" height="21.666666666666671"/>
+                                                    <rect key="frame" x="16" y="26" width="80.666666666666671" height="21"/>
                                                     <fontDescription key="fontDescription" name="CircularXXTT-Medium" family="CircularXX TT" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 5% VAT included" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kea-8A-9VS">
-                                                    <rect key="frame" x="100.66666666666666" y="30.333333333333375" width="93.666666666666657" height="14.666666666666668"/>
+                                                    <rect key="frame" x="100.66666666666669" y="29.666666666666629" width="95" height="14"/>
                                                     <fontDescription key="fontDescription" name="CircularXXTT-Book" family="CircularXX TT" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -191,25 +191,25 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgl-uh-lHe">
-                    <rect key="frame" x="0.0" y="464" width="393" height="291"/>
+                    <rect key="frame" x="0.0" y="468.33333333333326" width="393" height="286.66666666666674"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="KgY-fL-gKy">
-                            <rect key="frame" x="16" y="27" width="361" height="182.33333333333334"/>
+                            <rect key="frame" x="16" y="27" width="361" height="179"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlimited Buy 1 Get 1" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNN-gX-hXR">
-                                    <rect key="frame" x="28" y="0.0" width="305.33333333333337" height="38.666666666666664"/>
+                                    <rect key="frame" x="23.333333333333343" y="0.0" width="314.33333333333326" height="37.333333333333336"/>
                                     <fontDescription key="fontDescription" name="CircularXXTT-Medium" family="CircularXX TT" pointSize="32"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlimited free Similes discount vouchers across the UAE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ZC-e2-CE0">
-                                    <rect key="frame" x="6" y="51.666666666666629" width="349" height="17"/>
+                                    <rect key="frame" x="3" y="50.333333333333314" width="355.33333333333331" height="16.333333333333329"/>
                                     <fontDescription key="fontDescription" name="CircularXXTT-Regular" family="CircularXX TT" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RD1-rf-jXu">
-                                    <rect key="frame" x="101" y="81.666666666666629" width="159" height="36"/>
+                                    <rect key="frame" x="101" y="79.666666666666686" width="159" height="36"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="36" id="06X-k3-N7e"/>
@@ -226,13 +226,13 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto Renews Monthly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68T-gi-Cdd">
-                                    <rect key="frame" x="110.66666666666667" y="130.66666666666663" width="139.66666666666663" height="17"/>
+                                    <rect key="frame" x="111.66666666666667" y="128.66666666666669" width="137.66666666666663" height="16.333333333333343"/>
                                     <fontDescription key="fontDescription" name="CircularXXTT-Book" family="CircularXX TT" pointSize="14"/>
                                     <color key="textColor" white="0.0" alpha="0.60512329931972786" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AED 30 20/month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKP-WU-GZr">
-                                    <rect key="frame" x="105.66666666666669" y="160.66666666666663" width="150" height="21.666666666666657"/>
+                                    <rect key="frame" x="109" y="158.00000000000006" width="143" height="21"/>
                                     <fontDescription key="fontDescription" name="CircularXXTT-Medium" family="CircularXX TT" pointSize="18"/>
                                     <color key="textColor" red="0.45882352939999999" green="0.25882352939999997" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -240,7 +240,7 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ky-hW-m3a">
-                            <rect key="frame" x="16" y="226" width="361" height="1"/>
+                            <rect key="frame" x="16" y="222.66666666666669" width="361" height="1"/>
                             <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="tintColor" white="0.0" alpha="0.01" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -248,16 +248,16 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuc-XV-noL">
-                            <rect key="frame" x="16" y="243" width="361" height="32"/>
+                            <rect key="frame" x="16" y="239.66666666666669" width="361" height="31"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="I agree to the Smiles by Etisalat Terms &amp; Conditions" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="RRv-9L-iOL">
-                                    <rect key="frame" x="48" y="-3.3333333333333712" width="297" height="38.666666666666664"/>
+                                    <rect key="frame" x="48" y="-3" width="297" height="37.333333333333336"/>
                                     <fontDescription key="fontDescription" name="CircularXXTT-Regular" family="CircularXX TT" pointSize="16"/>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yb-Y8-Hcu">
-                                    <rect key="frame" x="16" y="4" width="24" height="24"/>
+                                    <rect key="frame" x="16" y="3.6666666666666288" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="9Pz-dc-gWr"/>
                                         <constraint firstAttribute="width" constant="24" id="Qov-JH-2i6"/>
@@ -270,7 +270,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQk-1n-aBU">
-                                    <rect key="frame" x="40" y="0.0" width="321" height="32"/>
+                                    <rect key="frame" x="40" y="0.0" width="321" height="31"/>
                                     <fontDescription key="fontDescription" name="CircularXXTT-Regular" family="CircularXX TT" pointSize="16"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal">
@@ -332,7 +332,7 @@
     </objects>
     <designables>
         <designable name="GzL-cg-EN7">
-            <size key="intrinsicContentSize" width="163" height="21.666666666666668"/>
+            <size key="intrinsicContentSize" width="160.66666666666666" height="21"/>
         </designable>
     </designables>
     <resources>

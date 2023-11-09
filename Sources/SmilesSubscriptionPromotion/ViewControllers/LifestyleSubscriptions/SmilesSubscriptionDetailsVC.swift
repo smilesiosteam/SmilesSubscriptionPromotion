@@ -75,6 +75,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         }
     }
   public  var promoCode: BOGOPromoCode?
+    
     // MARK: Lifecycle
     public  init(bogoDetailsResponse:SmilesSubscriptionBOGODetailsResponse,offer:BOGODetailsResponseLifestyleOffer, isGuestUser: Bool,delegate: SmilesSubscriptionPromotionDelegate?) {
         self.delegate = delegate
@@ -166,9 +167,11 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         
         subscriptionTitleLbl.text = offer?.offerTitle
         subscriptionSubTitleLbl.text = "subscription".localizedString.capitalizingFirstLetter()
-        monthlyPrice.text = offer?.monthlyPrice
+        monthlyPrice.text = "AED".localizedString + " " + "\(offer?.price ?? 0)" + " per month"
         if promoCode != nil {
-            monthlyPrice.text = "Free".localizedString
+            if (offer?.price ?? 0.0 <= 0) {
+                monthlyPrice.text = "Free".localizedString
+            }
         }
         
         
@@ -214,7 +217,12 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SmilesSubscriptionOrderSummary(bogoResponse: self.bogoDetailsResponse!, offer: self.offer!, delegate: self.delegate, onDismiss: {
                 let param = SmilesSubscriptionPromotionPaymentParams()
                 param.lifeStyleOffer = self.offer
-                self.delegate?.proceedToPayment(params: param, navigationType: .payment)
+                if (self.promoCode != nil) {
+                    self.delegate?.proceedToPayment(params: param, navigationType: .withTextPromo)
+                } else {
+                    self.delegate?.proceedToPayment(params: param, navigationType: .payment)
+                }
+                
             }, moveToTerms: { terms in
                 self.delegate?.navigateToTermsAndConditions(terms: terms)
             })) as! OrderSummaryViewController
@@ -222,6 +230,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
             if (promoCode != nil) {
                 vc.moveToHomeDelegate = self
                 vc.isSpecialOffer = true
+                
             }
             self.present(vc, animated: true)
         }

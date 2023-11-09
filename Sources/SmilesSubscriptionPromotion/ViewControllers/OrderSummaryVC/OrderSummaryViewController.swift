@@ -36,7 +36,7 @@ class OrderSummaryViewController: UIViewController {
     var dismissViewTranslation = CGPoint(x: 0, y: 0)
     var offer: BOGODetailsResponseLifestyleOffer?
     var themeResource: ThemeResources?
-    
+    var promoCode: BOGOPromoCode?
     var onDismiss = {}
     var moveToTerms: ((String) -> Void)
     var isSpecialOffer = false
@@ -80,7 +80,7 @@ class OrderSummaryViewController: UIViewController {
         
         let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
         attributedString.append(crossedAmount)
-        attributedString.append(NSMutableAttributedString(string: isSpecialOffer ?  "Free".localizedString.capitalizingFirstLetter(): " \(offer?.price ?? 0)/month",attributes: smilesAttributes))
+        attributedString.append(NSMutableAttributedString(string: isSpecialOffer && offer?.price ?? 0 <= 0  ?  "Free".localizedString.capitalizingFirstLetter(): " \(offer?.price ?? 0)/month",attributes: smilesAttributes))
         self.monthlyPrice.attributedText = attributedString
         
         
@@ -122,7 +122,7 @@ class OrderSummaryViewController: UIViewController {
         }else{
             totalPriceText.text = "\(offer?.price ?? 0) " + "AED".localizedString
         }
-        if (isSpecialOffer) {
+        if (isSpecialOffer && offer?.price ?? 0.0 <= 0) {
             totalPriceText.text = "Free".localizedString.capitalizingFirstLetter()
             self.vatLbl.isHidden = true
         }
@@ -207,8 +207,8 @@ class OrderSummaryViewController: UIViewController {
 
     @IBAction func continueAction() {
         
-        if (isSpecialOffer && offer?.price == 0.0 || offer?.price == nil) {
-            self.input.send(.cancelSubscription(subscriptionStatus: .SUBSCRIBE, promoCodeValue: nil, packageId: self.offer?.offerId ?? "", subscriptionId: self.offer?.subscriptionId, subscriptionSegement: self.offer?.subscriptionSegment ?? "", cancelationReason: nil, duration: "\(offer?.duration ?? 0)"))
+        if (isSpecialOffer && offer?.price ?? 0.0 <= 0 && promoCode != nil) {
+            self.input.send(.cancelSubscription(subscriptionStatus: .SUBSCRIBE, promoCodeValue:promoCode?.promoCode , packageId: self.offer?.offerId ?? "", subscriptionId: self.offer?.subscriptionId, subscriptionSegement: self.offer?.subscriptionSegment ?? "", cancelationReason: nil, duration: promoCode?.duration))
         } else {
             self.dismiss {
                 self.onDismiss()
