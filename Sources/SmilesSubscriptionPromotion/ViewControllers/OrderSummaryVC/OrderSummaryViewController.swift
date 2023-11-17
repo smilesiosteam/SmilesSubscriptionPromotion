@@ -77,15 +77,17 @@ class OrderSummaryViewController: UIViewController {
         ]
         
         let price = offer?.priceBeforeDiscount ?? 0
+        let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
+
         if price > 0 {
             let crossedAmount = "\(String(describing: offer?.priceBeforeDiscount ?? 0))".strikoutString(strikeOutColor: .appGreyColor_128)
 
-            let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
             attributedString.append(crossedAmount)
-            attributedString.append(NSMutableAttributedString(string: isSpecialOffer && (offer?.price ?? 0 <= 0)  ?  "Free".localizedString.capitalizingFirstLetter(): "\(price)/\("Month".localizedString)",attributes: smilesAttributes))
+            attributedString.append(NSMutableAttributedString(string: isSpecialOffer && (offer?.price ?? 0 <= 0)  ?  "Free".localizedString.capitalizingFirstLetter(): "\(offer?.monthlyPriceCost ?? "")/\("Month".localizedString)",attributes: smilesAttributes))
             self.monthlyPrice.attributedText = attributedString
         } else {
-            self.monthlyPrice.text = "\(Double(offer?.monthlyPriceCost ?? "0") ?? 0)/\("Month".localizedString)"
+            attributedString.append(NSMutableAttributedString(string: "\(Double(offer?.monthlyPriceCost ?? "0") ?? 0)/\("Month".localizedString)",attributes: smilesAttributes))
+            self.monthlyPrice.attributedText = attributedString
         }
         
         

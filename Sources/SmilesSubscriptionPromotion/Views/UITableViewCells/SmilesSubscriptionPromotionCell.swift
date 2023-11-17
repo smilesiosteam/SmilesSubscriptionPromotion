@@ -94,15 +94,16 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
             ]
             
             let price = model.beforeDiscountedPrice ?? 0
+            let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
+
             if price > 0 {
                 let crossedAmount = "\(String(describing: model.beforeDiscountedPrice ?? 0))".strikoutString(strikeOutColor: .appGreyColor_128)
-
-                let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
                 attributedString.append(crossedAmount)
-                attributedString.append(NSMutableAttributedString(string:  " \(price)/\("Month".localizedString)",attributes: smilesAttributes))
+                attributedString.append(NSMutableAttributedString(string:  " \(model.model?.monthlyPriceCost ?? "")/\("Month".localizedString)",attributes: smilesAttributes))
                 self.amountLabel.attributedText = attributedString
             } else {
-                self.amountLabel.text = "\(Double(model.model?.monthlyPriceCost ?? "0") ?? 0)/\("Month".localizedString)"
+                attributedString.append(NSMutableAttributedString(string: "\(Double(model.model?.monthlyPriceCost ?? "0") ?? 0)/\("Month".localizedString)",attributes: smilesAttributes))
+                self.amountLabel.attributedText = attributedString
             }
             
             //"\(aed) \(crossedAmount) \( model.monthlyPrice.asStringOrEmpty())"
