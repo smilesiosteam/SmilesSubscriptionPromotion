@@ -217,6 +217,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SmilesSubscriptionOrderSummary(bogoResponse: self.bogoDetailsResponse!, offer: self.offer!, delegate: self.delegate, onDismiss: {
                 let param = SmilesSubscriptionPromotionPaymentParams()
                 param.lifeStyleOffer = self.offer
+                param.themeResources = self.bogoDetailsResponse?.themeResources
                 if (self.promoCode != nil) {
                     self.delegate?.proceedToPayment(params: param, navigationType: .withTextPromo)
                 } else {
