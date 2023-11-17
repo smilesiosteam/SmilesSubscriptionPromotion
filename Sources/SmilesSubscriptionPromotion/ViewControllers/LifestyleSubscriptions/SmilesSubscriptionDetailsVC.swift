@@ -167,7 +167,7 @@ public class SmilesSubscriptionDetailsVC: UIViewController {
         
         subscriptionTitleLbl.text = offer?.offerTitle
         subscriptionSubTitleLbl.text = "subscription".localizedString.capitalizingFirstLetter()
-        monthlyPrice.text = "AED".localizedString + " " + "\(offer?.price ?? 0)" + " per month"
+        monthlyPrice.text = "AED".localizedString + " " + "\(offer?.monthlyPriceCost ?? "")" + " \("PerMonthText".localizedString)"
         if promoCode != nil {
             if (offer?.price ?? 0.0 <= 0) {
                 monthlyPrice.text = "Free".localizedString

@@ -83,7 +83,7 @@ class OrderSummaryViewController: UIViewController {
             let crossedAmount = "\(String(describing: offer?.priceBeforeDiscount ?? 0))".strikoutString(strikeOutColor: .appGreyColor_128)
 
             attributedString.append(crossedAmount)
-            attributedString.append(NSMutableAttributedString(string: isSpecialOffer && (offer?.price ?? 0 <= 0)  ?  "Free".localizedString.capitalizingFirstLetter(): "\(offer?.monthlyPriceCost ?? "")/\("Month".localizedString)",attributes: smilesAttributes))
+            attributedString.append(NSMutableAttributedString(string: isSpecialOffer && (offer?.price ?? 0 <= 0)  ?  "Free".localizedString.capitalizingFirstLetter(): " \(offer?.monthlyPriceCost ?? "")/\("Month".localizedString)",attributes: smilesAttributes))
             self.monthlyPrice.attributedText = attributedString
         } else {
             attributedString.append(NSMutableAttributedString(string: "\(Double(offer?.monthlyPriceCost ?? "0") ?? 0)/\("Month".localizedString)",attributes: smilesAttributes))
