@@ -30,7 +30,7 @@ extension SmilesSubscriptionPromotionVC: UITableViewDataSource, UITableViewDeleg
             if let offer = self.response?.lifestyleOffers?[indexPath.row] {
                 cell.delegate = self
                 let subModel = SmilesSubscriptionTableCellModel()
-                subModel.subscriptionTitle = offer.offerTitle
+                subModel.subscriptionTitle = (offer.isSubscription ?? false) ? offer.subscribedOfferTitle : offer.offerTitle
                 subModel.subscriptionImg = offer.subscribeImage
                 subModel.price = offer.price
                 subModel.beforeDiscountedPrice = Double(offer.priceBeforeDiscount ?? 0)

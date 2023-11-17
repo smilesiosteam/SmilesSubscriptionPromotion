@@ -93,7 +93,11 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                 .foregroundColor: UIColor.black,
             ]
             
-            let crossedAmount = "\(String(describing: model.beforeDiscountedPrice ?? 0))".strikoutString(strikeOutColor: .appGreyColor_128)
+            var price = model.beforeDiscountedPrice ?? 0
+            if price <= 0 {
+                price = Double(model.model?.monthlyPriceCost ?? "0") ?? 0
+            }
+            let crossedAmount = "\(price)".strikoutString(strikeOutColor: .appGreyColor_128)
             
             let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
             attributedString.append(crossedAmount)
