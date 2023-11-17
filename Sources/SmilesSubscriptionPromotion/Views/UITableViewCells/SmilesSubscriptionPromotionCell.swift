@@ -83,8 +83,8 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-     func updateCell(rowModel: SmilesSubscriptionTableCellModel) {
-        if let model = rowModel as? SmilesSubscriptionTableCellModel {
+     func updateCell(rowModel: SmilesSubscriptionTableCellModel?) {
+        if let model = rowModel {
             self.subscribeButton.isHidden = false
             let aed = "AED".localizedString + " "
             
@@ -95,7 +95,7 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
             
             let crossedAmount = "\(String(describing: model.beforeDiscountedPrice ?? 0))".strikoutString(strikeOutColor: .appGreyColor_128)
             
-            var attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
+            let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
             attributedString.append(crossedAmount)
             attributedString.append(NSMutableAttributedString(string:  " \(model.price ?? 0)/month",attributes: smilesAttributes))
             self.amountLabel.attributedText = attributedString

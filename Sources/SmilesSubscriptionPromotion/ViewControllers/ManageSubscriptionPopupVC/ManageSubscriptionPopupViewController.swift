@@ -148,9 +148,6 @@ class ManageSubscriptionPopupViewController: UIViewController {
             }
             else {
                 dismiss(animated: true) {
-                    if let delegate = self.delegate {
-                        
-                    }
                 }
             }
         default:
@@ -160,9 +157,6 @@ class ManageSubscriptionPopupViewController: UIViewController {
 
     @objc func handleTap(sender: UITapGestureRecognizer) {
         dismiss(animated: true) {
-            if let delegate = self.delegate {
-                
-            }
         }
     }
 
@@ -174,9 +168,7 @@ class ManageSubscriptionPopupViewController: UIViewController {
     
     @IBAction func closePressed(_ sender: Any) {
         dismiss(animated: true) {
-            if let delegate = self.delegate {
-                
-            }
+    
         }
     }
     
