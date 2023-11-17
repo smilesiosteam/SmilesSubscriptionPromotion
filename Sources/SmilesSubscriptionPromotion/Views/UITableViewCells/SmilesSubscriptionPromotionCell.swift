@@ -93,16 +93,18 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                 .foregroundColor: UIColor.black,
             ]
             
-            var price = model.beforeDiscountedPrice ?? 0
-            if price <= 0 {
-                price = Double(model.model?.monthlyPriceCost ?? "0") ?? 0
+            let price = model.beforeDiscountedPrice ?? 0
+            if price > 0 {
+                let crossedAmount = "\(String(describing: model.beforeDiscountedPrice ?? 0))".strikoutString(strikeOutColor: .appGreyColor_128)
+
+                let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
+                attributedString.append(crossedAmount)
+                attributedString.append(NSMutableAttributedString(string:  " \(price)/\("Month".localizedString)",attributes: smilesAttributes))
+                self.amountLabel.attributedText = attributedString
+            } else {
+                self.amountLabel.text = "\(Double(model.model?.monthlyPriceCost ?? "0") ?? 0)/\("Month".localizedString)"
             }
-            let crossedAmount = "\(price)".strikoutString(strikeOutColor: .appGreyColor_128)
             
-            let attributedString = NSMutableAttributedString(string: aed,attributes: smilesAttributes)
-            attributedString.append(crossedAmount)
-            attributedString.append(NSMutableAttributedString(string:  " \(model.price ?? 0)/month",attributes: smilesAttributes))
-            self.amountLabel.attributedText = attributedString
             //"\(aed) \(crossedAmount) \( model.monthlyPrice.asStringOrEmpty())"
             self.titleLabel.text = model.subscriptionTitle
             self.detailLabel.text = model.subscriptionDesc
