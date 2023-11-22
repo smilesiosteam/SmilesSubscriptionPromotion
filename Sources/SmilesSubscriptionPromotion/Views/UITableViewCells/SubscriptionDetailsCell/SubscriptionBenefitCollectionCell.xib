@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,15 +18,15 @@
                     <rect key="frame" x="5" y="5" width="86" height="86"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xxr-lz-Fmc">
-                            <rect key="frame" x="21" y="21" width="44" height="44"/>
+                            <rect key="frame" x="8" y="8" width="70" height="70"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="Xxr-lz-Fmc" firstAttribute="leading" secondItem="u2C-ua-cje" secondAttribute="leading" constant="21" id="LRJ-fw-V38"/>
-                        <constraint firstAttribute="bottom" secondItem="Xxr-lz-Fmc" secondAttribute="bottom" constant="21" id="TI0-sp-OiM"/>
-                        <constraint firstItem="Xxr-lz-Fmc" firstAttribute="top" secondItem="u2C-ua-cje" secondAttribute="top" constant="21" id="Wov-cA-Xac"/>
-                        <constraint firstAttribute="trailing" secondItem="Xxr-lz-Fmc" secondAttribute="trailing" constant="21" id="asf-e8-LJN"/>
+                        <constraint firstItem="Xxr-lz-Fmc" firstAttribute="leading" secondItem="u2C-ua-cje" secondAttribute="leading" constant="8" id="LRJ-fw-V38"/>
+                        <constraint firstAttribute="bottom" secondItem="Xxr-lz-Fmc" secondAttribute="bottom" constant="8" id="TI0-sp-OiM"/>
+                        <constraint firstItem="Xxr-lz-Fmc" firstAttribute="top" secondItem="u2C-ua-cje" secondAttribute="top" constant="8" id="Wov-cA-Xac"/>
+                        <constraint firstAttribute="trailing" secondItem="Xxr-lz-Fmc" secondAttribute="trailing" constant="8" id="asf-e8-LJN"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

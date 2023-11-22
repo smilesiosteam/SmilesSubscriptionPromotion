@@ -12,23 +12,18 @@ import SmilesFontsManager
 
 class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    @IBOutlet weak var containerView: UICustomView!
-    
-    
     //MARK: - IBOutlets -
-    
+    @IBOutlet weak var containerView: UICustomView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
-    var benefits:BenefitsList?
-    
-    var bogoLifeStyleOfferModel: BOGODetailsResponseLifestyleOffer?
-    
     @IBOutlet weak var collectionView: UICollectionView!
     
    
     var autoScrollTimer: Timer?
     var currentIndexPath: IndexPath = IndexPath(item: 0, section: 0)
     var numberOfItems: Int = 0
+    var benefits:BenefitsList?
+    var bogoLifeStyleOfferModel: BOGODetailsResponseLifestyleOffer?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -108,7 +103,7 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubscriptionBenefitCollectionCell", for: indexPath) as! SubscriptionBenefitCollectionCell
-        cell.imageView.setImageWithUrlString(benefits!.images![indexPath.row], defaultImage: nil)
+        cell.imageView.setImageWithUrlString(benefits?.images?[safe: indexPath.row] ?? "", defaultImage: nil)
         return cell
     }
     
@@ -116,6 +111,7 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
        benefits?.images?.count ?? 0
         
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: 96, height: 96)
     }
