@@ -42,7 +42,7 @@
       "location" : "https://github.com/smilesiosteam/NetworkingLayer.git",
       "state" : {
         "branch" : "main",
-        "revision" : "369fba0725cfc997b14c5bbea03b609d2162b630"
+        "revision" : "2e35894cf5026b81f339057604508f5d75d8358e"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "1b9a2e902cbde5fdf362faa0f4fd76ea74d74305",
-        "version" : "5.18.5"
+        "revision" : "0383fd49fe4d9ae43f150f24693550ebe6ef0d14",
+        "version" : "5.18.6"
       }
     },
     {
@@ -82,15 +82,6 @@
       }
     },
     {
-      "identity" : "smilesappheader",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/smilesiosteam/SmilesAppHeader.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "68791fe302aba9770fe725ccd907cbb537068251"
-      }
-    },
-    {
       "identity" : "smilesbanners",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesBanners.git",
@@ -105,7 +96,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesBaseMainRequest.git",
       "state" : {
         "branch" : "main",
-        "revision" : "a8275beebe22d78e75e5fb6ca6420f808249977a"
+        "revision" : "196b65fd71c0b23ccb87c05161213fda752c1fe3"
       }
     },
     {
@@ -159,7 +150,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesOffers.git",
       "state" : {
         "branch" : "main",
-        "revision" : "4173ae9ce448276a81347b6dc2325e90d80682ee"
+        "revision" : "b07029c7ea0b81a2c9ec27cb045c85bc52b247e0"
       }
     },
     {
@@ -177,7 +168,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesSharedServices.git",
       "state" : {
         "branch" : "main",
-        "revision" : "6e2033793507e6619af1a43fe396069f37edc743"
+        "revision" : "a855e9a462cdfdb978f39c3202796114496f0a30"
       }
     },
     {
@@ -204,7 +195,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesUtilities.git",
       "state" : {
         "branch" : "main",
-        "revision" : "b8ae412f140c0e0b10b630c4395ce2da9d03e4bc"
+        "revision" : "778ddfe44c2e8ab1805621eaf0bd06cd299eaa52"
       }
     },
     {

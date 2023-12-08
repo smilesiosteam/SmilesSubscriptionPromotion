@@ -73,16 +73,6 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
         currentIndexPath = nextIndexPath
     }
     
-    func updateAttributedTextTo(label: UILabel, string: String, subString: String, color:UIColor) {
-        let attributedString = NSMutableAttributedString(string: string, attributes: [
-            .font: UIFont.circularXXTTBookFont(size: 14),
-            .foregroundColor: color,
-        ])
-        attributedString.addAttribute(.font, value: UIFont.circularXXTTMediumFont(size: 16), range: string.NSRangeof(subString: subString))
-        
-        label.attributedText = attributedString
-    }
-    
     
     func updateCell(benefits: BenefitsList) {
         self.benefits = benefits
@@ -95,6 +85,8 @@ class SubscriptionDetailsCell: UITableViewCell, UICollectionViewDataSource, UICo
         let attr = benefits.subTitle?.htmlToAttributedString ?? NSAttributedString()
         let attriHtml = NSMutableAttributedString(attributedString: attr)
         attriHtml.addAttributes([.paragraphStyle:style],range: NSRange(location: 0, length: attriHtml.length))
+        attriHtml.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor, range: NSRange(location: 0, length: attriHtml.length))
+
         detailLabel.attributedText = attriHtml
         containerView.backgroundColor = UIColor(hexString: benefits.backgroundColor ?? "#eb8a2433")
         collectionView.reloadData()
