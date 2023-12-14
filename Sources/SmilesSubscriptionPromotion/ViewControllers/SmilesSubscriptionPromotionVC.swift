@@ -171,7 +171,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         //self.subscriptionTitleLbl.text = "Smiles Unlimited"
         //self.subscriptionDescLbl.text = "Subscribe and save more"
         
-        headerView.enableSkeleton()
+        headerView.isSkeletonable=true
         headerView.showAnimatedGradientSkeleton()
         
         self.backButton.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "backIconWhiteAr" : "backIconWhite", in: .module, compatibleWith: nil), for: .normal)
@@ -263,8 +263,10 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
             }
             guard let compact, compact != headerView.isHidden else { return }
             if compact {
-                UIView.animate(withDuration: 0.3, delay: 0.0, options: .transitionCrossDissolve, animations: {
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.3){
                     self.headerView.isHidden = true
+                }
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: .transitionCrossDissolve, animations: {
                     self.headerViewHeight.constant = 88
                     self.changeNavigationBarStyleWhileScrolling(intialState: false, withTitle: self.shortTitle ?? "")
                     self.view.layoutIfNeeded()
