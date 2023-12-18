@@ -18,7 +18,7 @@
         <array key="CircularXXTT-Regular.ttf">
             <string>CircularXXTT-Regular</string>
         </array>
-        <array key="Montserrat-Bold.otf">
+        <array key="Montserrat-Bold.ttf">
             <string>Montserrat-Bold</string>
         </array>
     </customFonts>
@@ -67,7 +67,7 @@
                                     <action selector="subscribeBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zJO-Cp-ujv"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free Delivery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ba7-sf-FqT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free Delivery" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ba7-sf-FqT">
                                 <rect key="frame" x="16" y="120" width="134" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="8Sq-Sb-PpB"/>
