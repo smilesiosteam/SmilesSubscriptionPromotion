@@ -102,8 +102,14 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                 attributedString.append(NSMutableAttributedString(string:  " \(model.model?.monthlyPriceCost ?? "")/\("Month".localizedString)",attributes: smilesAttributes))
                 self.amountLabel.attributedText = attributedString
             } else {
-                attributedString.append(NSMutableAttributedString(string: "\(Double(model.model?.monthlyPriceCost ?? "0") ?? 0)/\("Month".localizedString)",attributes: smilesAttributes))
-                self.amountLabel.attributedText = attributedString
+                let priceInDouble = Double(model.model?.monthlyPriceCost ?? "0") ?? 0
+                if (priceInDouble > 0) {
+                    attributedString.append(NSMutableAttributedString(string: "\(priceInDouble)/\("Month".localizedString)",attributes: smilesAttributes))
+                    self.amountLabel.attributedText = attributedString
+                } else {
+                    self.amountLabel.text = "Free".localizedString
+                }
+                
             }
             
             //"\(aed) \(crossedAmount) \( model.monthlyPrice.asStringOrEmpty())"

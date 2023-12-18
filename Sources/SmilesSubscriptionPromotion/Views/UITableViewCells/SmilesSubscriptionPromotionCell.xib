@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +18,7 @@
         <array key="CircularXXTT-Regular.ttf">
             <string>CircularXXTT-Regular</string>
         </array>
-        <array key="Montserrat-Bold.ttf">
+        <array key="Montserrat-Bold.otf">
             <string>Montserrat-Bold</string>
         </array>
     </customFonts>
@@ -68,7 +68,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free Delivery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ba7-sf-FqT">
-                                <rect key="frame" x="16" y="120" width="311" height="24"/>
+                                <rect key="frame" x="16" y="120" width="134" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="8Sq-Sb-PpB"/>
                                 </constraints>
@@ -131,7 +131,6 @@
                             <constraint firstAttribute="trailing" secondItem="fjf-3E-2bk" secondAttribute="trailing" constant="16" id="4dQ-QT-yTK"/>
                             <constraint firstItem="HqS-j1-1Zj" firstAttribute="centerY" secondItem="Ba7-sf-FqT" secondAttribute="centerY" id="BLh-W9-cuP"/>
                             <constraint firstItem="yQC-UQ-tya" firstAttribute="leading" secondItem="Z1x-WG-ifR" secondAttribute="leading" constant="16" id="Cwr-r0-Jes"/>
-                            <constraint firstAttribute="trailing" secondItem="Ba7-sf-FqT" secondAttribute="trailing" constant="16" id="Dj9-fp-lzt"/>
                             <constraint firstAttribute="trailing" secondItem="jkw-Qp-Imt" secondAttribute="trailing" constant="16" id="Fxz-Pp-H8h"/>
                             <constraint firstItem="fjf-3E-2bk" firstAttribute="top" secondItem="yQC-UQ-tya" secondAttribute="bottom" constant="16" id="GRh-2N-gZW"/>
                             <constraint firstAttribute="bottom" secondItem="fjf-3E-2bk" secondAttribute="bottom" constant="16" id="JPh-QS-b3w"/>
@@ -146,6 +145,7 @@
                             <constraint firstAttribute="trailing" secondItem="y4k-eS-Cxt" secondAttribute="trailing" id="kgp-0S-VtC"/>
                             <constraint firstItem="jkw-Qp-Imt" firstAttribute="top" secondItem="Ba7-sf-FqT" secondAttribute="bottom" constant="12" id="m9N-0P-pcu"/>
                             <constraint firstItem="jkw-Qp-Imt" firstAttribute="leading" secondItem="Z1x-WG-ifR" secondAttribute="leading" constant="16" id="nUO-Ye-g9Y"/>
+                            <constraint firstItem="HqS-j1-1Zj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ba7-sf-FqT" secondAttribute="trailing" constant="8" id="oj7-X5-irS"/>
                             <constraint firstItem="yQC-UQ-tya" firstAttribute="top" secondItem="jkw-Qp-Imt" secondAttribute="bottom" constant="16" id="ttd-xq-plE"/>
                             <constraint firstItem="y4k-eS-Cxt" firstAttribute="top" secondItem="Z1x-WG-ifR" secondAttribute="top" id="u1u-5S-OIL"/>
                         </constraints>
