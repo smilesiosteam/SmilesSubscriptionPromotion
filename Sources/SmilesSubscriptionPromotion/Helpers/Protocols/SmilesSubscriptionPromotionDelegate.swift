@@ -17,6 +17,7 @@ import UIKit
 
 @objc public protocol SmilesSubscriptionPromotionDelegate: AnyObject {
     
+    func setPreviousViewController()
     func navigateEnterGiftCard()
     func navigateToScanQrController()
     func registerPersonalizationEventRequest(urlScheme: String?,offerId: String?,bannerType: String?,eventName: String?)

@@ -117,13 +117,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         self.navigationItem.standardAppearance = appearance
         self.navigationItem.scrollEdgeAppearance = appearance
         
-        if let navigationController = self.navigationController {
-            if let previousViewController = navigationController.viewControllers[safe: navigationController.viewControllers.count - 2] {
-                // Use the previousViewController
-                print("Previous View Controller: \(previousViewController)")
-              //  Constants.previousController = previousViewController
-            }
-        }
+
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -132,6 +126,9 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         setupUI()
         self.input.send(.getSubscriptionPromotions)
         self.input.send(.getVideoTutorials)
+        if let delegate = delegate {
+            delegate.setPreviousViewController()
+        }
        // presenter?.viewWillAppear(bogoEventName: self.bogoEventName)
     }
     
