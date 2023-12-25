@@ -7,7 +7,6 @@
 
 import Foundation
 import SmilesUtilities
-import SmilesLocationHandler
 import NetworkingLayer
 import SmilesBaseMainRequestManager
 

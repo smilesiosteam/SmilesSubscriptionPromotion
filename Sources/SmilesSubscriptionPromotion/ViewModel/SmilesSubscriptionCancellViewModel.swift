@@ -8,7 +8,6 @@
 import Foundation
 import NetworkingLayer
 import SmilesUtilities
-import SmilesLocationHandler
 import SmilesSharedServices
 import Combine
 
