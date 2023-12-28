@@ -111,8 +111,7 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                 }
                 
             }
-            
-            //"\(aed) \(crossedAmount) \( model.monthlyPrice.asStringOrEmpty())"
+        
             self.titleLabel.text = model.subscriptionTitle
             self.detailLabel.text = model.subscriptionDesc
             
@@ -121,10 +120,6 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                     self.offerImageView.image = image
                 }
             }
-            
-//            if let subscribedPlan = model.model, let isAutoRenewable = subscribedPlan.autoRenewable {
-//                if !isAutoRenewable {
-                    
                     
             if model.model?.isSubscription ?? false ||  model.isSubscriptionOnHold ?? false{
                 self.subscribeButton.setTitle("ManageSubscriptionText".localizedString, for: .normal)
@@ -140,37 +135,6 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
                 self.subscribeButton.setTitleColor(.appRevampPurpleMainColor, for: .normal)
             }
                     
-//                } else {
-//                    self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
-//                }
-//
-//            } else {
-//                self.subscribeButton.setTitle("Subscribe now".localizedString, for: .normal)
-//            }
-            
-            
-            //"\(String(describing: data.originalDirhamValue ?? "")) \(aed)".strikoutString(strikeOutColor: .appGreyColor_128)
-            
-//            subscriptionTitleLbl.text = model.subscriptionTitle.asStringOrEmpty()
-//            self.subscriptionImg.setImageWithUrlString(model.subscriptionImg ?? "")
-//
-//            self.subscriptionDescLbl.text = model.subscriptionDesc ?? ""
-//            autoRenewStackView.isHidden = false
-//            if let freeOffer = model.freeBogoOffer, freeOffer == true {
-//                if let price = model.price, price == 0 {
-//                    subscriptionTypeLbl.isHidden = true
-//                    monthlyPriceAttributedLabel.isHidden = true
-//                }
-//                else{
-//                    subscriptionTypeLbl.isHidden = true
-//                    monthlyPriceAttributedLabel.isHidden = false
-//                    monthlyPriceAttributedLabel.attributedText = SwiftUtli.strikeOutString(string: model.monthlyPrice.asStringOrEmpty())
-//                }
-//            } else {
-//                monthlyPriceAttributedLabel.isHidden = true
-//                subscriptionTypeLbl.text = model.monthlyPrice.asStringOrEmpty()
-//            }
-//
             if let trialPeriod = model.trialPeriod, !trialPeriod.isEmpty {
                 self.trialPeriodButton.isHidden = false
                 self.trialPeriodButton.setTitle(trialPeriod, for: .normal)
@@ -178,19 +142,8 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
             } else {
                 self.trialPeriodButton.isHidden = true
             }
-//            if let autoRenewPrice = model.autoRenewPrice, !autoRenewPrice.isEmpty {
-//                autoRenewPriceLabel.isHidden = false
-//                autoRenewPriceLabel.text = autoRenewPrice
-//            } else {
-//                autoRenewPriceLabel.isHidden = true
-//            }
             self.bogoLifeStyleOfferModel = model.model
             
-//            if model.isSubscriptionOnHold ?? false {
-//
-//            } else {
-//
-//            }
             self.subscriptionStateIconView.RoundedViewConrner(cornerRadius: self.subscriptionStateIconView.frame.width / 2)
             subscriptionStateLabel.text = model.subscribedStatus.asStringOrEmpty()
             subscriptionStateLabel.textColor = model.subscriptionStateColor
