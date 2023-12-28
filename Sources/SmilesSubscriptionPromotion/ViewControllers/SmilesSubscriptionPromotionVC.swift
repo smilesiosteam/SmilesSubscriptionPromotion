@@ -317,15 +317,14 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         }
     }
     func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer) {
-        if (model.isSubscription ?? false) {
-            if let subscriptionStatus = model.subscriptionStatus, !subscriptionStatus.isEmpty, subscriptionStatus.lowercased() ==  "parked" {
-                if let delegate = self.delegate {
-                    let param = SmilesSubscriptionPromotionPaymentParams()
-                    param.lifeStyleOffer = model
-                    param.themeResources = self.response?.themeResources
-                    delegate.proceedToPayment(params:param , navigationType: .payment)
-                }
-            } else {
+        if let subscriptionStatus = model.subscriptionStatus, !subscriptionStatus.isEmpty, subscriptionStatus.lowercased() ==  "parked" {
+            if let delegate = self.delegate {
+                let param = SmilesSubscriptionPromotionPaymentParams()
+                param.lifeStyleOffer = model
+                param.themeResources = self.response?.themeResources
+                delegate.proceedToPayment(params:param , navigationType: .payment)
+            }
+        } else if (model.isSubscription ?? false) {
                 let vc = SmilesSubscriptionPromotionConfigurator.create(type: .smilesManageSubscriptionPop(bogoResponse: self.response!, offer: model, delegate: self.delegate, onDismiss: {
                     let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: false, bogoResponse: self.response!, offer: model, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
                             self.navigationController?.pushViewController(vc, animated: true)
@@ -333,7 +332,6 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
                 vc.hidesBottomBarWhenPushed = true
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true)
-            }
            
         } else {
             let vc = SmilesSubscriptionPromotionConfigurator.create(type: .SubscriptionDetails(isGuestUser: isGuestUser, bogoResponse: self.response!, offer: model, delegate: self.delegate)) as! SmilesSubscriptionDetailsVC
