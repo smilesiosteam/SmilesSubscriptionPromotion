@@ -201,13 +201,6 @@ extension SubscriptionCancelFeedBackViewController : UICollectionViewDataSource,
         cell.titleLabe.fontTextStyle = .smilesTitle2
         cell.titleLabe.text = rejectionReasons?[indexPath.row]
         return cell
-//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubscriptionCancelCollectionViewCell", for: indexPath) as? SubscriptionCancelCollectionViewCell {
-//            cell.titleLabe.font = .latoBoldFont(size: 15)
-//            cell.titleLabe.text = rejectionReasons?[indexPath.row]
-//            return cell
-//        }
-//
-//        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -236,13 +229,24 @@ extension SubscriptionCancelFeedBackViewController : UICollectionViewDataSource,
 
 extension SubscriptionCancelFeedBackViewController: SubscriptionCanceledFeedbackViewControllerDeelegate {
     func popToSubscriptionHomeVC() {
-        for controller in (self.navigationController!.viewControllers) as Array<Any> {
-            if (controller as AnyObject).isKind(of: SmilesSubscriptionPromotionVC.self) {
-                self.navigationController?.popToViewController(controller as! UIViewController, animated: false)
-                break
+        guard let navigationController = self.navigationController else {
+            // Handle the case where self.navigationController is nil
+            return
+        }
+
+        for controller in navigationController.viewControllers {
+            // Check if the controller is of type SmilesSubscriptionPromotionVC
+            if let subscriptionVC = controller as? SmilesSubscriptionPromotionVC {
+                navigationController.popToViewController(subscriptionVC, animated: false)
+                return
             }
         }
+
+        // Handle the case where SmilesSubscriptionPromotionVC is not found
+        print("SmilesSubscriptionPromotionVC not found in navigation stack")
     }
+
+
     
     
     func showCancelledPopup(model: CancelSubscriptionResponseModel) {
