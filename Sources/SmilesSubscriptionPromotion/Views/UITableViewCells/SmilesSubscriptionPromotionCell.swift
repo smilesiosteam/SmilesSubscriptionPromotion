@@ -115,9 +115,9 @@ class SmilesSubscriptionPromotionCell: UITableViewCell {
             self.titleLabel.text = model.subscriptionTitle
             self.detailLabel.text = model.subscriptionDesc
             
-            self.offerImageView.setImageWithUrlString(model.model?.catalogImageUrl.asStringOrEmpty() ?? "",defaultImage: "subscriptionOfferImage", backgroundColor: .white) { image in
+            self.offerImageView.setImageWithUrlString(model.model?.catalogImageUrl.asStringOrEmpty() ?? "",defaultImage: "subscriptionOfferImage", backgroundColor: .white) { [weak self] image in
                 if let image = image {
-                    self.offerImageView.image = image
+                    self?.offerImageView.image = image
                 }
             }
                     
