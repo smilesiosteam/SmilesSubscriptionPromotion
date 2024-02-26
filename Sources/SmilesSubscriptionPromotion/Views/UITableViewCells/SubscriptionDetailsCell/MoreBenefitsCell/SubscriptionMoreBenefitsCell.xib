@@ -62,11 +62,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="gjx-pQ-qt7" firstAttribute="leading" secondItem="2WN-Ni-np2" secondAttribute="trailing" constant="8" symbolic="YES" id="1oO-1X-4ST"/>
-                                    <constraint firstItem="2WN-Ni-np2" firstAttribute="centerY" secondItem="KY8-ZX-fmQ" secondAttribute="centerY" id="FKb-ag-Aku"/>
+                                    <constraint firstItem="2WN-Ni-np2" firstAttribute="top" secondItem="KY8-ZX-fmQ" secondAttribute="top" constant="8" id="Nf6-Oh-T50"/>
                                     <constraint firstAttribute="trailing" secondItem="gjx-pQ-qt7" secondAttribute="trailing" constant="8" id="TPf-z9-APk"/>
                                     <constraint firstItem="2WN-Ni-np2" firstAttribute="leading" secondItem="KY8-ZX-fmQ" secondAttribute="leading" constant="16" id="UA8-iH-zYq"/>
                                     <constraint firstItem="gjx-pQ-qt7" firstAttribute="top" secondItem="KY8-ZX-fmQ" secondAttribute="top" constant="8" id="jBb-wT-pbW"/>
-                                    <constraint firstAttribute="height" constant="40" id="miE-3l-qNb"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="miE-3l-qNb"/>
                                     <constraint firstAttribute="bottom" secondItem="gjx-pQ-qt7" secondAttribute="bottom" constant="8" id="yh1-dP-TmJ"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
