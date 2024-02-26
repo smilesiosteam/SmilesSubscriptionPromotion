@@ -317,6 +317,7 @@ public class SmilesSubscriptionPromotionVC: UIViewController,SmilesSubscriptionB
         }
     }
     func subscribeDidTapped(model: BOGODetailsResponseLifestyleOffer) {
+        
         if let subscriptionStatus = model.subscriptionStatus, !subscriptionStatus.isEmpty, subscriptionStatus.lowercased() ==  "parked" {
             if let delegate = self.delegate {
                 let param = SmilesSubscriptionPromotionPaymentParams()
